@@ -1,0 +1,500 @@
+{
+  "schema": "sovereign/nodes/v1",
+  "nodes": [
+    {
+      "id": "n-D1-1",
+      "type": "D1-1",
+      "name": "SPU",
+      "host": "metal",
+      "policy": "P-D1",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D1-2",
+      "type": "D1-2",
+      "name": "UMA",
+      "host": "metal",
+      "policy": "P-D1",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D1-3",
+      "type": "D1-3",
+      "name": "Thermal",
+      "host": "metal",
+      "policy": "P-D1",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D1-4",
+      "type": "D1-4",
+      "name": "Enclosure",
+      "host": "metal",
+      "policy": "P-D1",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D2-1",
+      "type": "D2-1",
+      "name": "SEP",
+      "host": "metal",
+      "policy": "P-D2",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D2-2",
+      "type": "D2-2",
+      "name": "KDF",
+      "host": "metal",
+      "policy": "P-D2",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D2-3",
+      "type": "D2-3",
+      "name": "Attest",
+      "host": "metal",
+      "policy": "P-D2",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D2-4",
+      "type": "D2-4",
+      "name": "MeasuredBoot",
+      "host": "metal",
+      "policy": "P-D2",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D3-1",
+      "type": "D3-1",
+      "name": "Kernel",
+      "host": "metal",
+      "policy": "P-D3",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D3-2",
+      "type": "D3-2",
+      "name": "RootFS",
+      "host": "metal",
+      "policy": "P-D3",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D3-3",
+      "type": "D3-3",
+      "name": "Sandbox",
+      "host": "metal",
+      "policy": "P-D3",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D3-4",
+      "type": "D3-4",
+      "name": "PrivEsc",
+      "host": "metal",
+      "policy": "P-D3",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D4-1",
+      "type": "D4-1",
+      "name": "Mesh",
+      "host": "service",
+      "policy": "P-D4",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D4-2",
+      "type": "D4-2",
+      "name": "Firewall",
+      "host": "service",
+      "policy": "P-D4",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D4-3",
+      "type": "D4-3",
+      "name": "DNS",
+      "host": "service",
+      "policy": "P-D4",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D4-4",
+      "type": "D4-4",
+      "name": "mTLS",
+      "host": "service",
+      "policy": "P-D4",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D5-1",
+      "type": "D5-1",
+      "name": "WORM",
+      "host": "metal",
+      "policy": "P-D5",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D5-2",
+      "type": "D5-2",
+      "name": "Ed25519",
+      "host": "metal",
+      "policy": "P-D5",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D5-3",
+      "type": "D5-3",
+      "name": "NVMe",
+      "host": "metal",
+      "policy": "P-D5",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D5-4",
+      "type": "D5-4",
+      "name": "Scratch",
+      "host": "metal",
+      "policy": "P-D5",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D6-1",
+      "type": "D6-1",
+      "name": "Infer",
+      "host": "metal",
+      "policy": "P-D6",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D6-2",
+      "type": "D6-2",
+      "name": "KV",
+      "host": "metal",
+      "policy": "P-D6",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D6-3",
+      "type": "D6-3",
+      "name": "Quant",
+      "host": "metal",
+      "policy": "P-D6",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D6-4",
+      "type": "D6-4",
+      "name": "RoPE",
+      "host": "metal",
+      "policy": "P-D6",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D7-1",
+      "type": "D7-1",
+      "name": "Proxy",
+      "host": "service",
+      "policy": "P-D7",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D7-2",
+      "type": "D7-2",
+      "name": "RateLim",
+      "host": "service",
+      "policy": "P-D7",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D7-3",
+      "type": "D7-3",
+      "name": "Auth",
+      "host": "service",
+      "policy": "P-D7",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D7-4",
+      "type": "D7-4",
+      "name": "SSE",
+      "host": "service",
+      "policy": "P-D7",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D7-5",
+      "type": "D7-5",
+      "name": "Norm",
+      "host": "service",
+      "policy": "P-D7",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D8-1",
+      "type": "D8-1",
+      "name": "VectorDB",
+      "host": "service",
+      "policy": "P-D8",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D8-2",
+      "type": "D8-2",
+      "name": "Chunk",
+      "host": "service",
+      "policy": "P-D8",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D8-3",
+      "type": "D8-3",
+      "name": "Embed",
+      "host": "service",
+      "policy": "P-D8",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D8-4",
+      "type": "D8-4",
+      "name": "Hybrid",
+      "host": "service",
+      "policy": "P-D8",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D9-1",
+      "type": "D9-1",
+      "name": "Host",
+      "host": "service",
+      "policy": "P-D9",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D9-2",
+      "type": "D9-2",
+      "name": "Workers",
+      "host": "service",
+      "policy": "P-D9",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D9-3",
+      "type": "D9-3",
+      "name": "Sandbox",
+      "host": "service",
+      "policy": "P-D9",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D9-4",
+      "type": "D9-4",
+      "name": "DAG",
+      "host": "service",
+      "policy": "P-D9",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D10-1",
+      "type": "D10-1",
+      "name": "Veto",
+      "host": "service",
+      "policy": "P-D10",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D10-2",
+      "type": "D10-2",
+      "name": "Halt",
+      "host": "service",
+      "policy": "P-D10",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D10-3",
+      "type": "D10-3",
+      "name": "PEP",
+      "host": "service",
+      "policy": "P-D10",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D10-4",
+      "type": "D10-4",
+      "name": "Econ",
+      "host": "service",
+      "policy": "P-D10",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D10-5",
+      "type": "D10-5",
+      "name": "Safety",
+      "host": "service",
+      "policy": "P-D10",
+      "evidence": [],
+      "terminal": true
+    },
+    {
+      "id": "n-D11-1",
+      "type": "D11-1",
+      "name": "Latency",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-2",
+      "type": "D11-2",
+      "name": "Supervisor",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-3",
+      "type": "D11-3",
+      "name": "AuditLog",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-4",
+      "type": "D11-4",
+      "name": "WS",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-5",
+      "type": "D11-5",
+      "name": "Quarto",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-6",
+      "type": "D11-6",
+      "name": "Pytest",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-7",
+      "type": "D11-7",
+      "name": "LogRot",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-8",
+      "type": "D11-8",
+      "name": "Health",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-9",
+      "type": "D11-9",
+      "name": "DLQ",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-10",
+      "type": "D11-10",
+      "name": "Trace",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-11",
+      "type": "D11-11",
+      "name": "Config",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-12",
+      "type": "D11-12",
+      "name": "Backup",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D11-13",
+      "type": "D11-13",
+      "name": "KillSwitch",
+      "host": "service",
+      "policy": "P-D11",
+      "evidence": [],
+      "terminal": true
+    }
+  ]
+}
