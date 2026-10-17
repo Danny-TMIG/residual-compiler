@@ -1,15 +1,15 @@
 {
   "schema": "release-binary/v1",
-  "tag": "v1.0.0-c42aef2",
-  "commit": "c42aef2",
+  "tag": "v1.0.0-a1cae42",
+  "commit": "a1cae42",
   "tarball": {
-    "path": "dist/residual-compiler-c42aef2.tgz",
-    "bytes": 304529,
-    "sha256": "2901fe5fc6ea3ac11f76b7e4db8526592fbc33f9ce6a48b53c70a3c57e66be11",
-    "file_count": 337,
+    "path": "dist/residual-compiler-a1cae42.tgz",
+    "bytes": 307576,
+    "sha256": "2f61a5f65cc95235b8de1565b1a4d529a17c4c409d08d1e630739354fe03eb7d",
+    "file_count": 338,
     "extensions": {
       ".py": 133,
-      ".json": 114,
+      ".json": 115,
       ".S": 22,
       ".md": 20,
       "(noext)": 17,
@@ -22,24 +22,24 @@
   },
   "signature": {
     "present": true,
-    "path": "dist/residual-compiler-c42aef2.tgz.asc",
+    "path": "dist/residual-compiler-a1cae42.tgz.asc",
     "verified": true,
-    "fingerprint": "E2A761E2030C9B746E7BB52759BB82D02468CA4D"
+    "fingerprint": "0ED7D1758A9B967F2CE6C7A18B04E2B2891ABCCC"
   },
   "public_key": {
     "present": true,
     "path": "dist/release-signing-key.asc",
-    "sha256": "30437f5bbf9bf8f685530f7a4a678e15f6d468b5a1962297b2d560b434109d6a"
+    "sha256": "637e2fe87887a5e6fedc5df438c380d3d136f0ddd4b56603dba3d2c97d06c33d"
   },
   "release": {
-    "url": "https://github.com/Danny-TMIG/residual-compiler/releases/tag/v1.0.0-c42aef2",
+    "url": "https://github.com/Danny-TMIG/residual-compiler/releases/tag/v1.0.0-a1cae42",
     "assets": [
       "release-signing-key.asc",
-      "residual-compiler-c42aef2.tgz",
-      "residual-compiler-c42aef2.tgz.asc",
-      "residual-compiler-c42aef2.tgz.sha256"
+      "residual-compiler-a1cae42.tgz",
+      "residual-compiler-a1cae42.tgz.asc",
+      "residual-compiler-a1cae42.tgz.sha256"
     ],
-    "created": "2026-10-17T23:27:34Z"
+    "created": "2026-10-17T23:33:29Z"
   },
   "gates": {
     "control_plane": "COVERED",
@@ -48,10 +48,10 @@
     "evidence": "verified"
   },
   "verify_commands": [
-    "gh release download v1.0.0-c42aef2",
+    "gh release download v1.0.0-a1cae42",
     "gpg --import release-signing-key.asc",
-    "gpg --verify residual-compiler-c42aef2.tgz.asc residual-compiler-c42aef2.tgz",
-    "shasum -a 256 -c residual-compiler-c42aef2.tgz.sha256",
-    "tar -tzf residual-compiler-c42aef2.tgz | wc -l  # expect 337"
+    "gpg --verify residual-compiler-a1cae42.tgz.asc residual-compiler-a1cae42.tgz",
+    "shasum -a 256 -c residual-compiler-a1cae42.tgz.sha256",
+    "tar -tzf residual-compiler-a1cae42.tgz | wc -l  # expect 338"
   ]
 }
