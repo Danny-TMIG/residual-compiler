@@ -115,3 +115,5 @@ stubfree/
 parse_spec.py
 braid/rust/target/
 **/target/
+bin/flat/
+bin/apex.bin
