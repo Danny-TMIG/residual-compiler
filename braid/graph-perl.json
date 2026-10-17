@@ -1,61 +1,61 @@
 {
-   "edges" : [
-      {
-         "to" : "n-1792271781-335479",
-         "condition" : {},
-         "from" : "n-1792271781-689762"
-      },
-      {
-         "from" : "n-1792271781-335479",
-         "condition" : {},
-         "to" : "n-1792271781-351202"
-      },
-      {
-         "to" : "n-1792271781-776494",
-         "condition" : {},
-         "from" : "n-1792271781-351202"
-      },
-      {
-         "from" : "n-1792271781-776494",
-         "condition" : {},
-         "to" : "n-1792271781-366466"
-      }
-   ],
    "nodes" : [
       {
          "outputs" : {},
          "inputs" : {},
          "operator" : "maintain_distance",
-         "status" : "PENDING",
-         "id" : "n-1792271781-689762"
+         "id" : "n-1792271845-119145",
+         "status" : "PENDING"
       },
       {
          "operator" : "track_target",
-         "status" : "PENDING",
-         "id" : "n-1792271781-335479",
+         "inputs" : {},
          "outputs" : {},
-         "inputs" : {}
+         "status" : "PENDING",
+         "id" : "n-1792271845-399644"
       },
       {
-         "status" : "PENDING",
+         "inputs" : {},
+         "outputs" : {},
          "operator" : "detect_armor",
-         "id" : "n-1792271781-351202",
-         "outputs" : {},
-         "inputs" : {}
+         "id" : "n-1792271845-324245",
+         "status" : "PENDING"
       },
       {
-         "status" : "PENDING",
          "operator" : "prioritize_target",
-         "id" : "n-1792271781-776494",
          "outputs" : {},
-         "inputs" : {}
+         "inputs" : {},
+         "status" : "PENDING",
+         "id" : "n-1792271845-175628"
       },
       {
          "outputs" : {},
          "inputs" : {},
-         "status" : "PENDING",
          "operator" : "engage_anti_armor",
-         "id" : "n-1792271781-366466"
+         "id" : "n-1792271845-759274",
+         "status" : "PENDING"
+      }
+   ],
+   "edges" : [
+      {
+         "to" : "n-1792271845-399644",
+         "condition" : {},
+         "from" : "n-1792271845-119145"
+      },
+      {
+         "condition" : {},
+         "to" : "n-1792271845-324245",
+         "from" : "n-1792271845-399644"
+      },
+      {
+         "to" : "n-1792271845-175628",
+         "condition" : {},
+         "from" : "n-1792271845-324245"
+      },
+      {
+         "from" : "n-1792271845-175628",
+         "to" : "n-1792271845-759274",
+         "condition" : {}
       }
    ]
 }

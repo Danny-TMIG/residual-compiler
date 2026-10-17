@@ -90,6 +90,7 @@ def main():
         "covered": sum(r["pass"] for r in rows),
         "invariants_proven": sum(1 for r in rows if r["invariant_proven"]),
         "total": len(rows),
+        "not_admitted": len(load("CRAFTS.json").get("not_admitted", [])),
         "verdict": "COVERED" if not refuted else "REFUTED:" + ",".join(refuted),
     }
     (APEX / "CRAFTS-STATE.json").write_text(json.dumps(out, indent=2) + "\n")
