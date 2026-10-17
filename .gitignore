@@ -91,3 +91,4 @@ crosscut.sh
 CROSSCUT-*.json
 TAPEOUT-*.json
 TAPEOUT-PARALLEL.json
+apex/APEX-LATEST.json

@@ -186,9 +186,26 @@ jobs:
           merge-multiple: false
       - run: python scripts/check_parity.py attestations
 
+  apex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { persist-credentials: false }
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12", cache: pip }
+      - name: run apex
+        run: python apex/runner.py
+      - name: upload apex record
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: apex-record
+          path: apex/APEX-LATEST.json
+          if-no-files-found: warn
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [test, parity, quality, security, coverage, sbom, version-check]
+    needs: [test, parity, quality, security, coverage, sbom, version-check, apex]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
