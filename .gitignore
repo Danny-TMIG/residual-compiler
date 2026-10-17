@@ -84,3 +84,10 @@ corpus_manifest.json
 math_code_sample.txt
 data/corpus*.txt
 data/processed/
+
+# crosscut artifacts (generated, not source)
+crosscut.sh
+.loop/
+CROSSCUT-*.json
+TAPEOUT-*.json
+TAPEOUT-PARALLEL.json
