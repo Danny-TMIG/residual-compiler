@@ -82,3 +82,15 @@ if not CHECK_ONLY or True:
     if _r.returncode != 0:
         print('\nABORT: control plane REFUTED — at least one craft failed')
         sys.exit(1)
+
+# --- step 5: constitution ---
+if not CHECK_ONLY:
+    import subprocess as _sp5
+    _r5 = _sp5.run(['python3','scripts/constitution.py','validate',
+                    'apex/RECORD.template.json'], capture_output=True, text=True)
+    if _r5.returncode != 0:
+        print('[constitution] INVALID')
+        print(_r5.stdout)
+        sys.exit(1)
+    print('[constitution] record valid (160 classes)')
+
