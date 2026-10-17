@@ -1,0 +1,9 @@
+{
+  "bound_at": "2026-10-17T18:46:20Z",
+  "by": "metadusa",
+  "commit": "99e66fb",
+  "decision": "ship",
+  "reason": "v1.2.2 \u2014 docs + Class 13/14 appendix + hook fix; shipped intentionally",
+  "schema": "terminal/v1",
+  "snapshot": "v1.2.2"
+}

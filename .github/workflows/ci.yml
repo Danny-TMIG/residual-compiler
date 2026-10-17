@@ -203,9 +203,83 @@ jobs:
           path: apex/APEX-LATEST.json
           if-no-files-found: warn
 
+  epistemic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with: { persist-credentials: false }
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install pyyaml
+      - name: enumerate epistemic record
+        run: |
+          python scripts/epistemic_attest.py enumerate \
+            --snapshot "$(git describe --tags --abbrev=0 2>/dev/null || echo unreleased)" \
+            --commit "$(git rev-parse HEAD)"
+      - name: E2 — family completeness
+        run: |
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+          epi = json.loads(Path("apex/EPISTEMIC.json").read_text())
+          declared = {"A":5,"B":7,"C":5,"D":4,"E":6,"F":3}
+          got = {f: len(s["classes"]) for f, s in epi["families"].items()}
+          if got != declared:
+              print("::error::E2 REFUTED — family sizes diverge")
+              for f in declared:
+                  if got.get(f) != declared[f]:
+                      print(f"  {f}: declared={declared[f]} got={got.get(f)}")
+              sys.exit(1)
+          print("E2 ESTABLISHED — 30 classes across 6 families")
+          PY
+      - name: closure check (cross-cut convergence)
+        run: |
+          ARGS=()
+          for j in install seed seed-skills verify-chain test policy-validate \
+                   smoke-compile attest "guard — no skipped gates" quality \
+                   security coverage pre-commit sbom version-check parity apex; do
+            ARGS+=(--job "$j")
+          done
+          for h in ruff ruff-format mypy apex; do
+            ARGS+=(--hook "$h")
+          done
+          python3 scripts/closure_check.py "${ARGS[@]}"
+      - name: upload closure record
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: closure-record
+          path: apex/CLOSURE.json
+          if-no-files-found: warn
+      - name: F — require terminal decision on tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          if [ ! -f apex/DECISION.json ]; then
+            echo "::error::F REFUTED — tag push requires apex/DECISION.json"
+            exit 1
+          fi
+          python - <<'PY'
+          import json, sys
+          from pathlib import Path
+          dec = json.loads(Path("apex/DECISION.json").read_text())
+          if dec.get("decision") != "ship":
+              print(f"::error::F REFUTED — decision={dec.get('decision')!r}, expected 'ship'")
+              sys.exit(1)
+          print(f"F ESTABLISHED — ship by {dec['by']}")
+          PY
+      - name: upload epistemic record
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: epistemic-record
+          path: |
+            apex/EPISTEMIC.json
+            apex/DECISION.json
+          if-no-files-found: warn
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [test, parity, quality, security, coverage, sbom, version-check, apex]
+    needs: [test, parity, quality, security, coverage, sbom, version-check, apex, epistemic]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
