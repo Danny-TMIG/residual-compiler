@@ -494,6 +494,24 @@
       "policy": "P-D9",
       "terminal": false,
       "type": "D9-4"
+    },
+    {
+      "id": "n-D7-6",
+      "type": "D7-6",
+      "name": "IngressEgress",
+      "host": "service",
+      "policy": "P-D7",
+      "evidence": [],
+      "terminal": false
+    },
+    {
+      "id": "n-D4-5",
+      "type": "D4-5",
+      "name": "StreamRouter",
+      "host": "service",
+      "policy": "P-D4",
+      "evidence": [],
+      "terminal": false
     }
   ],
   "schema": "sovereign/nodes/v1"

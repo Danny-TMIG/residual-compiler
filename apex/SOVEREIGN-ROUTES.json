@@ -1304,6 +1304,86 @@
       "from": "n-D3-4",
       "to": "EPS",
       "when": "decision == 'approved'"
+    },
+    {
+      "from": "n-D3-1",
+      "to": "n-D4-5",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D3-2",
+      "to": "n-D4-5",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D3-3",
+      "to": "n-D4-5",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D3-4",
+      "to": "n-D4-5",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D4-5",
+      "to": "n-D4-1",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D4-5",
+      "to": "n-D4-2",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D4-5",
+      "to": "n-D4-3",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D4-5",
+      "to": "n-D4-4",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D6-1",
+      "to": "n-D7-6",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D6-2",
+      "to": "n-D7-6",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D6-3",
+      "to": "n-D7-6",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D6-4",
+      "to": "n-D7-6",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D7-6",
+      "to": "n-D9-1",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D7-6",
+      "to": "n-D9-2",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D7-6",
+      "to": "n-D9-3",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-D7-6",
+      "to": "n-D9-4",
+      "when": "verdict == 'pass'"
     }
   ],
   "schema": "sovereign/routes/v1"
