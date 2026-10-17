@@ -1,10 +1,13 @@
 """Level 2 — reproducibility: build(src) == build(src), byte-for-byte."""
+
 from __future__ import annotations
+
 import gzip
 import io
 import os
 import sys
 import tarfile
+
 
 def build_tarball(files: dict[str, bytes]) -> bytes:
     epoch = int(os.environ.get("SOURCE_DATE_EPOCH", "0"))
@@ -26,12 +29,14 @@ def build_tarball(files: dict[str, bytes]) -> bytes:
         gz.write(raw.getvalue())
     return out.getvalue()
 
+
 def verify_reproducible(files, trials: int = 10) -> bool:
     first = build_tarball(files)
     for _ in range(trials - 1):
         if build_tarball(files) != first:
             return False
     return True
+
 
 if __name__ == "__main__":
     files = {

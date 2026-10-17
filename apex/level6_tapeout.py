@@ -72,8 +72,8 @@ if __name__ == "__main__":
         "pyproject.toml": b"[project]\nname = 'demo'\n",
     }
 
-    with tempfile.TemporaryDirectory() as td:
-        td: Path = Path(td)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        td = Path(tmpdir)
 
         # ACCEPTED
         status, reason = tapeout(

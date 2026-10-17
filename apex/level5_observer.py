@@ -62,8 +62,8 @@ def observe(artifact, observer, observer_id, log_path) -> Disposition:
 
 
 if __name__ == "__main__":
-    with tempfile.TemporaryDirectory() as td:
-        td: Path = Path(td)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        td = Path(tmpdir)
         log = Path(td) / "log.jsonl"
 
         # UNDECIDED blocks

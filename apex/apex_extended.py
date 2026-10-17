@@ -1,10 +1,19 @@
 """apex_extended.py — 30 boundary items, no new guarantee class."""
+
 from __future__ import annotations
-import gzip, hashlib, io, json, os, re, sys, tarfile, unicodedata
+
+import gzip
+import hashlib
+import io
+import json
+import os
+import re
+import sys
+import tarfile
+import unicodedata
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
-from pathlib import Path
-from typing import Any, Callable, Iterable
 
 
 class Result(Enum):
@@ -18,11 +27,13 @@ class Refusal(Exception):
     level: str
     item: int
     reason: str
+
     def __str__(self) -> str:
         return f"L{self.level}#{self.item}: {self.reason}"
 
 
 # ============ L1 — DETERMINISM (items 1-5) ============
+
 
 def _refuse_unserializable(obj, path="$"):
     if isinstance(obj, (set, frozenset)):
@@ -79,8 +90,9 @@ def canonical_bytes(obj, max_depth=100):
                 stack.append((v, depth + 1))
     obj = _quantize(obj)
     obj = _nfc(obj)
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=False).encode("utf-8")
+    return json.dumps(
+        obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode("utf-8")
 
 
 def verify_determinism_l1(obj, trials=100):
@@ -96,6 +108,7 @@ def verify_determinism_l1(obj, trials=100):
 
 
 # ============ L2 — REPRODUCIBILITY (items 6-10) ============
+
 
 @dataclass(frozen=True)
 class FileEntry:
@@ -211,8 +224,9 @@ def emit_artifact(entries):
     _refuse_cr(entries)
     _refuse_bom(entries)
     _refuse_case_paths(entries)
-    norm = {e.name.replace("\\", "/"): e.content.replace(b"\r\n", b"\n")
-            for e in entries}
+    norm = {
+        e.name.replace("\\", "/"): e.content.replace(b"\r\n", b"\n") for e in entries
+    }
     digest = hashlib.sha256(
         b"".join(p.encode() + b"\0" + norm[p] for p in sorted(norm))
     ).hexdigest()
@@ -222,10 +236,16 @@ def emit_artifact(entries):
 def verify_parity_l3(entries):
     try:
         base = emit_artifact(entries)
-        win = [FileEntry(name=e.name.replace("/", "\\"),
-                         content=e.content.replace(b"\n", b"\r\n"),
-                         mode=e.mode, is_symlink=e.is_symlink, xattrs=e.xattrs)
-               for e in entries]
+        win = [
+            FileEntry(
+                name=e.name.replace("/", "\\"),
+                content=e.content.replace(b"\n", b"\r\n"),
+                mode=e.mode,
+                is_symlink=e.is_symlink,
+                xattrs=e.xattrs,
+            )
+            for e in entries
+        ]
         win_art = emit_artifact(win)
     except Refusal:
         return Result.REFUTED
@@ -234,6 +254,7 @@ def verify_parity_l3(entries):
 
 # ============ L4 — FALSIFIABILITY (items 16-20) ============
 
+
 @dataclass(frozen=True)
 class Claim:
     name: str
@@ -241,11 +262,15 @@ class Claim:
     source: str
     adversarial: tuple
     adversary_fn: Callable | None = None
+
     def __post_init__(self):
-        if not self.name: raise ValueError("name")
-        if not self.source: raise ValueError("source")
+        if not self.name:
+            raise ValueError("name")
+        if not self.source:
+            raise ValueError("source")
         if not self.adversarial and self.adversary_fn is None:
             raise ValueError(f"{self.name} has no adversarial input")
+
     def all_inputs(self):
         ins = list(self.adversarial)
         if self.adversary_fn:
@@ -276,8 +301,9 @@ def check_claim(c):
             return ClaimResult(c.name, Result.REFUTED, f"counterexample {x!r}", 1.0)
     if exc == len(inputs):
         return ClaimResult(c.name, Result.UNVERIFIED, f"all {exc} inputs raise", 0.0)
-    return ClaimResult(c.name, Result.VERIFIED, f"{len(inputs)} exhausted",
-                       min(1.0, len(inputs) / 100))
+    return ClaimResult(
+        c.name, Result.VERIFIED, f"{len(inputs)} exhausted", min(1.0, len(inputs) / 100)
+    )
 
 
 def verify_falsifiability_l4(claims):
@@ -291,6 +317,7 @@ def verify_falsifiability_l4(claims):
 
 # ============ L5 — OBSERVER (items 21-25) ============
 
+
 @dataclass(frozen=True)
 class SignedDisposition:
     judgment: str
@@ -301,25 +328,39 @@ class SignedDisposition:
     timestamp: float = 0.0
     revoked_at: float | None = None
     signature: bytes = b""
+
     def __post_init__(self):
         if self.judgment not in ("ACCEPTED", "REJECTED", "UNDECIDED"):
             raise ValueError(f"judgment {self.judgment}")
-        if not self.observer_id: raise ValueError("observer")
-        if not self.observer_pubkey: raise ValueError("pubkey")
-        if not self.signature: raise ValueError("signature")
+        if not self.observer_id:
+            raise ValueError("observer")
+        if not self.observer_pubkey:
+            raise ValueError("pubkey")
+        if not self.signature:
+            raise ValueError("signature")
         if self.judgment == "REJECTED" and not self.reason:
             raise ValueError("REJECTED needs reason")
         if self.judgment == "UNDECIDED" and self.reason:
             raise ValueError("UNDECIDED no reason")
+
     def canonical(self):
-        return json.dumps({
-            "judgment": self.judgment, "artifact_hash": self.artifact_hash,
-            "observer_id": self.observer_id, "observer_pubkey": self.observer_pubkey,
-            "reason": self.reason, "timestamp": self.timestamp,
-            "revoked_at": self.revoked_at,
-        }, sort_keys=True, separators=(",", ":")).encode()
+        return json.dumps(
+            {
+                "judgment": self.judgment,
+                "artifact_hash": self.artifact_hash,
+                "observer_id": self.observer_id,
+                "observer_pubkey": self.observer_pubkey,
+                "reason": self.reason,
+                "timestamp": self.timestamp,
+                "revoked_at": self.revoked_at,
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+
     def verify(self, verify_fn):
         return verify_fn(self.canonical(), self.signature)
+
     def require_accepted(self, current_hash, now):
         if self.revoked_at is not None and self.revoked_at <= now:
             raise PermissionError(f"revoked at {self.revoked_at}")
@@ -328,19 +369,32 @@ class SignedDisposition:
         if self.judgment == "REJECTED":
             raise PermissionError(f"REJECTED {self.reason}")
         if self.artifact_hash != current_hash:
-            raise PermissionError(f"stale {self.artifact_hash[:12]} != {current_hash[:12]}")
+            raise PermissionError(
+                f"stale {self.artifact_hash[:12]} != {current_hash[:12]}"
+            )
 
 
-def make_disposition(judgment, artifact_hash, observer_id, observer_pubkey,
-                     sign_fn, now, reason=""):
-    u = SignedDisposition(judgment, artifact_hash, observer_id, observer_pubkey,
-                          reason, now, None, b"placeholder")
+def make_disposition(
+    judgment, artifact_hash, observer_id, observer_pubkey, sign_fn, now, reason=""
+):
+    u = SignedDisposition(
+        judgment,
+        artifact_hash,
+        observer_id,
+        observer_pubkey,
+        reason,
+        now,
+        None,
+        b"placeholder",
+    )
     sig = sign_fn(u.canonical())
-    return SignedDisposition(judgment, artifact_hash, observer_id, observer_pubkey,
-                             reason, now, None, sig)
+    return SignedDisposition(
+        judgment, artifact_hash, observer_id, observer_pubkey, reason, now, None, sig
+    )
 
 
 # ============ L6 — TAPEOUT (items 26-30) ============
+
 
 @dataclass
 class TapeoutRecord:
@@ -380,8 +434,9 @@ def run_all_levels(entries, claims):
     for name, v in l4.items():
         if v.result != Result.REFUTED:
             refusals.append(Refusal("4", 0, f"{name}: {v.evidence}"))
-    results["L4"] = (Result.VERIFIED if not any(r.level == "4" for r in refusals)
-                     else Result.REFUTED)
+    results["L4"] = (
+        Result.VERIFIED if not any(r.level == "4" for r in refusals) else Result.REFUTED
+    )
     return results, refusals
 
 
@@ -396,17 +451,24 @@ def tapeout_full(entries, claims, observer_fn, sign_fn, pubkey_verify, now):
 
     disp = None
     # L4 is verified independently; L6 gates on L1, L2, L3 only.
-    mechanical = all(results.get(k) == Result.VERIFIED
-                     for k in ("L1", "L2", "L3"))
+    mechanical = all(results.get(k) == Result.VERIFIED for k in ("L1", "L2", "L3"))
     if mechanical:
         try:
-            h = hashlib.sha256(json.dumps(
-                {"files": sorted(e.name for e in entries)},
-                sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-            disp = observer_fn(judgment="ACCEPTED", artifact_hash=h,
-                               observer_id="observer-1",
-                               observer_pubkey="pk-1",
-                               sign_fn=sign_fn, now=now)
+            h = hashlib.sha256(
+                json.dumps(
+                    {"files": sorted(e.name for e in entries)},
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode()
+            ).hexdigest()
+            disp = observer_fn(
+                judgment="ACCEPTED",
+                artifact_hash=h,
+                observer_id="observer-1",
+                observer_pubkey="pk-1",
+                sign_fn=sign_fn,
+                now=now,
+            )
             disp.require_accepted(h, now)
             if not disp.verify(pubkey_verify):
                 raise PermissionError("signature invalid")
@@ -437,14 +499,18 @@ def tapeout_full(entries, claims, observer_fn, sign_fn, pubkey_verify, now):
     else:
         results["L6"] = Result.VERIFIED
 
-    final = (Result.VERIFIED if all(results.get(k) == Result.VERIFIED
-                                    for k in ("L1", "L2", "L3", "L6"))
-             and disp is not None else Result.REFUTED)
+    final = (
+        Result.VERIFIED
+        if all(results.get(k) == Result.VERIFIED for k in ("L1", "L2", "L3", "L6"))
+        and disp is not None
+        else Result.REFUTED
+    )
 
     return TapeoutRecord(results, confidence, disp, refusals, final)
 
 
 # ============ HARNESS ============
+
 
 def _deep(n):
     x = {}
@@ -456,8 +522,10 @@ def _deep(n):
 def _sign(p):
     return b"sig:" + hashlib.sha256(p).digest()
 
+
 def _verify(p, s):
     return s == b"sig:" + hashlib.sha256(p).digest()
+
 
 def _obs(**kw):
     return make_disposition(**kw)
@@ -481,41 +549,76 @@ def main():
     for name, obj, exp in l1:
         r = verify_determinism_l1(obj)
         mark = "ok" if r == exp else "FAIL"
-        if r != exp: failures.append(f"L1 {name}")
+        if r != exp:
+            failures.append(f"L1 {name}")
         print(f"  [{mark:4}] {name}: {r.value}")
 
     # L2
     print("\n[L2] reproducibility (items 6-10)")
     l2 = [
         ("6. toolchain", [FileEntry(name="a.py", content=b"x\n")], Result.VERIFIED),
-        ("7. unsorted", [FileEntry(name="b.py", content=b"x\n"),
-                         FileEntry(name="a.py", content=b"y\n")], Result.REFUTED),
-        ("8. symlink", [FileEntry(name="a.py", content=b"x\n", is_symlink=True)], Result.REFUTED),
-        ("9. xattrs", [FileEntry(name="a.py", content=b"x\n", xattrs=(("k","v"),))], Result.REFUTED),
-        ("10. case", [FileEntry(name="A.py", content=b"x\n"),
-                      FileEntry(name="a.py", content=b"y\n")], Result.REFUTED),
+        (
+            "7. unsorted",
+            [
+                FileEntry(name="b.py", content=b"x\n"),
+                FileEntry(name="a.py", content=b"y\n"),
+            ],
+            Result.REFUTED,
+        ),
+        (
+            "8. symlink",
+            [FileEntry(name="a.py", content=b"x\n", is_symlink=True)],
+            Result.REFUTED,
+        ),
+        (
+            "9. xattrs",
+            [FileEntry(name="a.py", content=b"x\n", xattrs=(("k", "v"),))],
+            Result.REFUTED,
+        ),
+        (
+            "10. case",
+            [
+                FileEntry(name="A.py", content=b"x\n"),
+                FileEntry(name="a.py", content=b"y\n"),
+            ],
+            Result.REFUTED,
+        ),
     ]
     for name, es, exp in l2:
         r = verify_reproducibility_l2(es)
         mark = "ok" if r == exp else "FAIL"
-        if r != exp: failures.append(f"L2 {name}")
+        if r != exp:
+            failures.append(f"L2 {name}")
         print(f"  [{mark:4}] {name}: {r.value}")
 
     # L3
     print("\n[L3] parity (items 11-15)")
     l3 = [
         ("11. abs", [FileEntry(name="a.py", content=b"p='/usr/x'")], Result.REFUTED),
-        ("12. locale", [FileEntry(name="I.py", content=b"x\n"),
-                        FileEntry(name="i.py", content=b"y\n")], Result.REFUTED),
+        (
+            "12. locale",
+            [
+                FileEntry(name="I.py", content=b"x\n"),
+                FileEntry(name="i.py", content=b"y\n"),
+            ],
+            Result.REFUTED,
+        ),
         ("13. CR", [FileEntry(name="a.py", content=b"l\rl")], Result.REFUTED),
         ("14. BOM", [FileEntry(name="a.py", content=b"\xef\xbb\xbfx")], Result.REFUTED),
-        ("15. case path", [FileEntry(name="Src/F.py", content=b"x\n"),
-                           FileEntry(name="src/f.py", content=b"y\n")], Result.REFUTED),
+        (
+            "15. case path",
+            [
+                FileEntry(name="Src/F.py", content=b"x\n"),
+                FileEntry(name="src/f.py", content=b"y\n"),
+            ],
+            Result.REFUTED,
+        ),
     ]
     for name, es, exp in l3:
         r = verify_parity_l3(es)
         mark = "ok" if r == exp else "FAIL"
-        if r != exp: failures.append(f"L3 {name}")
+        if r != exp:
+            failures.append(f"L3 {name}")
         print(f"  [{mark:4}] {name}: {r.value}")
 
     # L4
@@ -523,9 +626,10 @@ def main():
     claims = (
         Claim("has_teeth", lambda x: x > 0, "L4", (-1, 0)),
         Claim("never_raises", lambda x: True, "L4", (1, 2)),
-        Claim("always_raises", lambda x: 1/0, "L4", (1, 2)),
-        Claim("with_adv", lambda x: x < 100, "L4", (50,),
-              adversary_fn=lambda: (0, 1, 2)),
+        Claim("always_raises", lambda x: 1 / 0, "L4", (1, 2)),
+        Claim(
+            "with_adv", lambda x: x < 100, "L4", (50,), adversary_fn=lambda: (0, 1, 2)
+        ),
     )
     l4 = verify_falsifiability_l4(claims)
     for name, r in l4.items():
@@ -537,29 +641,36 @@ def main():
     if l4["never_raises"].result != Result.VERIFIED:
         failures.append("L4 never_raises")
     if not any("L4" in f for f in failures):
-        print(f"  [ok] L4 items 16-20")
+        print("  [ok] L4 items 16-20")
 
     # L5
     print("\n[L5] observer (items 21-25)")
-    d = make_disposition("ACCEPTED", "a"*64, "obs-1", "pk-1", _sign, 100.0)
+    d = make_disposition("ACCEPTED", "a" * 64, "obs-1", "pk-1", _sign, 100.0)
     if not d.verify(_verify):
         failures.append("L5 signature")
     else:
-        print(f"  [ok] 21. signature verifies")
+        print("  [ok] 21. signature verifies")
     print(f"  [ok] 22. signed timestamp = {d.timestamp}")
-    rev = SignedDisposition("ACCEPTED", "a"*64, "obs-1", "pk-1",
-                            signature=b"sig", timestamp=100.0, revoked_at=150.0)
+    rev = SignedDisposition(
+        "ACCEPTED",
+        "a" * 64,
+        "obs-1",
+        "pk-1",
+        signature=b"sig",
+        timestamp=100.0,
+        revoked_at=150.0,
+    )
     try:
-        rev.require_accepted("a"*64, 200.0)
+        rev.require_accepted("a" * 64, 200.0)
         failures.append("L5 revocation")
     except PermissionError:
-        print(f"  [ok] 23. revoked blocks")
+        print("  [ok] 23. revoked blocks")
     try:
-        d.require_accepted("b"*64, 200.0)
+        d.require_accepted("b" * 64, 200.0)
         failures.append("L5 staleness")
     except PermissionError:
-        print(f"  [ok] 24. stale blocks")
-    print(f"  [ok] 25. single observer")
+        print("  [ok] 24. stale blocks")
+    print("  [ok] 25. single observer")
 
     # L6
     print("\n[L6] tapeout (items 26-30)")
@@ -571,13 +682,15 @@ def main():
     rec = tapeout_full(entries, claims_l6, _obs, _sign, _verify, 100.0)
     print(f"  levels: {dict(rec.levels)}")
     print(f"  confidence: {rec.confidence}")
-    print(f"  observer: {rec.observer_disposition.judgment if rec.observer_disposition else None}")
+    print(
+        f"  observer: {rec.observer_disposition.judgment if rec.observer_disposition else None}"
+    )
     print(f"  refusals: {[str(r) for r in rec.refusals]}")
     print(f"  final: {rec.final.value}")
     if rec.final != Result.VERIFIED:
         failures.append("L6 final")
     if not any(r.item == 30 for r in rec.refusals):
-        print(f"  [ok] 30. meta-test held")
+        print("  [ok] 30. meta-test held")
     else:
         failures.append("L6 meta-test")
 
@@ -585,7 +698,7 @@ def main():
     if failures:
         print(f"[gap] {len(failures)} items failed: {failures}")
         return 1
-    print(f"[apex_extended] all 30 items closed")
+    print("[apex_extended] all 30 items closed")
     return 0
 
 

@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 
@@ -23,7 +23,7 @@ class SovereignTriadNode:
                     node_name,
                     status,
                     json.dumps(payload),
-                    datetime.now(timezone.utc).isoformat(),
+                    datetime.now(UTC).isoformat(),
                 ),
             )
             c.commit()

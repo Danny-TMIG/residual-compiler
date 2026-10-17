@@ -1,14 +1,19 @@
 """Level 4 — falsifiability: every claim has an adversarial input."""
+
 from __future__ import annotations
+
 import sys
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Protocol
+from typing import Any, Protocol
+
 
 class Refutation(Enum):
     VERIFIED = "VERIFIED"
     REFUTED = "REFUTED"
     UNVERIFIED = "UNVERIFIED"
+
 
 @dataclass(frozen=True)
 class Claim:
@@ -16,12 +21,17 @@ class Claim:
     predicate: Callable[[Any], bool]
     adversarial: tuple
     source: str
+
     def __post_init__(self):
-        if not self.name: raise ValueError("claim needs name")
-        if not callable(self.predicate): raise ValueError("claim needs predicate")
-        if not self.source: raise ValueError("claim needs source")
+        if not self.name:
+            raise ValueError("claim needs name")
+        if not callable(self.predicate):
+            raise ValueError("claim needs predicate")
+        if not self.source:
+            raise ValueError("claim needs source")
         if not self.adversarial:
             raise ValueError(f"claim {self.name!r} has no adversarial input")
+
     def check(self):
         for x in self.adversarial:
             try:
@@ -31,18 +41,26 @@ class Claim:
                 return Refutation.REFUTED, (x, str(e))
         return Refutation.VERIFIED, None
 
+
 class Adversary(Protocol):
     def inputs(self, claim: Claim) -> tuple: ...
+
 
 @dataclass(frozen=True)
 class Exhaustive:
     domain: tuple
-    def inputs(self, claim): return self.domain
+
+    def inputs(self, claim):
+        return self.domain
+
 
 @dataclass(frozen=True)
 class Boundary:
-    bounds: tuple = (0, 1, -1, 2**31 - 1, -2**31, "", "x", (), (1,))
-    def inputs(self, claim): return self.bounds
+    bounds: tuple = (0, 1, -1, 2**31 - 1, -(2**31), "", "x", (), (1,))
+
+    def inputs(self, claim):
+        return self.bounds
+
 
 def verify(claims, adversary):
     """The adversary contributes inputs *within the claim's domain*.
@@ -70,10 +88,16 @@ def verify(claims, adversary):
         results[c.name] = v
     return results
 
+
 if __name__ == "__main__":
     claims = (
         Claim("determinism", lambda x: x[0] == x[1], (("a", "a"), ("a", "b")), "L1"),
-        Claim("reproducibility", lambda x: x[0] == x[1], ((b"x", b"x"), (b"x", b"y")), "L2"),
+        Claim(
+            "reproducibility",
+            lambda x: x[0] == x[1],
+            ((b"x", b"x"), (b"x", b"y")),
+            "L2",
+        ),
         Claim("parity", lambda x: len(x) == 1, (("a",), ("a", "b")), "L3"),
     )
     results = verify(claims, Exhaustive(domain=(0, 1)))
@@ -83,5 +107,7 @@ if __name__ == "__main__":
     ok = all(r == Refutation.REFUTED for r in results.values())
     for name, r in results.items():
         print(f"  [{r.value:10}] {name} (falsifiable: REFUTED)")
-    print(f"[level 4] falsifiability: {'ok' if ok else 'FAIL — some claim is unfalsifiable'}")
+    print(
+        f"[level 4] falsifiability: {'ok' if ok else 'FAIL — some claim is unfalsifiable'}"
+    )
     sys.exit(0 if ok else 1)

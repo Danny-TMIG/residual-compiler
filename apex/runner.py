@@ -10,7 +10,9 @@ Runs all 7 levels. Emits apex/APEX-LATEST.json with:
 
 Exit 0 iff all 7 levels VERIFIED. Exit 1 otherwise.
 """
+
 from __future__ import annotations
+
 import hashlib
 import json
 import subprocess
@@ -38,8 +40,10 @@ def hash_tree(root: Path) -> str:
     h = hashlib.sha256()
     for p in sorted(root.rglob("*")):
         rel = p.relative_to(root)
-        if any(part in {".git", ".venv", "__pycache__", "apex", ".loop"}
-               for part in rel.parts):
+        if any(
+            part in {".git", ".venv", "__pycache__", "apex", ".loop"}
+            for part in rel.parts
+        ):
             continue
         if not p.is_file():
             continue
@@ -53,7 +57,8 @@ def run_level(level: str) -> tuple[int, str]:
     r = subprocess.run(
         [sys.executable, str(APEX_DIR / level)],
         cwd=str(APEX_DIR),
-        capture_output=True, text=True,
+        capture_output=True,
+        text=True,
     )
     return r.returncode, (r.stdout + r.stderr)
 
@@ -76,14 +81,19 @@ def main() -> int:
         print(f"  [{mark:4}] {level}: {verdict}")
         if rc != 0:
             tail = output.strip().splitlines()[-5:] if output.strip() else []
-            refusals.append({
-                "level": level,
-                "exit_code": rc,
-                "tail": tail,
-            })
+            refusals.append(
+                {
+                    "level": level,
+                    "exit_code": rc,
+                    "tail": tail,
+                }
+            )
 
-    final = "VERIFIED" if all(r["verdict"] == "VERIFIED"
-                              for r in results.values()) else "REFUTED"
+    final = (
+        "VERIFIED"
+        if all(r["verdict"] == "VERIFIED" for r in results.values())
+        else "REFUTED"
+    )
 
     record = {
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

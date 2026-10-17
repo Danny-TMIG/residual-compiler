@@ -1,4 +1,5 @@
 """run_all.py — run every level. Exit 0 iff all pass."""
+
 import subprocess
 import sys
 from pathlib import Path

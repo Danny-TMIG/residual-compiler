@@ -1,15 +1,21 @@
 """Level 1 — determinism: emit(x) == emit(x), byte-for-byte."""
+
 from __future__ import annotations
+
 import hashlib
 import json
 import sys
 
+
 def canonical_bytes(obj) -> bytes:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"),
-                      ensure_ascii=False).encode("utf-8")
+    return json.dumps(
+        obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+    ).encode("utf-8")
+
 
 def hash_canonical(obj) -> str:
     return hashlib.sha256(canonical_bytes(obj)).hexdigest()
+
 
 def verify_determinism(obj, trials: int = 100) -> bool:
     first = canonical_bytes(obj)
@@ -17,6 +23,7 @@ def verify_determinism(obj, trials: int = 100) -> bool:
         if canonical_bytes(obj) != first:
             return False
     return True
+
 
 if __name__ == "__main__":
     tests = [

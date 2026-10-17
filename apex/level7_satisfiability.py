@@ -8,12 +8,14 @@ that are jointly unsatisfiable — each claim has teeth, each claim is
 independently falsifiable, but no artifact can satisfy all of them.
 L7 refuses that state.
 """
+
 from __future__ import annotations
-import itertools
+
 import sys
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Iterable
+from typing import Any
 
 
 class Result(Enum):
@@ -34,6 +36,7 @@ class Claim:
 class Witness:
     """A witness is an artifact that satisfies every claim.
     A claim set with a witness is satisfiable. Without one, unsatisfiable."""
+
     artifact: Any
     satisfied: tuple[str, ...]
 
@@ -42,9 +45,9 @@ class Witness:
             raise ValueError("witness must satisfy at least one claim")
 
 
-def find_witness(claims: tuple[Claim, ...],
-                 domain: Iterable[Any],
-                 max_search: int = 10_000) -> Result:
+def find_witness(
+    claims: tuple[Claim, ...], domain: Iterable[Any], max_search: int = 10_000
+) -> Result:
     """Search the domain for an artifact satisfying all claims.
     Returns VERIFIED if a witness is found, REFUTED if the domain is
     exhausted without one, UNVERIFIED if the search exceeded max_search."""
@@ -60,8 +63,9 @@ def find_witness(claims: tuple[Claim, ...],
     return Result.REFUTED
 
 
-def find_witness_constructive(claims: tuple[Claim, ...],
-                              constructors: dict[str, Callable[[], Any]]) -> Result:
+def find_witness_constructive(
+    claims: tuple[Claim, ...], constructors: dict[str, Callable[[], Any]]
+) -> Result:
     """Constructive search: try each constructor. If any produces an artifact
     satisfying all claims, return VERIFIED. If every constructor fails,
     return UNVERIFIED — not REFUTED. Constructive non-existence is not
@@ -95,6 +99,7 @@ def find_witness_smt(claims: tuple[Claim, ...], smt_solver) -> Result:
 # HARNESS — verify the satisfiability layer
 # ============================================================================
 
+
 def main() -> int:
     print("=" * 64)
     print("LEVEL 7 — joint satisfiability")
@@ -108,8 +113,7 @@ def main() -> int:
         Claim("small", lambda x: x < 10, "L7", (10, 11)),
     )
     r = find_witness(claims_ok, domain=range(-5, 15))
-    print(f"  [{'ok' if r == Result.VERIFIED else 'FAIL'}] "
-          f"positive ∧ small: {r.value}")
+    print(f"  [{'ok' if r == Result.VERIFIED else 'FAIL'}] positive ∧ small: {r.value}")
     if r != Result.VERIFIED:
         failures.append("satisfiable")
 
@@ -120,8 +124,9 @@ def main() -> int:
         Claim("negative", lambda x: x < 0, "L7", (1,)),
     )
     r = find_witness(claims_bad, domain=range(-5, 15))
-    print(f"  [{'ok' if r == Result.REFUTED else 'FAIL'}] "
-          f"positive ∧ negative: {r.value}")
+    print(
+        f"  [{'ok' if r == Result.REFUTED else 'FAIL'}] positive ∧ negative: {r.value}"
+    )
     if r != Result.REFUTED:
         failures.append("unsatisfiable")
 
@@ -132,14 +137,16 @@ def main() -> int:
         Claim("has_key", lambda x: "k" in x, "L7", ({}, {"x": 1})),
     )
     constructors = {
-        "empty": lambda: {},
+        "empty": dict,
         "with_k": lambda: {"k": 1},
         "with_x": lambda: {"x": 1},
         "raise": lambda: 1 / 0,
     }
     r = find_witness_constructive(claims_constructive, constructors)
-    print(f"  [{'ok' if r == Result.VERIFIED else 'FAIL'}] "
-          f"is_dict ∧ has_key (constructive): {r.value}")
+    print(
+        f"  [{'ok' if r == Result.VERIFIED else 'FAIL'}] "
+        f"is_dict ∧ has_key (constructive): {r.value}"
+    )
     if r != Result.VERIFIED:
         failures.append("constructive")
 
@@ -152,19 +159,18 @@ def main() -> int:
     # Each claim has a counterexample → REFUTED at L4. Good.
     # No x satisfies both → REFUTED at L7. Also good.
     r = find_witness(adversarial_claims, domain=("alice", "bob", "carol"))
-    print(f"  [{'ok' if r == Result.REFUTED else 'FAIL'}] "
-          f"alice ∧ bob: {r.value}")
+    print(f"  [{'ok' if r == Result.REFUTED else 'FAIL'}] alice ∧ bob: {r.value}")
     if r != Result.REFUTED:
         failures.append("adversarial")
 
     # 4b. Constructive with no valid constructor → UNVERIFIED
     print("\n[4b] constructive, no valid constructor")
-    impossible_constructive = (
-        Claim("never", lambda x: False, "L7", (1,)),
-    )
+    impossible_constructive = (Claim("never", lambda x: False, "L7", (1,)),)
     r = find_witness_constructive(impossible_constructive, {"a": lambda: 1})
-    print(f"  [{'ok' if r == Result.UNVERIFIED else 'FAIL'}] "
-          f"no witness by construction: {r.value}")
+    print(
+        f"  [{'ok' if r == Result.UNVERIFIED else 'FAIL'}] "
+        f"no witness by construction: {r.value}"
+    )
     if r != Result.UNVERIFIED:
         failures.append("constructive-unverified")
 
@@ -172,8 +178,9 @@ def main() -> int:
     print("\n[5] search budget exceeded")
     big_domain = range(1_000_000)
     r = find_witness(claims_ok, domain=big_domain, max_search=100)
-    print(f"  [{'ok' if r == Result.UNVERIFIED else 'FAIL'}] "
-          f"budget exceeded: {r.value}")
+    print(
+        f"  [{'ok' if r == Result.UNVERIFIED else 'FAIL'}] budget exceeded: {r.value}"
+    )
     if r != Result.UNVERIFIED:
         failures.append("budget")
 
@@ -181,7 +188,7 @@ def main() -> int:
     if failures:
         print(f"[gap] {len(failures)} satisfiability checks failed: {failures}")
         return 1
-    print(f"[level 7] satisfiability: ok")
+    print("[level 7] satisfiability: ok")
     print("  L7 answers what L1-L6 cannot: do the claims describe any artifact?")
     print("  L4 verified each claim has a counterexample.")
     print("  L7 verifies the claims jointly describe at least one artifact.")
