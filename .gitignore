@@ -81,3 +81,16 @@ braid/rust/target/
 # ── os junk ──
 .DS_Store
 ._*
+
+# ── apex/runtime scratch ──
+SPEC.json
+TAPEOUT-*.json
+apex/APEX-LATEST.json
+attestation.json
+decision_record.json
+crosscut.sh
+math_code_sample.txt
+parse_spec.py
+iterations/
+stubfree/
+release-signing-key.asc
