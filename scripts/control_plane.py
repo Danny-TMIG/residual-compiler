@@ -53,11 +53,15 @@ def run_witness(w):
     return ok, r.returncode, verdict
 
 def main():
-    crafts_cfg = load("CRAFTS.json")["crafts"]
+    raw_crafts = load("CRAFTS.json")["crafts"]
+    if isinstance(raw_crafts, dict):
+        crafts_iter = raw_crafts.items()
+    else:
+        crafts_iter = ((c["craft"] if "craft" in c else c.get("name"), c) for c in raw_crafts)
     nodes = normalize_nodes(load("MACHINE-STATE.json")["nodes"])
 
     rows, refuted = [], []
-    for name, spec in crafts_cfg.items():
+    for name, spec in crafts_iter:
         node = nodes.get(spec["gate"], {})
         status = node.get("status") or node.get("state")
         gate_ok = status in ("RUNNING", "READY")
