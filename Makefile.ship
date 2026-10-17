@@ -8,9 +8,9 @@ ship: verify-ship package
 
 verify-ship:
 	@test -z "$$(git status --porcelain)" || { echo "FAIL: dirty tree"; exit 1; }
-	@python3 -m pytest -q > /dev/null || { echo "FAIL: pytest"; exit 1; }
-	@python3 scripts/control_plane.py | python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("control_plane:",d["verdict"])'
-	@python3 scripts/org.py | python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("org:",d["verdict"])'
+	@.venv/bin/python3 -m pytest -q > /dev/null || { echo "FAIL: pytest"; exit 1; }
+	@.venv/bin/python3 scripts/control_plane.py | .venv/bin/python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("control_plane:",d["verdict"])'
+	@.venv/bin/python3 scripts/org.py | .venv/bin/python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("org:",d["verdict"])'
 	@make -f Makefile.build verify > /dev/null || { echo "FAIL: evidence verify"; exit 1; }
 	@echo "all gates passed"
 
