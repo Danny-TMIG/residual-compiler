@@ -1,0 +1,74 @@
+{
+  "M-04": {
+    "forbids": ["prove-properties", "theorem-check", "equivalence-check"],
+    "reason": "Halting is undecidable — no skill may claim to always decide termination or program equivalence"
+  },
+  "M-20": {
+    "forbids": ["validate-skill", "validate-tool-output"],
+    "reason": "Rice's theorem — non-trivial semantic properties of programs are undecidable; a skill cannot always decide them"
+  },
+  "M-24": {
+    "forbids": ["equivalence-check", "verify-equivalence"],
+    "reason": "Program equivalence is undecidable — an equivalence checker is not total"
+  },
+  "M-01": {
+    "forbids": ["prove-properties"],
+    "reason": "Gödel's first incompleteness — a formal prover cannot prove every truth of its system"
+  },
+  "M-02": {
+    "forbids": ["prove-properties"],
+    "reason": "Gödel's second — a system cannot prove its own consistency"
+  },
+  "M-03": {
+    "forbids": ["semantic-mapping"],
+    "reason": "Tarski undefinability — truth of a formal language is not definable within it"
+  },
+  "M-18": {
+    "forbids": ["compression"],
+    "reason": "Kolmogorov incompressibility — no compressor can compress every input"
+  },
+  "M-21": {
+    "forbids": ["search-space-pruning"],
+    "reason": "No free lunch — a pruning heuristic cannot dominate on all problem distributions"
+  },
+  "C-01": {
+    "forbids": ["shortest-path"],
+    "reason": "P vs NP open — no general shortcut to optimal search is proven"
+  },
+  "C-22": {
+    "forbids": ["parallelize-work"],
+    "reason": "Amdahl's law — parallelization cannot exceed the serial fraction's limit"
+  },
+  "D-01": {
+    "forbids": ["consensus", "distributed-transactions"],
+    "reason": "FLP — no deterministic consensus in an asynchronous network with one failure"
+  },
+  "D-03": {
+    "forbids": ["strong-consistency"],
+    "reason": "CAP — cannot have all three of consistency, availability, partition tolerance"
+  },
+  "P-03": {
+    "forbids": ["copy-artifact"],
+    "reason": "No-cloning — arbitrary quantum states cannot be copied"
+  },
+  "K-01": {
+    "forbids": ["digital-signatures", "hashing"],
+    "reason": "One-way functions are assumed, not proven — signatures/hashes rest on unproven hardness"
+  },
+  "K-11": {
+    "forbids": ["zero-knowledge-proofs"],
+    "reason": "Trusted setup is a residual — ZKPs require a ceremony whose trust is external"
+  },
+  "E-01": {
+    "forbids": ["detect-dead-code"],
+    "reason": "Observability rank — a system may be unobservable from inside"
+  },
+  "S-01": {
+    "forbids": ["model-evaluation"],
+    "reason": "Bias-variance — no single evaluation removes both bias and variance"
+  },
+  "B-10": {
+    "forbids": ["safety-evaluation"],
+    "reason": "Hard problem of consciousness — no test decides subjective property"
+  }
+}

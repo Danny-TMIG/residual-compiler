@@ -1,0 +1,31 @@
+[project]
+name = "atlas-executor"
+version = "1.0.0"
+description = "Policy-gated executor for the Dev Agent Skill Atlas"
+requires-python = ">=3.11"
+authors = [{name = "metadusa"}]
+readme = "README.md"
+license = {text = "Apache-2.0"}
+
+[project.scripts]
+atlas = "src.cli:main"
+atlas-compile = "src.compile_cli:main"
+atlas-policy = "src.policy_builder_cli:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E","F","W","I","UP","B","SIM"]
+
+[tool.black]
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,9 @@
+{
+  "thresholds": {
+    "min_documents": 1,
+    "min_total_tokens": 1,
+    "max_dup_fraction": 0.99,
+    "min_language_ratio": 0.0
+  },
+  "eval_only_sources": []
+}

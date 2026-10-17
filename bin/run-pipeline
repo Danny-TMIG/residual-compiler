@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Full corpus -> gate -> teacher -> student pipeline.
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")/.." && pwd)"
+CORPUS="${1:-$HERE/data/processed/corpus_real.txt}"
+LICENSE="${2:-CC-BY-SA-3.0}"
+SOURCE="${3:-dolly}"
+TOK="${4:-$HERE/models/chinese_sp.model}"
+TRAIN_PY="${TRAIN_PY:-$HOME/aether/.venv/bin/python}"
+"$TRAIN_PY" "$HOME/aether/research/train/cli.py" \
+  --state-db "$HERE/state/runs.sqlite" \
+  run student --kill-criteria "$HERE/conf/kill_criteria.json" \
+  --corpus "$CORPUS" --source-name "$SOURCE" --license "$LICENSE" \
+  --tokenizer "$TOK"

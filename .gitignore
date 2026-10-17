@@ -1,0 +1,53 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# generated — either bare-path or under data/
+skills.sqlite
+atlas.sqlite
+atlas.jsonl
+data/skills.sqlite
+data/atlas/atlas.sqlite
+data/atlas/atlas.jsonl
+
+# runtime state
+evidence.log
+evidence.log.prev
+bundles/
+.state/
+state/
+artifacts/
+.artifacts/
+checkpoints/
+logs/
+.pytest_cache/
+
+# training experiment leftovers
+training_result.json
+synthetic_dataset.jsonl
+tokens.bin
+corpus_real.txt
+corpus.txt
+math_code_sample.txt
+chinese_sp.model
+chinese_sp.vocab
+domain_sp.model
+domain_sp.vocab
+decision_record.json
+attestation.json
+sealed_bundle/
+composition/
+split_manifest.json
+corpus_manifest.json
+
+# large files
+*.pt
+*.bin
+*.tgz
+data/residuals.sqlite
+data/residuals.jsonl
+state/runs.sqlite
+.state/
+*.egg-info/
