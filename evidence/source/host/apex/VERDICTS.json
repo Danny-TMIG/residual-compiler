@@ -1,0 +1,172 @@
+{
+  "heads": {
+    "H01": {
+      "decision": "AST well-formed",
+      "role": "parser",
+      "verdict": "pass"
+    },
+    "H02": {
+      "decision": "types check",
+      "role": "type checker",
+      "verdict": "pass"
+    },
+    "H03": {
+      "decision": "build ok",
+      "role": "build engineer",
+      "verdict": "pass"
+    },
+    "H04": {
+      "decision": "tests pass",
+      "role": "test engineer",
+      "verdict": "pass"
+    },
+    "H05": {
+      "decision": "interface chosen",
+      "role": "architect",
+      "verdict": "pass"
+    },
+    "H06": {
+      "decision": "protocol chosen",
+      "role": "systems engineer",
+      "verdict": "pass"
+    },
+    "H07": {
+      "decision": "pipeline ok",
+      "role": "integrator",
+      "verdict": "pass"
+    },
+    "H08": {
+      "decision": "telemetry ok",
+      "role": "SRE",
+      "verdict": "pass"
+    },
+    "H09": {
+      "decision": "version chosen",
+      "role": "release engineer",
+      "verdict": "pass"
+    },
+    "H10": {
+      "decision": "no CVEs",
+      "role": "security",
+      "verdict": "pass"
+    },
+    "H11": {
+      "decision": "closure observed",
+      "role": "researcher",
+      "verdict": "pass"
+    },
+    "H12": {
+      "decision": "ship|hold",
+      "role": "principal / CTO",
+      "verdict": "pass"
+    },
+    "H13": {
+      "decision": "\u03b5",
+      "role": "product / PM",
+      "verdict": "pass"
+    },
+    "H14": {
+      "decision": "cycle chosen",
+      "role": "manager",
+      "verdict": "pass"
+    },
+    "H15": {
+      "decision": "\u03b5",
+      "role": "user",
+      "verdict": "pass"
+    },
+    "H16": {
+      "decision": "grammar chosen",
+      "role": "DSL designer",
+      "verdict": "pass"
+    },
+    "H17": {
+      "decision": "proof checks",
+      "role": "proof engineer",
+      "verdict": "pass"
+    },
+    "H18": {
+      "decision": "lockfile ok",
+      "role": "dependency mgr",
+      "verdict": "pass"
+    },
+    "H19": {
+      "decision": "oracle chosen",
+      "role": "test oracle",
+      "verdict": "pass"
+    },
+    "H20": {
+      "decision": "corpus ok",
+      "role": "fuzzer",
+      "verdict": "pass"
+    },
+    "H21": {
+      "decision": "counterexamples",
+      "role": "red-team",
+      "verdict": "pass"
+    },
+    "H22": {
+      "decision": "protocol chosen",
+      "role": "protocol synth",
+      "verdict": "pass"
+    },
+    "H23": {
+      "decision": "schedule ok",
+      "role": "pipeline owner",
+      "verdict": "pass"
+    },
+    "H24": {
+      "decision": "alert rule ok",
+      "role": "monitoring",
+      "verdict": "pass"
+    },
+    "H25": {
+      "decision": "trace ok",
+      "role": "telemetry owner",
+      "verdict": "pass"
+    },
+    "H26": {
+      "decision": "deployed",
+      "role": "deployer",
+      "verdict": "pass"
+    },
+    "H27": {
+      "decision": "audit report",
+      "role": "auditor",
+      "verdict": "pass"
+    },
+    "H28": {
+      "decision": "ship|hold",
+      "role": "tech lead",
+      "verdict": "pass"
+    },
+    "H29": {
+      "decision": "closure' observed",
+      "role": "researcher (R)",
+      "verdict": "pass"
+    },
+    "H30": {
+      "decision": "version record ok",
+      "role": "changelog",
+      "verdict": "pass"
+    },
+    "H31": {
+      "decision": "\u03b5",
+      "role": "product",
+      "verdict": "pass"
+    },
+    "H32": {
+      "decision": "\u03b5",
+      "role": "user (final)",
+      "verdict": "pass"
+    }
+  },
+  "schema": "compliance/v1",
+  "summary": {
+    "escalate": 0,
+    "fail": 0,
+    "pass": 32,
+    "total": 32
+  },
+  "timestamp": "2026-10-17T19:32:00Z"
+}

@@ -1,0 +1,36 @@
+{
+  "artifact_hash": "685b20f8781646ca010a2e6eeecdd8fa74d450f2c08112f2350c65f22324a55b",
+  "final": "VERIFIED",
+  "levels": {
+    "level1_determinism.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    },
+    "level2_reproducibility.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    },
+    "level3_parity.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    },
+    "level4_falsifiability.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    },
+    "level5_observer.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    },
+    "level6_tapeout.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    },
+    "level7_satisfiability.py": {
+      "exit_code": 0,
+      "verdict": "VERIFIED"
+    }
+  },
+  "refusals": [],
+  "timestamp": "2026-10-17T23:32:33Z"
+}

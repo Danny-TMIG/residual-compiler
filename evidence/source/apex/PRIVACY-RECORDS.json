@@ -1,0 +1,34 @@
+{
+  "controller": "local operator (unnamed)",
+  "purposes": [
+    {
+      "purpose": "model inference on local prompts",
+      "lawful_basis": "legitimate interest (Art. 6(1)(f)) \u2014 UNVERIFIED"
+    },
+    {
+      "purpose": "audit log of resolutions",
+      "lawful_basis": "legitimate interest \u2014 UNVERIFIED"
+    }
+  ],
+  "categories_of_data": [
+    "prompt text",
+    "timestamps",
+    "model outputs"
+  ],
+  "recipients": [
+    "none (local)"
+  ],
+  "transfers": "none (no cross-border)",
+  "retention": "NOT IMPLEMENTED \u2014 see `retention`",
+  "security_measures": [
+    "local-only",
+    "software hash chain"
+  ],
+  "dsr_contact": "not configured",
+  "standard": [
+    "GDPR Art. 30",
+    "ISO/IEC 27554"
+  ],
+  "ring": 2,
+  "note": "Declared, not verified. Retention and DSR endpoints are absent."
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "terminal/v1",
+  "snapshot": null,
+  "commit": null,
+  "decision": null,
+  "by": null,
+  "reason": "",
+  "bound_at": null
+}

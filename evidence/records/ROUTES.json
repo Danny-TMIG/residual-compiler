@@ -1,0 +1,55 @@
+{
+  "routes": [
+    {
+      "from": "n-parser-1",
+      "to": "n-mypy-1",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-parser-2",
+      "to": "n-mypy-2",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-mypy-1",
+      "to": "n-pytest-1",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-mypy-2",
+      "to": "n-pytest-2",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-pytest-1",
+      "to": "n-arch-1",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-pytest-2",
+      "to": "n-arch-2",
+      "when": "verdict == 'pass'"
+    },
+    {
+      "from": "n-arch-1",
+      "to": "n-cto-1",
+      "when": "choice != null"
+    },
+    {
+      "from": "n-arch-2",
+      "to": "n-cto-2",
+      "when": "choice != null"
+    },
+    {
+      "from": "n-cto-1",
+      "to": "EPS",
+      "when": "decision == 'ship'"
+    },
+    {
+      "from": "n-cto-2",
+      "to": "EPS",
+      "when": "decision == 'ship'"
+    }
+  ],
+  "schema": "mycelium/routes/v1"
+}

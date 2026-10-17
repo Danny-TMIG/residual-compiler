@@ -1,0 +1,45 @@
+{
+  "converged": true,
+  "derived": [
+    "A2",
+    "A3",
+    "B3",
+    "B4",
+    "B6",
+    "C0",
+    "C1",
+    "C4",
+    "D2",
+    "D4",
+    "E0",
+    "E1",
+    "E3",
+    "E4"
+  ],
+  "mechanical_closed": [
+    "A0",
+    "A1",
+    "A4",
+    "B0",
+    "B1",
+    "B2",
+    "B5",
+    "C2",
+    "C3",
+    "D0",
+    "D1",
+    "D3"
+  ],
+  "missing": [],
+  "n_classes": 30,
+  "n_derived": 14,
+  "n_mechanical_closed": 12,
+  "n_residual": 4,
+  "residual": [
+    "E2",
+    "F0",
+    "F1",
+    "F2"
+  ],
+  "schema": "closure/v1"
+}

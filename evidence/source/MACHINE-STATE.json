@@ -1,0 +1,6 @@
+{
+  "nodes": [
+    {"id": "machine", "status": "active", "architecture": "arm64"},
+    {"id": "spectral", "status": "active", "bandwidth": "saturated"}
+  ]
+}

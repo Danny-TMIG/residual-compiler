@@ -1,0 +1,16 @@
+{
+  "_default": {"root": "src"},
+  "filesystem-search":  {"pattern": "*.py", "root": "src"},
+  "regex-search":       {"pattern": "def ", "path": "src/tools.py"},
+  "repository-search":  {"pattern": "*.py", "root": "src"},
+  "lexical-search":     {"query": "dispatch", "root": "src"},
+  "semantic-search":    {"query": "dispatch evidence", "root": "src"},
+  "log-search":         {"pattern": ".", "path": "evidence.log"},
+  "symbol-search":      {"symbol": "dispatch", "root": "src"},
+  "inventory-files":    {"root": "src"},
+  "inventory-symbols":  {"root": "src"},
+  "inventory-modules":  {"root": "src"},
+  "inventory-dependencies": {"path": "requirements.txt"},
+  "detect-dead-code":   {"root": "src"},
+  "detect-duplicate-code": {"root": "src"}
+}

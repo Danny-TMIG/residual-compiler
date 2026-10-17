@@ -1,0 +1,169 @@
+{
+  "Searcher": [
+    "filesystem-search",
+    "repository-search",
+    "lexical-search",
+    "semantic-search"
+  ],
+  "Scout": [
+    "filesystem-search",
+    "repository-search",
+    "searching"
+  ],
+  "Retriever": [
+    "filesystem-search",
+    "regex-search",
+    "semantic-search",
+    "evidence-search"
+  ],
+  "Intent Listener": [
+    "capture-intent",
+    "parse-intent",
+    "normalize-intent",
+    "disambiguate-intent",
+    "mirror-intent"
+  ],
+  "Intent Parser": [
+    "capture-intent",
+    "parse-intent",
+    "normalize-intent"
+  ],
+  "Intent Normalizer": [
+    "capture-intent",
+    "parse-intent",
+    "normalize-intent"
+  ],
+  "Intent Reconciler": [
+    "capture-intent",
+    "parse-intent",
+    "reconcile-intent"
+  ],
+  "Intent Mirror": [
+    "capture-intent",
+    "parse-intent",
+    "mirror-intent"
+  ],
+  "Intent Contract Builder": [
+    "capture-intent",
+    "parse-intent",
+    "normalize-intent",
+    "formalize-intent",
+    "version-intent"
+  ],
+  "Intent Disambiguator": [
+    "capture-intent",
+    "parse-intent",
+    "disambiguate-intent"
+  ],
+  "Decomposer": [
+    "capture-intent",
+    "parse-intent",
+    "decompose-work"
+  ],
+  "Dependency Planner": [
+    "capture-intent",
+    "parse-intent",
+    "decompose-work",
+    "build-task-graph",
+    "sequence-work"
+  ],
+  "Planner": [
+    "capture-intent",
+    "parse-intent",
+    "decompose-work",
+    "prioritize-work",
+    "estimate-complexity"
+  ],
+  "Work Graph Builder": [
+    "capture-intent",
+    "parse-intent",
+    "decompose-work",
+    "build-task-graph"
+  ],
+  "Constraint Extractor": [
+    "capture-intent",
+    "parse-intent",
+    "create-constraints",
+    "create-assumptions"
+  ],
+  "Assumption Extractor": [
+    "capture-intent",
+    "parse-intent",
+    "create-assumptions"
+  ],
+  "Requirement Elicitor": [
+    "capture-intent",
+    "parse-intent",
+    "map-intent-to-requirements"
+  ],
+  "Authority Evaluator": [
+    "capture-intent",
+    "parse-intent",
+    "authority-check"
+  ],
+  "Permission Evaluator": [
+    "capture-intent",
+    "parse-intent",
+    "permission-check"
+  ],
+  "Policy Evaluator": [
+    "capture-intent",
+    "parse-intent",
+    "policy-check"
+  ],
+  "Resource Planner": [
+    "capture-intent",
+    "parse-intent",
+    "decompose-work",
+    "allocate-work"
+  ],
+  "Builder": [
+    "capture-intent",
+    "parse-intent",
+    "decompose-work",
+    "build-artifact"
+  ],
+  "Monitor": [
+    "log-search"
+  ],
+  "Root-Cause Analyst": [
+    "root-cause-analysis"
+  ],
+  "Repairer": [
+    "patch-file"
+  ],
+  "Tester": [
+    "unit-testing"
+  ],
+  "Verifier": [
+    "qualify",
+    "artifact-compare"
+  ],
+  "Validator": [
+    "validation"
+  ],
+  "Qualification Assessor": [
+    "assess-qualification"
+  ],
+  "Artifact Attestor": [
+    "artifact-attest"
+  ],
+  "Evidence Producer": [
+    "evidence-hash",
+    "evidence-capture",
+    "evidence-query"
+  ],
+  "Release Gate": [
+    "release-verification"
+  ],
+  "Deployment Operator": [
+    "deployment"
+  ],
+  "Operator": [
+    "runbook-execution",
+    "health-check"
+  ],
+  "Knowledge Curator": [
+    "retain-lessons"
+  ]
+}
