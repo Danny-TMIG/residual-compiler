@@ -140,3 +140,18 @@ missing, the user who knows what they wanted.
 The pipeline is the set of mechanizable observers. The observer's judgment is
 the set of non-mechanizable observers. The full guarantee is the union. The
 apex is the boundary between them.
+
+## Appendix — the two classes that close by hand
+
+### Class 13 — completeness, established by an external reader
+
+An external reader checks that this document enumerates what is actually
+there: the jobs in `ci.yml`, the hooks in `.pre-commit-config.yaml`, the
+levels in `apex/`, the mechanisms named for each class. If the enumeration
+matches, Class 13 is established for this snapshot. If it does not, the
+document is wrong, not the pipeline.
+
+### Class 14 — correctness, established by the user
+
+The user decides that `v1.2.1` is the artifact they wanted to ship. No
+automation can make that decision. It is the terminal class by construction.
