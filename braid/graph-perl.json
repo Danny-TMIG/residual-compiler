@@ -1,61 +1,61 @@
 {
-   "edges" : [
-      {
-         "condition" : {},
-         "to" : "n-1792266515-963357",
-         "from" : "n-1792266515-776882"
-      },
-      {
-         "condition" : {},
-         "to" : "n-1792266515-264232",
-         "from" : "n-1792266515-963357"
-      },
-      {
-         "to" : "n-1792266515-938115",
-         "condition" : {},
-         "from" : "n-1792266515-264232"
-      },
-      {
-         "from" : "n-1792266515-938115",
-         "to" : "n-1792266515-508277",
-         "condition" : {}
-      }
-   ],
    "nodes" : [
       {
-         "status" : "PENDING",
          "outputs" : {},
+         "status" : "PENDING",
+         "inputs" : {},
          "operator" : "maintain_distance",
-         "inputs" : {},
-         "id" : "n-1792266515-776882"
+         "id" : "n-1792266572-262625"
       },
       {
-         "status" : "PENDING",
-         "inputs" : {},
-         "id" : "n-1792266515-963357",
-         "operator" : "track_target",
-         "outputs" : {}
-      },
-      {
-         "status" : "PENDING",
-         "inputs" : {},
-         "id" : "n-1792266515-264232",
          "outputs" : {},
-         "operator" : "detect_armor"
+         "status" : "PENDING",
+         "inputs" : {},
+         "id" : "n-1792266572-937723",
+         "operator" : "track_target"
       },
       {
+         "outputs" : {},
+         "status" : "PENDING",
+         "operator" : "detect_armor",
+         "id" : "n-1792266572-636938",
+         "inputs" : {}
+      },
+      {
+         "outputs" : {},
+         "status" : "PENDING",
+         "id" : "n-1792266572-164427",
          "operator" : "prioritize_target",
-         "outputs" : {},
-         "inputs" : {},
-         "id" : "n-1792266515-938115",
-         "status" : "PENDING"
+         "inputs" : {}
       },
       {
-         "status" : "PENDING",
-         "id" : "n-1792266515-508277",
-         "inputs" : {},
+         "id" : "n-1792266572-330533",
          "operator" : "engage_anti_armor",
+         "inputs" : {},
+         "status" : "PENDING",
          "outputs" : {}
+      }
+   ],
+   "edges" : [
+      {
+         "to" : "n-1792266572-937723",
+         "condition" : {},
+         "from" : "n-1792266572-262625"
+      },
+      {
+         "from" : "n-1792266572-937723",
+         "condition" : {},
+         "to" : "n-1792266572-636938"
+      },
+      {
+         "to" : "n-1792266572-164427",
+         "condition" : {},
+         "from" : "n-1792266572-636938"
+      },
+      {
+         "from" : "n-1792266572-164427",
+         "to" : "n-1792266572-330533",
+         "condition" : {}
       }
    ]
 }
