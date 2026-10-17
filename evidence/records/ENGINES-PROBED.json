@@ -1,7 +1,7 @@
 {
   "schema": "engines/probed/v1",
   "total": 103,
-  "available": 70,
+  "available": 71,
   "missing": [
     "powershell",
     "dart",
@@ -19,7 +19,6 @@
     "nix",
     "maven",
     "composer",
-    "postgres",
     "influxdb",
     "grafana",
     "openai",
@@ -1536,8 +1535,8 @@
         "exec:postgres"
       ],
       "capabilities_required": [],
-      "state": "PENDING",
-      "available": false
+      "state": "READY",
+      "available": true
     },
     {
       "id": "engine:mysql",

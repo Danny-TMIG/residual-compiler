@@ -38,7 +38,7 @@
       "layer": 4,
       "invariant": "deterministic_replay",
       "falsify": "two_runs_differ",
-      "state": "REFUTED"
+      "state": "RUNNING"
     },
     "app:5ea33119-f43c-514c-a9d7-cec8bf84f648": {
       "class": "app",
@@ -694,7 +694,7 @@
       "layer": 4,
       "invariant": "engine_available",
       "falsify": "cmd_not_found",
-      "state": "PENDING"
+      "state": "READY"
     },
     "engine:mysql": {
       "class": "data",
@@ -966,7 +966,7 @@
       "node": "runtime:8090503e-527b-5b91-ae41-e89554b1df11",
       "invariant_passed": true,
       "falsify_attempted": true,
-      "falsify_fired": true,
+      "falsify_fired": false,
       "payload_hash": "deadbeef"
     },
     "E5": {
@@ -1538,9 +1538,9 @@
     },
     "E:postgres": {
       "node": "engine:postgres",
-      "invariant_passed": false,
+      "invariant_passed": true,
       "falsify_attempted": true,
-      "falsify_fired": true,
+      "falsify_fired": false,
       "payload_hash": ""
     },
     "E:mysql": {

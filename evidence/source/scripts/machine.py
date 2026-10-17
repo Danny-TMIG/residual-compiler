@@ -137,10 +137,28 @@ def build_demo():
     ids = [canonical_id(c,n) for _,c,n in layers]
     for i in range(len(ids)-1):
         m.relate("depends_on", ids[i+1], ids[i], f"E{i}")
+    import subprocess
+    def apex_runner_deterministic():
+        """Run apex/runner.py twice; True iff outputs match."""
+        script = APEX / "runner.py"
+        if not script.exists():
+            return False
+        try:
+            r1 = subprocess.run([sys.executable, str(script)],
+                                capture_output=True, timeout=15)
+            r2 = subprocess.run([sys.executable, str(script)],
+                                capture_output=True, timeout=15)
+            return r1.returncode == 0 and r2.returncode == 0 and r1.stdout == r2.stdout
+        except Exception:
+            return False
+
     for layer,cls,name in layers:
         nid = canonical_id(cls,name)
-        ev = Evidence(node=nid,invariant_passed=True,falsify_attempted=True,
-                      falsify_fired=(layer==4),payload_hash="deadbeef",
+        fired = False
+        if layer == 4:  # apex_runner — actually run the determinism probe
+            fired = not apex_runner_deterministic()
+        ev = Evidence(node=nid,invariant_passed=not fired,falsify_attempted=True,
+                      falsify_fired=fired,payload_hash="deadbeef",
                       timestamp="2026-10-17T00:00:00Z",attestor="harness")
         m.evidence[f"E{layer}"] = ev
         m.nodes[nid].state = State.RUNNING

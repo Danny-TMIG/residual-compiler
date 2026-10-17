@@ -62,7 +62,7 @@ def main():
 
     rows, refuted = [], []
     for name, spec in crafts_iter:
-        node = nodes.get(spec["gate"], {})
+        node = nodes.get(spec["gate"]) or nodes.get(f"engine:{spec['gate']}") or {}
         status = node.get("status") or node.get("state")
         gate_ok = status in ("RUNNING", "READY")
 

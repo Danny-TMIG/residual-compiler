@@ -70,23 +70,23 @@
       "craft": "data",
       "gate": "postgres",
       "inv": "engine_available",
-      "gate_status": "PENDING",
+      "gate_status": "READY",
       "witness": "idempotency",
       "witness_rc": 0,
       "witness_verdict": null,
       "invariant_proven": true,
-      "pass": false
+      "pass": true
     },
     {
       "craft": "security",
       "gate": "apex_runner",
       "inv": "deterministic_replay",
-      "gate_status": "REFUTED",
+      "gate_status": "RUNNING",
       "witness": "counterexample",
       "witness_rc": 0,
       "witness_verdict": null,
       "invariant_proven": true,
-      "pass": false
+      "pass": true
     },
     {
       "craft": "verification",
@@ -111,8 +111,8 @@
       "pass": true
     }
   ],
-  "covered": 7,
+  "covered": 9,
   "invariants_proven": 10,
   "total": 10,
-  "verdict": "REFUTED:protocol,data,security"
+  "verdict": "REFUTED:protocol"
 }
