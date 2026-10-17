@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python: ${{ fromJSON(env.PYTHON_VERSIONS) }}
+        python: ["3.11", "3.12"]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
