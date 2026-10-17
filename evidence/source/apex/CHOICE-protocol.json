@@ -1,0 +1,9 @@
+{
+  "role": "protocol",
+  "choice": "spec: TLA+",
+  "candidates": [
+    "spec: TLA+",
+    "spec: P",
+    "spec: Alloy"
+  ]
+}

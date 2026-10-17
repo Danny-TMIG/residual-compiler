@@ -1,0 +1,95 @@
+{
+  "nodes": [
+    {
+      "evidence": [],
+      "host": "ci-ubuntu",
+      "id": "n-parser-1",
+      "policy": "H01",
+      "type": "H01"
+    },
+    {
+      "evidence": [],
+      "host": "ci-macos",
+      "id": "n-parser-2",
+      "policy": "H01",
+      "type": "H01"
+    },
+    {
+      "evidence": [
+        "n-parser-1"
+      ],
+      "host": "ci-ubuntu",
+      "id": "n-mypy-1",
+      "policy": "H02",
+      "type": "H02"
+    },
+    {
+      "evidence": [
+        "n-parser-2"
+      ],
+      "host": "ci-macos",
+      "id": "n-mypy-2",
+      "policy": "H02",
+      "type": "H02"
+    },
+    {
+      "evidence": [
+        "n-mypy-1"
+      ],
+      "host": "ci-ubuntu",
+      "id": "n-pytest-1",
+      "policy": "H04",
+      "type": "H04"
+    },
+    {
+      "evidence": [
+        "n-mypy-2"
+      ],
+      "host": "ci-macos",
+      "id": "n-pytest-2",
+      "policy": "H04",
+      "type": "H04"
+    },
+    {
+      "choice": "interface: A-B-C",
+      "evidence": [
+        "n-pytest-1"
+      ],
+      "host": "ci-ubuntu",
+      "id": "n-arch-1",
+      "policy": "H05",
+      "type": "H05"
+    },
+    {
+      "choice": "interface: A-B-C",
+      "evidence": [
+        "n-pytest-2"
+      ],
+      "host": "ci-macos",
+      "id": "n-arch-2",
+      "policy": "H05",
+      "type": "H05"
+    },
+    {
+      "decision": "ship",
+      "evidence": [
+        "n-arch-1"
+      ],
+      "host": "release",
+      "id": "n-cto-1",
+      "policy": "H12",
+      "type": "H12"
+    },
+    {
+      "decision": "ship",
+      "evidence": [
+        "n-arch-2"
+      ],
+      "host": "release",
+      "id": "n-cto-2",
+      "policy": "H12",
+      "type": "H12"
+    }
+  ],
+  "schema": "mycelium/nodes/v1"
+}

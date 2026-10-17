@@ -1,0 +1,9 @@
+{
+  "role": "systems",
+  "choice": "protocol: request/response",
+  "candidates": [
+    "protocol: request/response",
+    "protocol: pub/sub",
+    "protocol: stream"
+  ]
+}

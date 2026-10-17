@@ -1,0 +1,298 @@
+{
+  "chores": [
+    "parse",
+    "validate",
+    "auth",
+    "authorize",
+    "rate",
+    "sanitize",
+    "dedup",
+    "trace",
+    "quota",
+    "circuit",
+    "queue",
+    "serialize",
+    "sign",
+    "redact",
+    "compress",
+    "retry",
+    "circuit_open",
+    "log",
+    "trace_end",
+    "meter",
+    "audit",
+    "dlq"
+  ],
+  "coverage": {
+    "down": 11,
+    "left": 20,
+    "right": 22,
+    "total": 64,
+    "up": 11
+  },
+  "directions": [
+    "up",
+    "down",
+    "left",
+    "right"
+  ],
+  "grid": {
+    "down:audit": {
+      "handler": "worm_append",
+      "on_fail": "log"
+    },
+    "down:circuit_open": {
+      "handler": "record_failure",
+      "on_fail": "log"
+    },
+    "down:compress": {
+      "handler": "gzip",
+      "on_fail": "send_raw"
+    },
+    "down:dlq": {
+      "handler": "dead_letter",
+      "on_fail": "ignore"
+    },
+    "down:log": {
+      "handler": "egress_log",
+      "on_fail": "ignore"
+    },
+    "down:meter": {
+      "handler": "count_tokens",
+      "on_fail": "ignore"
+    },
+    "down:redact": {
+      "handler": "mask_pii",
+      "on_fail": "500"
+    },
+    "down:retry": {
+      "handler": "backoff_retry",
+      "on_fail": "dlq"
+    },
+    "down:serialize": {
+      "handler": "to_json",
+      "on_fail": "500"
+    },
+    "down:sign": {
+      "handler": "ed25519_sign",
+      "on_fail": "500"
+    },
+    "down:trace_end": {
+      "handler": "close_span",
+      "on_fail": "ignore"
+    },
+    "left:audit": {
+      "handler": "mesh_audit",
+      "on_fail": "log"
+    },
+    "left:auth": {
+      "handler": "mtls_verify",
+      "on_fail": "drop"
+    },
+    "left:authorize": {
+      "handler": "check_peer_role",
+      "on_fail": "drop"
+    },
+    "left:circuit": {
+      "handler": "check_peer_circuit",
+      "on_fail": "isolate_peer"
+    },
+    "left:circuit_open": {
+      "handler": "record_peer_fail",
+      "on_fail": "log"
+    },
+    "left:dedup": {
+      "handler": "gossip_dedup",
+      "on_fail": "drop_dup"
+    },
+    "left:dlq": {
+      "handler": "peer_dlq",
+      "on_fail": "ignore"
+    },
+    "left:log": {
+      "handler": "mesh_log",
+      "on_fail": "ignore"
+    },
+    "left:meter": {
+      "handler": "count_bytes",
+      "on_fail": "ignore"
+    },
+    "left:parse": {
+      "handler": "parse_peer_msg",
+      "on_fail": "drop"
+    },
+    "left:queue": {
+      "handler": "gossip_buffer",
+      "on_fail": "buffer"
+    },
+    "left:quota": {
+      "handler": "per_peer_budget",
+      "on_fail": "reject_peer"
+    },
+    "left:rate": {
+      "handler": "per_peer_bucket",
+      "on_fail": "throttle_peer"
+    },
+    "left:retry": {
+      "handler": "peer_retry",
+      "on_fail": "peer_dlq"
+    },
+    "left:sanitize": {
+      "handler": "strip_peer_danger",
+      "on_fail": "drop"
+    },
+    "left:serialize": {
+      "handler": "wire_format",
+      "on_fail": "drop"
+    },
+    "left:sign": {
+      "handler": "mtls_sign",
+      "on_fail": "drop"
+    },
+    "left:trace": {
+      "handler": "span_link",
+      "on_fail": "new_span"
+    },
+    "left:trace_end": {
+      "handler": "span_close",
+      "on_fail": "ignore"
+    },
+    "left:validate": {
+      "handler": "verify_mtls_cert",
+      "on_fail": "drop"
+    },
+    "right:audit": {
+      "handler": "federation_audit",
+      "on_fail": "log"
+    },
+    "right:auth": {
+      "handler": "oidc_verify",
+      "on_fail": "reject_401"
+    },
+    "right:authorize": {
+      "handler": "check_federation_acl",
+      "on_fail": "reject_403"
+    },
+    "right:circuit": {
+      "handler": "check_fed_circuit",
+      "on_fail": "reject_503"
+    },
+    "right:circuit_open": {
+      "handler": "record_fed_fail",
+      "on_fail": "log"
+    },
+    "right:compress": {
+      "handler": "gzip",
+      "on_fail": "send_raw"
+    },
+    "right:dedup": {
+      "handler": "federation_dedup",
+      "on_fail": "replay_200"
+    },
+    "right:dlq": {
+      "handler": "fed_dlq",
+      "on_fail": "ignore"
+    },
+    "right:log": {
+      "handler": "federation_log",
+      "on_fail": "ignore"
+    },
+    "right:meter": {
+      "handler": "count_bytes",
+      "on_fail": "ignore"
+    },
+    "right:parse": {
+      "handler": "parse_federation",
+      "on_fail": "reject_400"
+    },
+    "right:queue": {
+      "handler": "federation_queue",
+      "on_fail": "accept_202"
+    },
+    "right:quota": {
+      "handler": "per_fed_budget",
+      "on_fail": "reject_402"
+    },
+    "right:rate": {
+      "handler": "per_fed_bucket",
+      "on_fail": "reject_429"
+    },
+    "right:redact": {
+      "handler": "mask_fed_pii",
+      "on_fail": "500"
+    },
+    "right:retry": {
+      "handler": "federation_retry",
+      "on_fail": "fed_dlq"
+    },
+    "right:sanitize": {
+      "handler": "strip_fed_danger",
+      "on_fail": "reject_400"
+    },
+    "right:serialize": {
+      "handler": "federation_format",
+      "on_fail": "500"
+    },
+    "right:sign": {
+      "handler": "x509_sign",
+      "on_fail": "500"
+    },
+    "right:trace": {
+      "handler": "trace_propagation",
+      "on_fail": "new_trace"
+    },
+    "right:trace_end": {
+      "handler": "trace_close",
+      "on_fail": "ignore"
+    },
+    "right:validate": {
+      "handler": "federation_schema",
+      "on_fail": "reject_422"
+    },
+    "up:auth": {
+      "handler": "verify_jwt",
+      "on_fail": "reject_401"
+    },
+    "up:authorize": {
+      "handler": "check_capability",
+      "on_fail": "reject_403"
+    },
+    "up:circuit": {
+      "handler": "check_inbound",
+      "on_fail": "reject_503"
+    },
+    "up:dedup": {
+      "handler": "idempotency_key",
+      "on_fail": "replay_200"
+    },
+    "up:parse": {
+      "handler": "json.loads",
+      "on_fail": "reject_400"
+    },
+    "up:queue": {
+      "handler": "enqueue_if_full",
+      "on_fail": "accept_202"
+    },
+    "up:quota": {
+      "handler": "count_budget",
+      "on_fail": "reject_402"
+    },
+    "up:rate": {
+      "handler": "token_bucket",
+      "on_fail": "reject_429"
+    },
+    "up:sanitize": {
+      "handler": "strip_dangerous",
+      "on_fail": "reject_400"
+    },
+    "up:trace": {
+      "handler": "assign_request_id",
+      "on_fail": "generate_uuid"
+    },
+    "up:validate": {
+      "handler": "schema_check",
+      "on_fail": "reject_422"
+    }
+  },
+  "schema": "streams/v1"
+}

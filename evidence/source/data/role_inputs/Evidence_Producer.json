@@ -1,0 +1,9 @@
+{
+  "_default": {"root": "src", "path": "src/tools.py"},
+  "evidence-hash":        {"path": "src/tools.py"},
+  "artifact-hash":        {"path": "src/tools.py"},
+  "evidence-capture":     {"payload": {"note": "role run", "scope": "src"}},
+  "evidence-store":       {"payload": {"note": "role run"}},
+  "evidence-query":       {"pattern": "role"},
+  "evidence-verify":      {"path": "src/tools.py", "sha256": "PLACEHOLDER"}
+}

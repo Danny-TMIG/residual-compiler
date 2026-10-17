@@ -1,0 +1,14 @@
+{
+  "actors": [
+    {"id": "ci-bot",       "role": "ci",      "authorities": ["change_approved"]},
+    {"id": "sre-oncall",   "role": "sre",     "authorities": ["change_approved","incident_free"]},
+    {"id": "release-mgr",  "role": "release", "authorities": ["change_approved","incident_free","release_signed"]},
+    {"id": "analyst",      "role": "analyst", "authorities": []}
+  ],
+  "roles": {
+    "ci":       ["change_approved"],
+    "sre":      ["change_approved","incident_free"],
+    "release":  ["change_approved","incident_free","release_signed"],
+    "analyst":  []
+  }
+}

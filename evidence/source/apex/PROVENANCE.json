@@ -1,0 +1,28 @@
+{
+  "records": 3,
+  "violations": [],
+  "verdict": "VALID",
+  "chain": [
+    {
+      "hash": "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
+      "data_len": 11,
+      "ts": "2026-10-17T20:11:05Z"
+    },
+    {
+      "hash": "3056d81c335ac85905ef4c3dbef9cf7c5e1e895cd840a74d59a27f999e3c582f",
+      "op": "TRANSFORM",
+      "inputs": [
+        "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9"
+      ],
+      "ts": "2026-10-17T20:11:05Z"
+    },
+    {
+      "hash": "7c3816fb199eeae5fde295e8aafdb3f51ea904a57dc1768efc630e8f9154da00",
+      "op": "ATTEST",
+      "inputs": [
+        "3056d81c335ac85905ef4c3dbef9cf7c5e1e895cd840a74d59a27f999e3c582f"
+      ],
+      "ts": "2026-10-17T20:11:05Z"
+    }
+  ]
+}
