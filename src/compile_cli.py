@@ -11,6 +11,7 @@ from . import task_compiler, flow, contracts
 
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
     MAX_QUERY_BYTES = 64 * 1024
     if not argv or not any(a.strip() for a in argv):
         raise ValueError("empty query")
