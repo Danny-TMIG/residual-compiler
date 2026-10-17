@@ -92,3 +92,24 @@ CROSSCUT-*.json
 TAPEOUT-*.json
 TAPEOUT-PARALLEL.json
 apex/APEX-LATEST.json
+
+# generated
+SPEC.json
+
+# exploration (tracked if you want them, otherwise ignore)
+# iterations/
+# stubfree/
+# parse_spec.py
+
+# generated
+SPEC.json
+
+# exploration (tracked if you want them, otherwise ignore)
+# iterations/
+# stubfree/
+# parse_spec.py
+
+# exploration artifacts (not source of truth)
+iterations/
+stubfree/
+parse_spec.py
