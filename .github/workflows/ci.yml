@@ -10,15 +10,14 @@ jobs:
           python-version: "3.12"
       - name: install
         run: |
-          python -m venv .venv
-          . .venv/bin/activate
-          pip install -e ".[dev]" 2>/dev/null || pip install pytest sentencepiece
+          python -m pip install --upgrade pip
+          python -m pip install -e . pytest pyyaml sentencepiece
       - name: seed
         run: python -m src.cli seed
       - name: verify-chain
         run: python -m src.cli verify
       - name: test
-        run: pytest -q
+        run: python -m pytest -q
       - name: policy-validate
         run: python -m src.policy_builder_cli validate
       - name: smoke-compile
