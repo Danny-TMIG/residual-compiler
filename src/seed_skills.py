@@ -46,7 +46,7 @@ def main():
     con.row_factory = sqlite3.Row
     rows = con.execute("SELECT * FROM items WHERE kind='skill'").fetchall()
     con.close()
-    for r in rows:
+    for r in sorted(rows, key=lambda r: r['slug'] or r['id'] or ''):
         impl = IMPL.get(r["slug"], "")
         sub = "-".join(r["subsection"].lower().split()) if r["subsection"] else "root"
         qid = f"{r['slug']}__{sub}"
@@ -76,6 +76,10 @@ def main():
         "SELECT COUNT(*) FROM skills WHERE json_extract(contract,'$.impl') <> ''"
     ).fetchone()[0]
     total = c2.execute("SELECT COUNT(*) FROM skills").fetchone()[0]
+    import hashlib as _h
+    _db = __import__("pathlib").Path("data/skills.sqlite")
+    if _db.exists():
+        _db.with_suffix(".sqlite.sha256").write_text(_h.sha256(_db.read_bytes()).hexdigest() + "\n")
     print(f"seeded {total} skills, {bound} bound  (+{n_slugs} new mappings from bind_all)")
 
 
