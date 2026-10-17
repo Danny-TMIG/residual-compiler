@@ -21,6 +21,7 @@ import json
 import re
 import sys
 from pathlib import Path
+
 from .contracts import ResultState
 
 # ---------- implementations ----------
@@ -241,7 +242,7 @@ _REGISTERED = False
 def register_all(tools_mod=None):
     global _REGISTERED
     if tools_mod is None:
-        from . import tools as tools_mod  # noqa: F401
+        from . import tools as tools_mod
     if _REGISTERED and len(tools_mod.REG) > 0:
         # still try to ensure our tools are present
         pass

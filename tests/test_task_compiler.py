@@ -1,4 +1,5 @@
 import pytest
+
 from src.task_compiler import compile_task
 
 

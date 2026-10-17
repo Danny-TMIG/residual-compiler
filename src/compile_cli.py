@@ -1,5 +1,6 @@
 import json
 import sys
+
 from .task_compiler import compile_task
 
 

@@ -1,4 +1,4 @@
-from src.policy import evaluate, _match
+from src.policy import _match, evaluate
 
 
 def test_exact():

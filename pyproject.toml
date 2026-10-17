@@ -13,3 +13,13 @@ where = ["."]
 include = ["src*"]
 [tool.pytest.ini_options]
 filterwarnings = ["error::DeprecationWarning"]
+
+[tool.ruff.lint]
+# Deliberate patterns in this codebase:
+# - BLE001: blind except Exception at error boundaries (runtime.py, gateway.py)
+# - E701: single-line if/return in hot paths
+ignore = ['BLE001', 'PERF102', 'PIE810', 'PLR1704', 'PLW1510', 'RUF007', 'S110', 'S112']
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["BLE001", "E701", "S101"]
+"scripts/*" = ["BLE001"]

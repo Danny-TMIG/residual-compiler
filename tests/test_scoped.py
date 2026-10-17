@@ -1,4 +1,4 @@
-from src import scoped, tools, bind_all
+from src import bind_all, scoped, tools
 
 
 def test_def():

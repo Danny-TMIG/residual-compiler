@@ -6,15 +6,16 @@ Each entry: (skill_slug, tool_name, schema, fn)
 The tool_fn is registered under tool_name; seed_skills maps skill_slug -> tool_name.
 """
 
-import json
-import re
-import hashlib
 import base64
 import csv
+import hashlib
 import io
+import json
+import re
 import subprocess
 import tomllib
 from pathlib import Path
+
 from .contracts import ResultState
 
 # ---------- implementations ----------
@@ -162,7 +163,7 @@ def t_inventory_dependencies(i, ctx):
 def t_detect_dead_code(i, ctx):
     root = i.get("root", ".")
     all_text = "\n".join(_read(f) for f in _walk(root) if f.suffix == ".py")
-    rx = re.compile(r"^\s*(?:def|class)\s+([A-Za-z_][\w]*)", re.M)
+    rx = re.compile(r"^\s*(?:def|class)\s+([A-Za-z_][\w]*)", re.MULTILINE)
     names = set(rx.findall(all_text))
     unused = sorted(
         n for n in names if len(re.findall(rf"\b{re.escape(n)}\b", all_text)) <= 1
@@ -518,7 +519,7 @@ def register_all(tools_mod=None):
     """
     global _REGISTERED
     if tools_mod is None:
-        from . import tools as tools_mod  # noqa: F401
+        from . import tools as tools_mod
     if _REGISTERED and len(tools_mod.REG) > 0:
         return 0
     n = 0

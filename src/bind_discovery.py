@@ -17,6 +17,7 @@ These do NOT run a language model. They operate on structured dicts.
 """
 
 from pathlib import Path
+
 from .contracts import ResultState
 
 # ---------- discovery ----------
@@ -71,7 +72,7 @@ def _intent_to_tasks(intent):
     if not parts:
         parts = [req]
     return [
-        {"id": f"t{n+1}", "description": p, "status": "pending"}
+        {"id": f"t{n + 1}", "description": p, "status": "pending"}
         for n, p in enumerate(parts)
     ]
 
@@ -161,7 +162,7 @@ def t_parallelize_work(i, ctx):
     # partition by explicit 'phase' if present, else one bucket per task (serial)
     phases = {}
     for t in tasks:
-        ph = t.get("phase", f"serial-{t.get('id','?')}")
+        ph = t.get("phase", f"serial-{t.get('id', '?')}")
         phases.setdefault(ph, []).append(t.get("id"))
     return {
         "result_state": ResultState.PASS.value,
@@ -217,7 +218,7 @@ _REGISTERED = False
 def register_all(tools_mod=None):
     global _REGISTERED
     if tools_mod is None:
-        from . import tools as tools_mod  # noqa: F401
+        from . import tools as tools_mod
     n = 0
     for name, fn in IMPLS.items():
         if name in tools_mod.REG:

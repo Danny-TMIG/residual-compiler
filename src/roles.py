@@ -12,8 +12,9 @@ import json
 import sqlite3
 import time
 from pathlib import Path
-from .contracts import ResultState
+
 from . import dispatch, tools
+from .contracts import ResultState
 
 ATLAS = Path("data/atlas/atlas.sqlite")
 SKILLS = Path("data/skills.sqlite")
@@ -161,7 +162,7 @@ def role_skills(role):
         skill_subs = SUBSECTION_ALIASES.get(role_sub, [])
         ph = ",".join("?" * len(skill_subs)) if skill_subs else "''"
         rows = con.execute(
-            f"SELECT slug,subsection FROM items WHERE kind='skill' "
+            f"SELECT slug,subsection FROM items WHERE kind='skill' "  # nosec B608 — parameterized via ? placeholders; f-string contains only placeholder count
             f"AND subsection IN ({ph})",
             skill_subs,
         ).fetchall()

@@ -57,7 +57,7 @@ def build(rules, default="DENY"):
     for r in rules:
         e = validate_rule(r)
         if e:
-            errs.append(f"{r.get('id','<no-id>')}: {e}")
+            errs.append(f"{r.get('id', '<no-id>')}: {e}")
         rid = r.get("id")
         if rid in seen:
             errs.append(f"duplicate id {rid!r}")

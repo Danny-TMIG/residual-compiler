@@ -1,6 +1,6 @@
 from src.contracts import (
-    SkillContract,
     ResultState,
+    SkillContract,
     normalize_result,
     validate_contract,
 )

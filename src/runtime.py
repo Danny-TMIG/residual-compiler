@@ -8,6 +8,7 @@ Every dispatch passes through run_tool() which cannot be bypassed by tools.
 
 import json
 import signal
+
 from .contracts import ResultState
 
 TIMEOUT_DEFAULT = 30

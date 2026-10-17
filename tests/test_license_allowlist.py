@@ -1,14 +1,16 @@
+import os
 import sys
 from pathlib import Path
 
-import os
 import pytest
 
 _EXT = os.path.expanduser("~/aether/research/train")
 if not os.path.isdir(_EXT):
     pytest.skip("external training tree not available", allow_module_level=True)
 sys.path.insert(0, str(Path.home() / "aether" / "research" / "train"))
-from pipelines import corpus_pipeline as cp  # noqa: E402 — path-dependent import after sys.path.insert
+from pipelines import (
+    corpus_pipeline as cp,
+)
 
 
 def test_cc_by_sa_3_0_allowed():

@@ -1,5 +1,5 @@
-from src.triad import SovereignTriadNode
 from src.telemetry import UnifiedTelemetryFacade
+from src.triad import SovereignTriadNode
 
 
 def test_triad(tmp_path):
