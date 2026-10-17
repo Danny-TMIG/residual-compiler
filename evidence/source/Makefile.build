@@ -6,7 +6,7 @@ build:
 	@test -z "$$(git status --porcelain)" || { echo "FAIL: dirty tree — commit or stash first"; exit 1; }
 	@rm -rf $(BUILD_DIR)
 	@mkdir -p $(BUILD_DIR)/source $(BUILD_DIR)/records $(BUILD_DIR)/records/models
-	@git ls-files -z | grep -zv '^evidence/' | while IFS= read -r -d '' f; do \
+	@git ls-files -z | ( tr '\0' '\n' | grep -v '^evidence/' | tr '\n' '\0' ) | while IFS= read -r -d '' f; do \
 	  mkdir -p "$(BUILD_DIR)/source/$$(dirname "$$f")"; \
 	  cp "$$f" "$(BUILD_DIR)/source/$$f"; \
 	done
