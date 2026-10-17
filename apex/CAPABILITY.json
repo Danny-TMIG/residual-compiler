@@ -1,0 +1,35 @@
+{
+  "provider": {
+    "name": "GenA",
+    "inputs": [
+      "File",
+      "Spec"
+    ],
+    "outputs": [
+      "Artifact",
+      "Hash"
+    ],
+    "layer_bound": 5,
+    "evidence": "ev-gen-a",
+    "errors": [],
+    "valid": true
+  },
+  "consumer": {
+    "name": "UseA",
+    "inputs": [
+      "Artifact"
+    ],
+    "outputs": [
+      "Result"
+    ],
+    "layer_bound": 5,
+    "evidence": "ev-use-a",
+    "errors": [],
+    "valid": true
+  },
+  "compat": {
+    "compatible": true,
+    "provider": "GenA",
+    "consumer": "UseA"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "tx_deterministic": true,
+  "report": {
+    "applied": 1,
+    "dedup": 1,
+    "failed": 0,
+    "total": 2
+  },
+  "log": [
+    {
+      "tx": "tx:0bdb481e3e781e7c",
+      "kind": "applied"
+    },
+    {
+      "tx": "tx:0bdb481e3e781e7c",
+      "kind": "dedup"
+    }
+  ]
+}
