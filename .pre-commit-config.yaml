@@ -1,9 +1,9 @@
 repos:
   - repo: local
     hooks:
-      - id: config-guard
-        name: config-guard (no truncation)
-        entry: python3 apply.py --check-only
+      - id: ruff
+        name: ruff
+        entry: ruff check --fix
         language: system
-        files: '^(\.gitignore|Makefile|pyproject\.toml|\.github/workflows/ci\.yml)$'
+        types: [python]
         pass_filenames: false
