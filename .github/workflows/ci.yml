@@ -9,8 +9,8 @@ jobs:
         python: ["3.11", "3.12"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
       - name: install
@@ -33,7 +33,7 @@ jobs:
           python -c "import json; assert json.load(open('/tmp/o.json'))['compiled']['allowed']"
       - name: upload attestation
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: attestation-${{ matrix.os }}-py${{ matrix.python }}
           path: attestation.json
@@ -43,8 +43,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: install
@@ -64,7 +64,7 @@ jobs:
           shasum -a 256 residual-compiler-*.tgz > SHA256SUMS 2>/dev/null || \
             sha256sum residual-compiler-*.tgz > SHA256SUMS
       - name: release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             residual-compiler-*.tgz
