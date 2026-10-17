@@ -53,5 +53,11 @@
     "gpg --verify residual-compiler-a1cae42.tgz.asc residual-compiler-a1cae42.tgz",
     "shasum -a 256 -c residual-compiler-a1cae42.tgz.sha256",
     "tar -tzf residual-compiler-a1cae42.tgz | wc -l  # expect 338"
-  ]
+  ],
+  "attestation": {
+    "predicate_type": "https://slsa.dev/provenance/v1",
+    "uri_file": "dist/ATTESTATION-URI.json",
+    "verify": "gh attestation verify residual-compiler-a1cae42.tgz --repo Danny-TMIG/residual-compiler --source-ref refs/tags/v1.0.0-a1cae42",
+    "api": "https://api.github.com/repos/Danny-TMIG/residual-compiler/attestations/sha256:2f61a5f65cc95235b8de1565b1a4d529a17c4c409d08d1e630739354fe03eb7d"
+  }
 }
