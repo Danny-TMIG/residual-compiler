@@ -1,0 +1,61 @@
+{
+   "edges" : [
+      {
+         "condition" : {},
+         "to" : "n-1792266515-963357",
+         "from" : "n-1792266515-776882"
+      },
+      {
+         "condition" : {},
+         "to" : "n-1792266515-264232",
+         "from" : "n-1792266515-963357"
+      },
+      {
+         "to" : "n-1792266515-938115",
+         "condition" : {},
+         "from" : "n-1792266515-264232"
+      },
+      {
+         "from" : "n-1792266515-938115",
+         "to" : "n-1792266515-508277",
+         "condition" : {}
+      }
+   ],
+   "nodes" : [
+      {
+         "status" : "PENDING",
+         "outputs" : {},
+         "operator" : "maintain_distance",
+         "inputs" : {},
+         "id" : "n-1792266515-776882"
+      },
+      {
+         "status" : "PENDING",
+         "inputs" : {},
+         "id" : "n-1792266515-963357",
+         "operator" : "track_target",
+         "outputs" : {}
+      },
+      {
+         "status" : "PENDING",
+         "inputs" : {},
+         "id" : "n-1792266515-264232",
+         "outputs" : {},
+         "operator" : "detect_armor"
+      },
+      {
+         "operator" : "prioritize_target",
+         "outputs" : {},
+         "inputs" : {},
+         "id" : "n-1792266515-938115",
+         "status" : "PENDING"
+      },
+      {
+         "status" : "PENDING",
+         "id" : "n-1792266515-508277",
+         "inputs" : {},
+         "operator" : "engage_anti_armor",
+         "outputs" : {}
+      }
+   ]
+}

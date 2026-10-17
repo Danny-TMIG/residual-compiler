@@ -1,0 +1,61 @@
+{
+  "nodes": [
+    {
+      "id": "be9ab846-1529-4e63-83cf-086d7c598317",
+      "operator": "maintain_distance",
+      "inputs": {},
+      "outputs": {},
+      "status": "PENDING"
+    },
+    {
+      "id": "378c728f-145a-4a4b-b9db-7cf90588e2ae",
+      "operator": "track_target",
+      "inputs": {},
+      "outputs": {},
+      "status": "PENDING"
+    },
+    {
+      "id": "0a41cd05-b8ad-4299-9a0f-7cf73ff80233",
+      "operator": "detect_armor",
+      "inputs": {},
+      "outputs": {},
+      "status": "PENDING"
+    },
+    {
+      "id": "821996a5-04f0-48aa-a20f-f19b83a46172",
+      "operator": "prioritize_target",
+      "inputs": {},
+      "outputs": {},
+      "status": "PENDING"
+    },
+    {
+      "id": "f3204f6b-64b4-4d8b-919a-782289981ce8",
+      "operator": "engage_anti_armor",
+      "inputs": {},
+      "outputs": {},
+      "status": "PENDING"
+    }
+  ],
+  "edges": [
+    {
+      "from": "be9ab846-1529-4e63-83cf-086d7c598317",
+      "to": "378c728f-145a-4a4b-b9db-7cf90588e2ae",
+      "condition": {}
+    },
+    {
+      "from": "378c728f-145a-4a4b-b9db-7cf90588e2ae",
+      "to": "0a41cd05-b8ad-4299-9a0f-7cf73ff80233",
+      "condition": {}
+    },
+    {
+      "from": "0a41cd05-b8ad-4299-9a0f-7cf73ff80233",
+      "to": "821996a5-04f0-48aa-a20f-f19b83a46172",
+      "condition": {}
+    },
+    {
+      "from": "821996a5-04f0-48aa-a20f-f19b83a46172",
+      "to": "f3204f6b-64b4-4d8b-919a-782289981ce8",
+      "condition": {}
+    }
+  ]
+}
