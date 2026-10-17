@@ -1,0 +1,118 @@
+{
+  "crafts": [
+    {
+      "craft": "structural",
+      "gate": "steel_frame",
+      "inv": "mass_energy_conserved_delta",
+      "gate_status": "RUNNING",
+      "witness": "machine",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": true
+    },
+    {
+      "craft": "electrical",
+      "gate": "m4_max",
+      "inv": "timing_closure_worst_case",
+      "gate_status": "RUNNING",
+      "witness": "spectral",
+      "witness_rc": 1,
+      "witness_verdict": "refuted:bandwidth",
+      "invariant_proven": false,
+      "pass": false
+    },
+    {
+      "craft": "software",
+      "gate": "kernel",
+      "inv": "syscall_isolation",
+      "gate_status": "RUNNING",
+      "witness": "braid",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": true
+    },
+    {
+      "craft": "firmware",
+      "gate": "bootloader",
+      "inv": "boot_integrity_hash_chain",
+      "gate_status": "RUNNING",
+      "witness": "provenance",
+      "witness_rc": 0,
+      "witness_verdict": "VALID",
+      "invariant_proven": true,
+      "pass": true
+    },
+    {
+      "craft": "protocol",
+      "gate": "ada",
+      "inv": "engine_available",
+      "gate_status": "PENDING",
+      "witness": "capability_dsl",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": false
+    },
+    {
+      "craft": "systems",
+      "gate": "ansible",
+      "inv": "engine_available",
+      "gate_status": "READY",
+      "witness": "closure_dsl",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": true
+    },
+    {
+      "craft": "data",
+      "gate": "postgres",
+      "inv": "engine_available",
+      "gate_status": "PENDING",
+      "witness": "idempotency",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": false
+    },
+    {
+      "craft": "security",
+      "gate": "apex_runner",
+      "inv": "deterministic_replay",
+      "gate_status": "REFUTED",
+      "witness": "counterexample",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": false
+    },
+    {
+      "craft": "verification",
+      "gate": "assembly",
+      "inv": "engine_available",
+      "gate_status": "READY",
+      "witness": "cross_domain",
+      "witness_rc": 1,
+      "witness_verdict": "PARTIAL",
+      "invariant_proven": false,
+      "pass": false
+    },
+    {
+      "craft": "build",
+      "gate": "bazel",
+      "inv": "engine_available",
+      "gate_status": "READY",
+      "witness": "braid",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "invariant_proven": true,
+      "pass": true
+    }
+  ],
+  "covered": 5,
+  "invariants_proven": 8,
+  "total": 10,
+  "verdict": "REFUTED:electrical,protocol,data,security,verification"
+}
