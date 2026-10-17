@@ -1,61 +1,61 @@
 {
+   "edges" : [
+      {
+         "to" : "n-1792271932-48775",
+         "from" : "n-1792271932-217647",
+         "condition" : {}
+      },
+      {
+         "to" : "n-1792271932-422047",
+         "from" : "n-1792271932-48775",
+         "condition" : {}
+      },
+      {
+         "to" : "n-1792271932-10451",
+         "from" : "n-1792271932-422047",
+         "condition" : {}
+      },
+      {
+         "from" : "n-1792271932-10451",
+         "condition" : {},
+         "to" : "n-1792271932-938674"
+      }
+   ],
    "nodes" : [
       {
          "outputs" : {},
-         "inputs" : {},
+         "status" : "PENDING",
+         "id" : "n-1792271932-217647",
          "operator" : "maintain_distance",
-         "id" : "n-1792271845-119145",
-         "status" : "PENDING"
+         "inputs" : {}
       },
       {
          "operator" : "track_target",
          "inputs" : {},
+         "id" : "n-1792271932-48775",
          "outputs" : {},
-         "status" : "PENDING",
-         "id" : "n-1792271845-399644"
-      },
-      {
-         "inputs" : {},
-         "outputs" : {},
-         "operator" : "detect_armor",
-         "id" : "n-1792271845-324245",
          "status" : "PENDING"
       },
       {
+         "status" : "PENDING",
+         "outputs" : {},
+         "id" : "n-1792271932-422047",
+         "inputs" : {},
+         "operator" : "detect_armor"
+      },
+      {
+         "inputs" : {},
          "operator" : "prioritize_target",
-         "outputs" : {},
-         "inputs" : {},
          "status" : "PENDING",
-         "id" : "n-1792271845-175628"
-      },
-      {
          "outputs" : {},
-         "inputs" : {},
+         "id" : "n-1792271932-10451"
+      },
+      {
          "operator" : "engage_anti_armor",
-         "id" : "n-1792271845-759274",
-         "status" : "PENDING"
-      }
-   ],
-   "edges" : [
-      {
-         "to" : "n-1792271845-399644",
-         "condition" : {},
-         "from" : "n-1792271845-119145"
-      },
-      {
-         "condition" : {},
-         "to" : "n-1792271845-324245",
-         "from" : "n-1792271845-399644"
-      },
-      {
-         "to" : "n-1792271845-175628",
-         "condition" : {},
-         "from" : "n-1792271845-324245"
-      },
-      {
-         "from" : "n-1792271845-175628",
-         "to" : "n-1792271845-759274",
-         "condition" : {}
+         "inputs" : {},
+         "outputs" : {},
+         "status" : "PENDING",
+         "id" : "n-1792271932-938674"
       }
    ]
 }

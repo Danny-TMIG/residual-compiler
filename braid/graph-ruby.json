@@ -1,35 +1,35 @@
 {
   "nodes": [
     {
-      "id": "a13a7c73-ac9e-4844-ae8a-3369e13ae53b",
+      "id": "ffd0e01f-906c-448d-abb8-5f14c5bf827e",
       "operator": "maintain_distance",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "c5d9908b-d569-4818-b66f-b03490a3ff40",
+      "id": "61ba9d48-88ad-4755-82f8-f0a99524558e",
       "operator": "track_target",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "01e1f6c1-d0f4-48ec-89ec-bcaac1f2a8c0",
+      "id": "7852c59b-65be-428f-a4f3-6badd106fb6b",
       "operator": "detect_armor",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "7ff5541f-c3d5-4174-b83b-5e4409e96658",
+      "id": "38943127-1453-45fe-9f5d-bc82165fb545",
       "operator": "prioritize_target",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "29789666-5c6e-472f-957d-acea17815d73",
+      "id": "1ef764a9-287a-457f-95d0-a183fac28893",
       "operator": "engage_anti_armor",
       "inputs": {},
       "outputs": {},
@@ -38,23 +38,23 @@
   ],
   "edges": [
     {
-      "from": "a13a7c73-ac9e-4844-ae8a-3369e13ae53b",
-      "to": "c5d9908b-d569-4818-b66f-b03490a3ff40",
+      "from": "ffd0e01f-906c-448d-abb8-5f14c5bf827e",
+      "to": "61ba9d48-88ad-4755-82f8-f0a99524558e",
       "condition": {}
     },
     {
-      "from": "c5d9908b-d569-4818-b66f-b03490a3ff40",
-      "to": "01e1f6c1-d0f4-48ec-89ec-bcaac1f2a8c0",
+      "from": "61ba9d48-88ad-4755-82f8-f0a99524558e",
+      "to": "7852c59b-65be-428f-a4f3-6badd106fb6b",
       "condition": {}
     },
     {
-      "from": "01e1f6c1-d0f4-48ec-89ec-bcaac1f2a8c0",
-      "to": "7ff5541f-c3d5-4174-b83b-5e4409e96658",
+      "from": "7852c59b-65be-428f-a4f3-6badd106fb6b",
+      "to": "38943127-1453-45fe-9f5d-bc82165fb545",
       "condition": {}
     },
     {
-      "from": "7ff5541f-c3d5-4174-b83b-5e4409e96658",
-      "to": "29789666-5c6e-472f-957d-acea17815d73",
+      "from": "38943127-1453-45fe-9f5d-bc82165fb545",
+      "to": "1ef764a9-287a-457f-95d0-a183fac28893",
       "condition": {}
     }
   ]
