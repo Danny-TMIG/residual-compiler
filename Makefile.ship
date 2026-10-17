@@ -21,7 +21,8 @@ package: verify-ship
 	find . -type f \
 	  ! -path './.git/*' ! -path './.venv/*' ! -path './evidence/*' \
 	  ! -path './dist/*' ! -path './.mypy_cache/*' ! -path './.ruff_cache/*' \
-	  ! -path './.pytest_cache/*' ! -path './.loop/*' \
+	  ! -path './.pytest_cache/*' ! -path './.loop/*' ! -path './bin/flat/*' \
+	  ! -path './bin/*.bin' ! -path './data/*.sqlite' ! -path './data/*.sqlite3' \
 	  ! -name '*.pyc' ! -path '*/__pycache__/*' \
 	  ! -path './braid/rust/target/*' ! -name '.DS_Store' \
 	  | LC_ALL=C sort | \
