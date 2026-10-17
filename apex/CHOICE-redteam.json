@@ -1,0 +1,9 @@
+{
+  "role": "redteam",
+  "choice": "counterexample: classification",
+  "candidates": [
+    "counterexample: none",
+    "counterexample: classification",
+    "counterexample: report"
+  ]
+}

@@ -1,33 +1,5 @@
 {
-  "claims_not_made": [
-    {
-      "family": "A-D",
-      "reason": [
-        {
-          "family": "A",
-          "missing": [
-            "install",
-            "smoke-compile"
-          ]
-        },
-        {
-          "family": "B",
-          "missing": [
-            "test"
-          ]
-        },
-        {
-          "family": "C",
-          "missing": [
-            "verify-chain",
-            "attest",
-            "guard \u2014 no skipped gates",
-            "policy-validate"
-          ]
-        }
-      ]
-    }
-  ],
+  "claims_not_made": [],
   "commit": "99e66fb",
   "families": {
     "A": {
@@ -98,33 +70,13 @@
   "verification": {
     "mechanical": {
       "closed": [
+        "A",
+        "B",
+        "C",
         "D"
       ],
-      "open": [
-        {
-          "family": "A",
-          "missing": [
-            "install",
-            "smoke-compile"
-          ]
-        },
-        {
-          "family": "B",
-          "missing": [
-            "test"
-          ]
-        },
-        {
-          "family": "C",
-          "missing": [
-            "verify-chain",
-            "attest",
-            "guard \u2014 no skipped gates",
-            "policy-validate"
-          ]
-        }
-      ],
-      "verdict": "REFUTED"
+      "open": [],
+      "verdict": "VERIFIED"
     },
     "oracle": {
       "attested_at": "2026-10-17T18:48:01Z",
