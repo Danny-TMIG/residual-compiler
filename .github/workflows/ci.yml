@@ -58,11 +58,14 @@ jobs:
           python -m src.cli verify
       - name: package
         run: |
-          tar czf "residual-compiler-${{ github.ref_name }}.tgz" \
+          OUT=/tmp/residual-compiler-${{ github.ref_name }}.tgz
+          tar czf "$OUT" \
             --exclude='.git' --exclude='.venv' --exclude='__pycache__' \
             --exclude='*.pyc' --exclude='.ruff_cache' .
+          mv "$OUT" ./residual-compiler-${{ github.ref_name }}.tgz
           shasum -a 256 residual-compiler-*.tgz > SHA256SUMS 2>/dev/null || \
             sha256sum residual-compiler-*.tgz > SHA256SUMS
+
       - name: release
         uses: softprops/action-gh-release@v3
         with:
