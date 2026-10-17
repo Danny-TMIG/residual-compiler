@@ -1,0 +1,32 @@
+.PHONY: ship verify-ship clean-ship
+
+SHIP_DIR := dist
+SHIP_SHA := $(shell git rev-parse --short HEAD)
+SHIP_TGZ := $(SHIP_DIR)/residual-compiler-$(SHIP_SHA).tgz
+
+ship: verify-ship package
+
+verify-ship:
+	@test -z "$$(git status --porcelain)" || { echo "FAIL: dirty tree"; exit 1; }
+	@python3 -m pytest -q > /dev/null || { echo "FAIL: pytest"; exit 1; }
+	@python3 scripts/control_plane.py | python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("control_plane:",d["verdict"])'
+	@python3 scripts/org.py | python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("org:",d["verdict"])'
+	@make -f Makefile.build verify > /dev/null || { echo "FAIL: evidence verify"; exit 1; }
+	@echo "all gates passed"
+
+package: verify-ship
+	@mkdir -p $(SHIP_DIR)
+	@export SOURCE_DATE_EPOCH=$$(git log -1 --format=%ct); \
+	find . -type f \
+	  ! -path './.git/*' ! -path './.venv/*' ! -path './evidence/*' \
+	  ! -path './dist/*' ! -name '*.pyc' ! -path '*/__pycache__/*' \
+	  ! -path './braid/rust/target/*' \
+	  -print0 | LC_ALL=C sort -z | \
+	  tar --null -T - -czf $(SHIP_TGZ) \
+	    --mtime=@$${SOURCE_DATE_EPOCH} --owner=0 --group=0 --numeric-owner
+	@shasum -a 256 $(SHIP_TGZ) > $(SHIP_TGZ).sha256
+	@echo "packaged: $(SHIP_TGZ)"
+	@echo "sha256:   $$(cat $(SHIP_TGZ).sha256)"
+
+clean-ship:
+	@rm -rf $(SHIP_DIR)
