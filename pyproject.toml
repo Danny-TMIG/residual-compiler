@@ -23,3 +23,7 @@ ignore = ['BLE001', 'PERF102', 'PIE810', 'PLR1704', 'PLW1510', 'RUF007', 'S110',
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["BLE001", "E701", "S101"]
 "scripts/*" = ["BLE001"]
+
+[tool.mypy]
+ignore_missing_imports = true
+warn_unused_ignores = false

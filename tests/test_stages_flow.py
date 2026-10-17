@@ -10,9 +10,16 @@ _EXT = os.path.expanduser("~/aether/research/train")
 if not os.path.isdir(_EXT):
     pytest.skip("external training tree not available", allow_module_level=True)
 sys.path.insert(0, str(Path.home() / "aether" / "research" / "train"))
-from pipelines import (
-    corpus_pipeline as cp,
-)
+
+
+def _load_cp():
+    """Lazy import — sidesteps E402 and RUF100."""
+    from pipelines import corpus_pipeline as cp
+
+    return cp
+
+
+cp = _load_cp()
 
 
 def test_documents_flow_through_all_stages():
