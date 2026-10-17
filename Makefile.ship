@@ -16,14 +16,13 @@ verify-ship:
 
 package: verify-ship
 	@mkdir -p $(SHIP_DIR)
-	@export SOURCE_DATE_EPOCH=$$(git log -1 --format=%ct); \
+	@export COPYFILE_DISABLE=1; \
 	find . -type f \
 	  ! -path './.git/*' ! -path './.venv/*' ! -path './evidence/*' \
 	  ! -path './dist/*' ! -name '*.pyc' ! -path '*/__pycache__/*' \
-	  ! -path './braid/rust/target/*' \
-	  -print0 | LC_ALL=C sort -z | \
-	  tar --null -T - -czf $(SHIP_TGZ) \
-	    --mtime=@$${SOURCE_DATE_EPOCH} --owner=0 --group=0 --numeric-owner
+	  ! -path './braid/rust/target/*' ! -name '.DS_Store' \
+	  | LC_ALL=C sort | \
+	  tar -czf $(SHIP_TGZ) -T -
 	@shasum -a 256 $(SHIP_TGZ) > $(SHIP_TGZ).sha256
 	@echo "packaged: $(SHIP_TGZ)"
 	@echo "sha256:   $$(cat $(SHIP_TGZ).sha256)"
