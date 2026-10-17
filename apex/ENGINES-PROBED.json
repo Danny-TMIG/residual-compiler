@@ -1,7 +1,7 @@
 {
   "schema": "engines/probed/v1",
   "total": 103,
-  "available": 72,
+  "available": 70,
   "missing": [
     "powershell",
     "dart",
@@ -19,6 +19,7 @@
     "nix",
     "maven",
     "composer",
+    "postgres",
     "influxdb",
     "grafana",
     "openai",
@@ -33,7 +34,8 @@
     "quantum_cirq",
     "quantum_braket",
     "quantum_ionq",
-    "quantum_xanadu"
+    "quantum_xanadu",
+    "nltk"
   ],
   "nodes": [
     {
@@ -1534,8 +1536,8 @@
         "exec:postgres"
       ],
       "capabilities_required": [],
-      "state": "READY",
-      "available": true
+      "state": "PENDING",
+      "available": false
     },
     {
       "id": "engine:mysql",
@@ -1990,8 +1992,8 @@
         "exec:nltk"
       ],
       "capabilities_required": [],
-      "state": "READY",
-      "available": true
+      "state": "PENDING",
+      "available": false
     }
   ]
 }

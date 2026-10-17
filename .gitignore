@@ -85,7 +85,6 @@ braid/rust/target/
 # ── apex/runtime scratch ──
 SPEC.json
 TAPEOUT-*.json
-apex/APEX-LATEST.json
 attestation.json
 decision_record.json
 crosscut.sh

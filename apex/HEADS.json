@@ -122,7 +122,7 @@
     },
     "H21": {
       "kind": "branch",
-      "ok": false,
+      "ok": true,
       "operator": "Check",
       "role": "red-team"
     },
@@ -195,9 +195,9 @@
   },
   "schema": "heads/v1",
   "summary": {
-    "not_ok": 1,
-    "ok": 31,
+    "not_ok": 0,
+    "ok": 32,
     "total": 32
   },
-  "timestamp": "2026-10-17T19:32:28Z"
+  "timestamp": "2026-10-17T23:32:31Z"
 }
