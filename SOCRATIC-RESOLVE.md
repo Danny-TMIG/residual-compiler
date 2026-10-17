@@ -1,14 +1,7 @@
-# Socratic Resolve — six families, four outcomes
+# Socratic Resolve — four outcomes, six families
+V verified · R refuted · U undecided (→ E) · T terminal (→ F)
 
-V verified · R refuted · U undecided (goes to E) · T terminal (goes to F).
-
-For A–D, U is not permitted: the observer is present and passes (V) or fails (R).
-For E, U is the default until the external reader acts.
-For F, T is the only outcome.
+For A–D, U is not permitted. For E, U until the reader acts. For F, T only.
 
 ## One-line resolve
-> A–D: add the mechanized observer. E: name the class and hand the
-> enumeration to the reader. F: stop asking and bind the decision.
-
-## What the resolve does not do
-It does not make E deterministic or F mechanical. It names them and stops.
+A–D: add the observer. E: name and hand to the reader. F: stop asking and bind.

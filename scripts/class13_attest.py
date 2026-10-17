@@ -6,78 +6,56 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-CI   = ROOT / ".github/workflows/ci.yml"
-PRE  = ROOT / ".pre-commit-config.yaml"
-APEX = ROOT / "apex"
-OUT  = APEX / "CLASS-13.json"
+CI, PRE, APEX, OUT = ROOT/".github/workflows/ci.yml", ROOT/".pre-commit-config.yaml", ROOT/"apex", ROOT/"apex/CLASS-13.json"
 
-def git(*a: str) -> str:
-    return subprocess.run(["git", *a], cwd=str(ROOT),
-                          capture_output=True, text=True, check=True).stdout.strip()
+def git(*a):
+    return subprocess.run(["git", *a], cwd=str(ROOT), capture_output=True, text=True, check=True).stdout.strip()
 
-def enumerate_ci_jobs() -> list[str]:
-    jobs = yaml.safe_load(CI.read_text()).get("jobs", {})
-    names: list[str] = []
-    for name, spec in jobs.items():
-        matrix = (spec.get("strategy") or {}).get("matrix") or {}
-        if matrix:
-            keys = list(matrix.keys())
-            for combo in itertools.product(*(matrix[k] for k in keys)):
-                suffix = ", ".join(f"{k}={v}" for k, v in zip(keys, combo))
-                names.append(f"{name} ({suffix})")
+def jobs():
+    d = yaml.safe_load(CI.read_text()).get("jobs", {})
+    out = []
+    for name, spec in d.items():
+        m = (spec.get("strategy") or {}).get("matrix") or {}
+        if m:
+            keys = list(m.keys())
+            for combo in itertools.product(*(m[k] for k in keys)):
+                out.append(f"{name} ({', '.join(f'{k}={v}' for k, v in zip(keys, combo))})")
         else:
-            names.append(name)
-    return sorted(names)
+            out.append(name)
+    return sorted(out)
 
-def enumerate_hooks() -> list[str]:
-    ids = []
-    for repo in yaml.safe_load(PRE.read_text()).get("repos", []):
-        for h in repo.get("hooks", []):
-            if h.get("id"):
-                ids.append(h["id"])
-    return sorted(ids)
+def hooks():
+    return sorted(h["id"] for r in yaml.safe_load(PRE.read_text()).get("repos", []) for h in r.get("hooks", []) if h.get("id"))
 
-def enumerate_apex_levels() -> list[str]:
+def levels():
     return sorted(p.stem for p in APEX.glob("level*.py"))
 
-def parse_release_needs() -> list[str]:
-    m = re.search(r"^  release:\s*\n(?:.*\n)*?    needs:\s*\[([^\]]+)\]",
-                  CI.read_text(), re.M)
-    if not m:
-        return []
-    return sorted(s.strip() for s in m.group(1).split(",") if s.strip())
+def needs():
+    m = re.search(r"^  release:\s*\n(?:.*\n)*?    needs:\s*\[([^\]]+)\]", CI.read_text(), re.M)
+    return sorted(s.strip() for s in m.group(1).split(",")) if m else []
 
-def main() -> int:
+def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--snapshot", required=True)
     ap.add_argument("--commit", default=None)
     ap.add_argument("--reader", default="self")
     ap.add_argument("--out", default=str(OUT))
-    args = ap.parse_args()
-    commit = args.commit or git("rev-parse", "HEAD")
-    declared = {
-        "ci_jobs": enumerate_ci_jobs(),
-        "precommit_hooks": enumerate_hooks(),
-        "apex_levels": enumerate_apex_levels(),
-        "release_needs": parse_release_needs(),
-    }
+    a = ap.parse_args()
+    commit = a.commit or git("rev-parse", "HEAD")
     rec = {
         "schema": "class13/v1",
-        "snapshot": args.snapshot,
-        "commit": commit,
-        "reader": args.reader,
-        "checked": declared,
-        "enumerated": True,
-        "verdict": "CLASS_13_ESTABLISHED",
+        "snapshot": a.snapshot, "commit": commit, "reader": a.reader,
+        "checked": {"ci_jobs": jobs(), "precommit_hooks": hooks(),
+                    "apex_levels": levels(), "release_needs": needs()},
+        "enumerated": True, "verdict": "CLASS_13_ESTABLISHED",
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
-    out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(rec, indent=2, sort_keys=True) + "\n")
-    print(f"[written] {out}")
-    print(f"[snapshot] {args.snapshot} @ {commit[:7]}")
-    print(f"[ci jobs] {len(declared['ci_jobs'])}  [hooks] {len(declared['precommit_hooks'])}  [apex] {len(declared['apex_levels'])}")
-    print(f"[release needs] {declared['release_needs']}")
+    p = Path(a.out); p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(rec, indent=2, sort_keys=True) + "\n")
+    print(f"[written] {p}")
+    print(f"[snapshot] {a.snapshot} @ {commit[:7]}")
+    print(f"[ci jobs] {len(rec['checked']['ci_jobs'])} [hooks] {len(rec['checked']['precommit_hooks'])} [apex] {len(rec['checked']['apex_levels'])}")
+    print(f"[release needs] {rec['checked']['release_needs']}")
     return 0
 
 if __name__ == "__main__":

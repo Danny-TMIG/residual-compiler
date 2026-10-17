@@ -11,6 +11,12 @@
           ]
         },
         {
+          "family": "B",
+          "missing": [
+            "test"
+          ]
+        },
+        {
           "family": "C",
           "missing": [
             "verify-chain",
@@ -92,7 +98,6 @@
   "verification": {
     "mechanical": {
       "closed": [
-        "B",
         "D"
       ],
       "open": [
@@ -101,6 +106,12 @@
           "missing": [
             "install",
             "smoke-compile"
+          ]
+        },
+        {
+          "family": "B",
+          "missing": [
+            "test"
           ]
         },
         {
@@ -116,13 +127,13 @@
       "verdict": "REFUTED"
     },
     "oracle": {
-      "attested_at": "2026-10-17T18:46:20Z",
+      "attested_at": "2026-10-17T18:48:01Z",
       "reader": "metadusa",
       "residual": [],
       "verdict": "CLASS_13_ESTABLISHED"
     },
     "terminal": {
-      "bound_at": "2026-10-17T18:46:20Z",
+      "bound_at": "2026-10-17T18:48:01Z",
       "by": "metadusa",
       "decision": "ship"
     }
