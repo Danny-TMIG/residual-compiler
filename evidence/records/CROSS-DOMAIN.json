@@ -1,0 +1,35 @@
+{
+  "boundaries": [
+    {
+      "boundary": "physical->silicon",
+      "verdict": "closed"
+    },
+    {
+      "boundary": "silicon->firmware",
+      "verdict": "closed"
+    },
+    {
+      "boundary": "firmware->os",
+      "verdict": "closed"
+    },
+    {
+      "boundary": "os->runtime",
+      "verdict": "closed"
+    },
+    {
+      "boundary": "runtime->app",
+      "verdict": "falsified"
+    },
+    {
+      "boundary": "app->org",
+      "verdict": "closed"
+    },
+    {
+      "boundary": "org->society",
+      "verdict": "closed"
+    }
+  ],
+  "closed": 6,
+  "total": 7,
+  "verdict": "PARTIAL"
+}

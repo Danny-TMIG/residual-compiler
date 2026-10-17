@@ -117,3 +117,4 @@ braid/rust/target/
 **/target/
 bin/flat/
 bin/apex.bin
+!evidence/

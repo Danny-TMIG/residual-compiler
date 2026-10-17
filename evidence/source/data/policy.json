@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "allow-search",
+      "when": {
+        "operation": "search"
+      },
+      "then": "ALLOW"
+    },
+    {
+      "id": "allow-learn",
+      "when": {
+        "operation": "learn"
+      },
+      "then": "ALLOW"
+    },
+    {
+      "id": "execute-dev-needs-approval",
+      "when": {
+        "operation": "execute",
+        "target_env": "dev"
+      },
+      "then": "ESCALATE",
+      "requires": [
+        "change_approved"
+      ]
+    },
+    {
+      "id": "execute-staging-needs-approval",
+      "when": {
+        "operation": "execute",
+        "target_env": "staging"
+      },
+      "then": "ESCALATE",
+      "requires": [
+        "change_approved"
+      ]
+    },
+    {
+      "id": "execute-prod-needs-approval-and-incident-free",
+      "when": {
+        "operation": "execute",
+        "target_env": "prod"
+      },
+      "then": "ESCALATE",
+      "requires": [
+        "change_approved",
+        "incident_free"
+      ]
+    },
+    {
+      "id": "deploy-dev-needs-approval",
+      "when": {
+        "operation": "deploy",
+        "target_env": "dev"
+      },
+      "then": "ESCALATE",
+      "requires": [
+        "change_approved"
+      ]
+    },
+    {
+      "id": "deploy-staging-needs-approval",
+      "when": {
+        "operation": "deploy",
+        "target_env": "staging"
+      },
+      "then": "ESCALATE",
+      "requires": [
+        "change_approved"
+      ]
+    },
+    {
+      "id": "no-unapproved-prod-deploy",
+      "when": {
+        "operation": "deploy",
+        "target_env": "prod"
+      },
+      "then": "DENY",
+      "reason": "prod deploy requires signed release + incident-free attestation; neither is implemented in this build, so the gate refuses unconditionally"
+    }
+  ],
+  "default": "DENY",
+  "sha256": "c27f5891dc33a9dd2d982f5c69e517c94fd8c88d854605176c5d2ec64a650e93"
+}

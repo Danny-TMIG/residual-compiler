@@ -1,0 +1,93 @@
+{
+  "claims_not_made": [],
+  "commit": "99e66fb",
+  "families": {
+    "A": {
+      "classes": [
+        "A0",
+        "A1",
+        "A2",
+        "A3",
+        "A4"
+      ],
+      "kind": "mechanical"
+    },
+    "B": {
+      "classes": [
+        "B0",
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5",
+        "B6"
+      ],
+      "kind": "mechanical"
+    },
+    "C": {
+      "classes": [
+        "C0",
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "kind": "mechanical"
+    },
+    "D": {
+      "classes": [
+        "D0",
+        "D1",
+        "D2",
+        "D3"
+      ],
+      "kind": "mechanical"
+    },
+    "E": {
+      "classes": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "D4"
+      ],
+      "kind": "oracle"
+    },
+    "F": {
+      "classes": [
+        "F0",
+        "F1",
+        "F2"
+      ],
+      "kind": "terminal"
+    }
+  },
+  "generated_by": "scripts/epistemic_attest.py",
+  "residual": [],
+  "schema": "epistemic/v1",
+  "snapshot": "v1.2.2",
+  "verification": {
+    "mechanical": {
+      "closed": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "open": [],
+      "verdict": "VERIFIED"
+    },
+    "oracle": {
+      "attested_at": "2026-10-17T18:48:01Z",
+      "reader": "metadusa",
+      "residual": [],
+      "verdict": "CLASS_13_ESTABLISHED"
+    },
+    "terminal": {
+      "bound_at": "2026-10-17T18:48:01Z",
+      "by": "metadusa",
+      "decision": "ship"
+    }
+  }
+}

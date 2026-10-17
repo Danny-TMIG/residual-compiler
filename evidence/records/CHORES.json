@@ -1,0 +1,144 @@
+{
+  "counts": {
+    "egress": 11,
+    "ingress": 11,
+    "total": 22
+  },
+  "egress": [
+    {
+      "fn": "to_json",
+      "id": "E1",
+      "name": "serialize",
+      "on_fail": "500"
+    },
+    {
+      "fn": "ed25519_sign",
+      "id": "E2",
+      "name": "sign",
+      "on_fail": "500"
+    },
+    {
+      "fn": "mask_pii",
+      "id": "E3",
+      "name": "redact",
+      "on_fail": "500"
+    },
+    {
+      "fn": "gzip",
+      "id": "E4",
+      "name": "compress",
+      "on_fail": "send_raw"
+    },
+    {
+      "fn": "backoff_retry",
+      "id": "E5",
+      "name": "retry",
+      "on_fail": "dlq"
+    },
+    {
+      "fn": "record_failure",
+      "id": "E6",
+      "name": "circuit_open",
+      "on_fail": "log"
+    },
+    {
+      "fn": "structured_log",
+      "id": "E7",
+      "name": "log",
+      "on_fail": "ignore"
+    },
+    {
+      "fn": "close_span",
+      "id": "E8",
+      "name": "trace_end",
+      "on_fail": "ignore"
+    },
+    {
+      "fn": "count_tokens",
+      "id": "E9",
+      "name": "meter",
+      "on_fail": "ignore"
+    },
+    {
+      "fn": "worm_append",
+      "id": "E10",
+      "name": "audit",
+      "on_fail": "log"
+    },
+    {
+      "fn": "dead_letter",
+      "id": "E11",
+      "name": "dlq",
+      "on_fail": "ignore"
+    }
+  ],
+  "ingress": [
+    {
+      "fn": "json.loads",
+      "id": "I1",
+      "name": "parse",
+      "on_fail": "reject_400"
+    },
+    {
+      "fn": "schema_check",
+      "id": "I2",
+      "name": "validate",
+      "on_fail": "reject_422"
+    },
+    {
+      "fn": "verify_jwt",
+      "id": "I3",
+      "name": "authenticate",
+      "on_fail": "reject_401"
+    },
+    {
+      "fn": "check_capability",
+      "id": "I4",
+      "name": "authorize",
+      "on_fail": "reject_403"
+    },
+    {
+      "fn": "token_bucket",
+      "id": "I5",
+      "name": "rate_limit",
+      "on_fail": "reject_429"
+    },
+    {
+      "fn": "strip_dangerous",
+      "id": "I6",
+      "name": "sanitize",
+      "on_fail": "reject_400"
+    },
+    {
+      "fn": "idempotency_key",
+      "id": "I7",
+      "name": "dedup",
+      "on_fail": "replay_200"
+    },
+    {
+      "fn": "assign_request_id",
+      "id": "I8",
+      "name": "trace",
+      "on_fail": "generate_uuid"
+    },
+    {
+      "fn": "count_budget",
+      "id": "I9",
+      "name": "quota",
+      "on_fail": "reject_402"
+    },
+    {
+      "fn": "check_circuit",
+      "id": "I10",
+      "name": "circuit_break",
+      "on_fail": "reject_503"
+    },
+    {
+      "fn": "enqueue_if_full",
+      "id": "I11",
+      "name": "queue",
+      "on_fail": "accept_202"
+    }
+  ],
+  "schema": "ingress-egress/v1"
+}

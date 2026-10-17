@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Train the student directly on a JSONL (bypasses the teacher/CJK filter).
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")/.." && pwd)"
+DATA="${1:-$HERE/data/processed/real_train.jsonl}"
+STEPS="${2:-200}"
+CKPT="${3:-$HERE/checkpoints}"
+python "$HOME/aether/research/train/run_clean.py" \
+  --data "$DATA" --steps "$STEPS" --batch-size 8 --seq-len 512 \
+  --ckpt-root "$CKPT"
