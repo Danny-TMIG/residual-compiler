@@ -1,9 +1,0 @@
-{
-  "role": "release",
-  "choice": "version: patch",
-  "candidates": [
-    "version: patch",
-    "version: minor",
-    "version: major"
-  ]
-}

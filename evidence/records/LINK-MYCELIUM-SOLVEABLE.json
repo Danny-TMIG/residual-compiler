@@ -1,9 +1,0 @@
-{
-  "mycelium_solved": false,
-  "nodes_routed": 0,
-  "routes_fired": 0,
-  "schema": "link/mycelium-to-solveable/v1",
-  "terminal_bound": 0,
-  "theorem_T1_holds": false,
-  "theorem_T3_holds": false
-}

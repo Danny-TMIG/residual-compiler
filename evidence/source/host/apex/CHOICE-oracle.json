@@ -1,9 +1,0 @@
-{
-  "role": "oracle",
-  "choice": "oracle: property",
-  "candidates": [
-    "oracle: property",
-    "oracle: model",
-    "oracle: golden"
-  ]
-}
