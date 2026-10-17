@@ -41,16 +41,6 @@
       "gate_status": "VALID"
     },
     {
-      "craft": "protocol",
-      "gate": "ada",
-      "inv": "engine_available",
-      "witness": "capability_dsl",
-      "witness_rc": 0,
-      "witness_verdict": "VALID",
-      "pass": true,
-      "gate_status": "VALID"
-    },
-    {
       "craft": "systems",
       "gate": "ansible",
       "inv": "engine_available",
@@ -101,5 +91,17 @@
       "gate_status": "VALID"
     }
   ],
-  "not_admitted": []
+  "not_admitted": [
+    {
+      "craft": "protocol",
+      "gate": "ada",
+      "inv": "engine_available",
+      "witness": "capability_dsl",
+      "witness_rc": 0,
+      "witness_verdict": "VALID",
+      "pass": true,
+      "gate_status": "VALID",
+      "reason": "tool_not_installed (gnatmake/gnat absent)"
+    }
+  ]
 }
