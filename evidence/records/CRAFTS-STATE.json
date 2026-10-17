@@ -17,10 +17,10 @@
       "inv": "timing_closure_worst_case",
       "gate_status": "RUNNING",
       "witness": "spectral",
-      "witness_rc": 1,
-      "witness_verdict": "refuted:bandwidth",
-      "invariant_proven": false,
-      "pass": false
+      "witness_rc": 0,
+      "witness_verdict": "VALID",
+      "invariant_proven": true,
+      "pass": true
     },
     {
       "craft": "software",
@@ -95,7 +95,7 @@
       "gate_status": "READY",
       "witness": "cross_domain",
       "witness_rc": 1,
-      "witness_verdict": "PARTIAL",
+      "witness_verdict": "refuted:no_engines_declared",
       "invariant_proven": false,
       "pass": false
     },
@@ -111,8 +111,8 @@
       "pass": true
     }
   ],
-  "covered": 5,
-  "invariants_proven": 8,
+  "covered": 6,
+  "invariants_proven": 9,
   "total": 10,
-  "verdict": "REFUTED:electrical,protocol,data,security,verification"
+  "verdict": "REFUTED:protocol,data,security,verification"
 }
