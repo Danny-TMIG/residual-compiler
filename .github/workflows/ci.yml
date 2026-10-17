@@ -322,3 +322,32 @@ jobs:
             SHA256SUMS
           generate_release_notes: true
           overwrite_files: true
+  evidence-bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false, fetch-depth: 0 }
+      - name: sha256sum (Linux has it)
+        run: sudo apt-get update && sudo apt-get install -y coreutils
+      - name: Build bundle from HEAD
+        shell: bash
+        run: |
+          # On Linux, `shasum -a 256` doesn't exist; use sha256sum.
+          # Patch Makefile.build's `shasum -a 256` to `sha256sum` for CI only.
+          sed -i.bak 's/shasum -a 256/sha256sum/g' Makefile.build
+          make -f Makefile.build build
+      - name: Verify bundle
+        shell: bash
+        run: |
+          sed -i.bak 's/shasum -a 256/sha256sum/g' Makefile.build || true
+          make -f Makefile.build verify
+      - name: Bundle must match committed evidence/
+        shell: bash
+        run: |
+          # The rebuild must produce a manifest identical to the one in HEAD.
+          if [ -f evidence/MANIFEST.sha256 ]; then
+            diff -q evidence/MANIFEST.sha256 <(git show HEAD:evidence/MANIFEST.sha256) \
+              || { echo "::error::evidence/MANIFEST.sha256 drifted from HEAD — rebuild and commit"; exit 1; }
+          fi
+
