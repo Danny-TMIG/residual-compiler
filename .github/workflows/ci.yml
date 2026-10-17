@@ -2,18 +2,25 @@ name: ci
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.11", "3.12"]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python }}
       - name: install
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e . pytest pyyaml sentencepiece
+          python -m pip install -e . pytest pyyaml sentencepiece jsonschema hypothesis
       - name: seed
-        run: python -m src.cli seed
+        run: |
+          export PYTHONHASHSEED=0
+          python -m src.cli seed
       - name: verify-chain
         run: python -m src.cli verify
       - name: test
@@ -24,3 +31,41 @@ jobs:
         run: |
           python -m src.compile_cli "search for TODOs in src/tools.py" > /tmp/o.json
           python -c "import json; assert json.load(open('/tmp/o.json'))['compiled']['allowed']"
+      - name: upload attestation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: attestation-${{ matrix.os }}-py${{ matrix.python }}
+          path: attestation.json
+          if-no-files-found: ignore
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: install
+        run: |
+          python -m pip install -e . pytest pyyaml sentencepiece
+      - name: build
+        run: |
+          export PYTHONHASHSEED=0
+          export SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)
+          python -m src.cli seed
+          python -m src.cli verify
+      - name: package
+        run: |
+          tar czf "residual-compiler-${{ github.ref_name }}.tgz" \
+            --exclude='.git' --exclude='.venv' --exclude='__pycache__' \
+            --exclude='*.pyc' --exclude='.ruff_cache' .
+          shasum -a 256 residual-compiler-*.tgz > SHA256SUMS 2>/dev/null || \
+            sha256sum residual-compiler-*.tgz > SHA256SUMS
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            residual-compiler-*.tgz
+            SHA256SUMS
