@@ -8,7 +8,7 @@
     "sovereign_routes_closed": true,
     "streams_superset_chores": true
   },
-  "elapsed_s": 0.89,
+  "elapsed_s": 0.87,
   "layers": {
     "assembly": {
       "count": 0,
@@ -23,7 +23,7 @@
       "verdict": "pass"
     },
     "host": {
-      "count": 76,
+      "count": 80,
       "verdict": "pass"
     },
     "mycelium": {
@@ -54,6 +54,6 @@
     "F2"
   ],
   "schema": "tapeout/v1",
-  "timestamp": "2026-10-17T19:32:01Z",
+  "timestamp": "2026-10-17T19:32:28Z",
   "verdict": "TAPEOUT_COMPLETE"
 }
