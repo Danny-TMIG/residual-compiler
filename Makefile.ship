@@ -12,6 +12,7 @@ verify-ship:
 	@.venv/bin/python3 scripts/control_plane.py | .venv/bin/python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("control_plane:",d["verdict"])'
 	@.venv/bin/python3 scripts/org.py | .venv/bin/python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("org:",d["verdict"])'
 	@make -f Makefile.build verify > /dev/null || { echo "FAIL: evidence verify"; exit 1; }
+	@git checkout -- apex/PROVENANCE.json braid/graph-*.json 2>/dev/null || true
 	@echo "all gates passed"
 
 package: verify-ship
