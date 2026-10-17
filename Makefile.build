@@ -14,7 +14,7 @@ build:
 	@cp apex/*.json $(BUILD_DIR)/records/ 2>/dev/null || true
 	@cp apex/models/*.json $(BUILD_DIR)/records/models/ 2>/dev/null || true
 	@find $(BUILD_DIR) -type f ! -name MANIFEST.sha256 ! -name .built -print0 \
-	  | xargs -0 $(SHA_CMD) -a 256 | sort -k2 > $(BUILD_DIR)/MANIFEST.sha256
+	  | xargs -0 $(SHA_CMD) | sort -k2 > $(BUILD_DIR)/MANIFEST.sha256
 	@date -u +%FT%TZ > $(SENTINEL)
 	@echo "built: $$(wc -l < $(BUILD_DIR)/MANIFEST.sha256 | tr -d ' ') files"
 
@@ -23,5 +23,5 @@ clean:
 
 verify:
 	@test -f $(SENTINEL) || { echo "FAIL: not built"; exit 1; }
-	@$(SHA_CMD) -a 256 -c $(BUILD_DIR)/MANIFEST.sha256 --quiet \
+	@shasum -a 256 -c 2>/dev/null || sha256sum -c $(BUILD_DIR)/MANIFEST.sha256 --quiet \
 	  && echo "OK: $$(wc -l < $(BUILD_DIR)/MANIFEST.sha256 | tr -d ' ') files verified"

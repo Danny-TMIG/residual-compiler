@@ -1,7 +1,9 @@
-- repo: local
-  hooks:
-    - id: config-guard
-      name: config-guard (no truncation)
-      entry: python3 apply.py --check-only
-      language: system
-      files: '^(\.gitignore|Makefile|pyproject\.toml|\.github/workflows/ci\.yml)$'
+repos:
+  - repo: local
+    hooks:
+      - id: config-guard
+        name: config-guard (no truncation)
+        entry: python3 apply.py --check-only
+        language: system
+        files: '^(\.gitignore|Makefile|pyproject\.toml|\.github/workflows/ci\.yml)$'
+        pass_filenames: false
