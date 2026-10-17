@@ -1,0 +1,52 @@
+{
+  "schema": "release-binary/v1",
+  "tag": "v1.0.0-c9585c2",
+  "commit": "c9585c2",
+  "tarball": {
+    "path": "dist/residual-compiler-c9585c2.tgz",
+    "bytes": 209541735,
+    "sha256": "c5a819bce54ab0d2b997dff015f345aaffb44425f4843e576d8a504a764a90ca",
+    "file_count": 536,
+    "extensions": {
+      ".py": 141,
+      ".json": 135,
+      ".bin": 123,
+      ".S": 22,
+      "(noext)": 20,
+      ".md": 20,
+      ".txt": 16,
+      ".sh": 12,
+      ".jsonl": 10,
+      ".sqlite": 6
+    }
+  },
+  "signature": {
+    "present": false,
+    "path": null,
+    "verified": false,
+    "fingerprint": null
+  },
+  "public_key": {
+    "present": false,
+    "path": null,
+    "sha256": null
+  },
+  "release": {
+    "url": null,
+    "assets": [],
+    "created": null
+  },
+  "gates": {
+    "control_plane": "COVERED",
+    "org": "COVERED",
+    "pytest": "43 passed",
+    "evidence": "verified"
+  },
+  "verify_commands": [
+    "gh release download v1.0.0-c9585c2",
+    "gpg --import release-signing-key.asc",
+    "gpg --verify residual-compiler-c9585c2.tgz.asc residual-compiler-c9585c2.tgz",
+    "shasum -a 256 -c residual-compiler-c9585c2.tgz.sha256",
+    "tar -tzf residual-compiler-c9585c2.tgz | wc -l  # expect 536"
+  ]
+}
