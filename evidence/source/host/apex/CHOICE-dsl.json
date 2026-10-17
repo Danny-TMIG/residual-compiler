@@ -1,9 +1,0 @@
-{
-  "role": "dsl",
-  "choice": "grammar: EBNF",
-  "candidates": [
-    "grammar: BNF",
-    "grammar: PEG",
-    "grammar: EBNF"
-  ]
-}

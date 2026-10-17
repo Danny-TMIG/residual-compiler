@@ -1,9 +1,0 @@
-{
-  "role": "auditor",
-  "choice": "report: pass-with-notes",
-  "candidates": [
-    "report: pass",
-    "report: pass-with-notes",
-    "report: fail"
-  ]
-}
