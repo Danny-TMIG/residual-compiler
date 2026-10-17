@@ -1,0 +1,8 @@
+{
+  "_default": {"root": "src"},
+  "filesystem-search": {"pattern": "*.py", "root": "src"},
+  "regex-search": {"pattern": "def ", "path": "src/tools.py"},
+  "repository-search": {"pattern": "*.py", "root": "src"},
+  "lexical-search": {"query": "dispatch", "root": "src"},
+  "semantic-search": {"query": "dispatch evidence", "root": "src"}
+}

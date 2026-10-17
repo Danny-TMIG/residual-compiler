@@ -1,0 +1,8 @@
+{
+  "all_heads_pass": true,
+  "heads_count": 32,
+  "policy_set_complete": true,
+  "schema": "link/solveable-to-heads/v1",
+  "solveable_exit": 0,
+  "theorem_T4_holds": true
+}
