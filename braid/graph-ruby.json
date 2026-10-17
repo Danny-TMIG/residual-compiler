@@ -1,35 +1,35 @@
 {
   "nodes": [
     {
-      "id": "a9e3723b-a20d-42ac-8fd1-0f832c068f82",
+      "id": "b51d408e-1a5d-4658-a192-c48aaede8a85",
       "operator": "maintain_distance",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "f4468abd-3146-491b-bacf-a38b4f800c87",
+      "id": "fbdb5a6e-9104-410a-aaee-f0b2c3275b72",
       "operator": "track_target",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "2ebd2b16-ea0e-4a90-8d67-337856d6a028",
+      "id": "553d81ad-caa0-4322-aa91-f6859057600f",
       "operator": "detect_armor",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "4f467736-f9f9-4c1a-a9f3-5a07895ee5f4",
+      "id": "d579070a-5bcd-4d08-ae01-873491bf999e",
       "operator": "prioritize_target",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "b0733ff3-eadc-4382-8206-570ca185d126",
+      "id": "3b39e6db-beeb-401d-a17c-34f94df31f94",
       "operator": "engage_anti_armor",
       "inputs": {},
       "outputs": {},
@@ -38,23 +38,23 @@
   ],
   "edges": [
     {
-      "from": "a9e3723b-a20d-42ac-8fd1-0f832c068f82",
-      "to": "f4468abd-3146-491b-bacf-a38b4f800c87",
+      "from": "b51d408e-1a5d-4658-a192-c48aaede8a85",
+      "to": "fbdb5a6e-9104-410a-aaee-f0b2c3275b72",
       "condition": {}
     },
     {
-      "from": "f4468abd-3146-491b-bacf-a38b4f800c87",
-      "to": "2ebd2b16-ea0e-4a90-8d67-337856d6a028",
+      "from": "fbdb5a6e-9104-410a-aaee-f0b2c3275b72",
+      "to": "553d81ad-caa0-4322-aa91-f6859057600f",
       "condition": {}
     },
     {
-      "from": "2ebd2b16-ea0e-4a90-8d67-337856d6a028",
-      "to": "4f467736-f9f9-4c1a-a9f3-5a07895ee5f4",
+      "from": "553d81ad-caa0-4322-aa91-f6859057600f",
+      "to": "d579070a-5bcd-4d08-ae01-873491bf999e",
       "condition": {}
     },
     {
-      "from": "4f467736-f9f9-4c1a-a9f3-5a07895ee5f4",
-      "to": "b0733ff3-eadc-4382-8206-570ca185d126",
+      "from": "d579070a-5bcd-4d08-ae01-873491bf999e",
+      "to": "3b39e6db-beeb-401d-a17c-34f94df31f94",
       "condition": {}
     }
   ]
