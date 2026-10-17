@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """model_card.py — emit a model card per ISO/IEC 23053 fields."""
-import hashlib, json, sys, datetime as dt
+
+import datetime as dt
+import hashlib
+import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-MODELS = ROOT / "apex" / "models"; MODELS.mkdir(parents=True, exist_ok=True)
+MODELS = ROOT / "apex" / "models"
+MODELS.mkdir(parents=True, exist_ok=True)
 
 CARDS = {
     "qwen2.5-vl-7b": {
@@ -42,6 +47,7 @@ CARDS = {
     },
 }
 
+
 def sha256_of(p):
     h = hashlib.sha256()
     with open(p, "rb") as f:
@@ -49,23 +55,27 @@ def sha256_of(p):
             h.update(chunk)
     return h.hexdigest()
 
+
 def main():
     written = []
     for slug, card in CARDS.items():
         # Attach file hash if a GGUF is present.
         for cand in [ROOT / f"{slug}.gguf", ROOT / "models" / f"{slug}.gguf"]:
             if cand.exists():
-                card["file"] = {"path": str(cand.relative_to(ROOT)),
-                                "sha256": sha256_of(cand)}
+                card["file"] = {
+                    "path": str(cand.relative_to(ROOT)),
+                    "sha256": sha256_of(cand),
+                }
                 break
         card["standard"] = ["ISO/IEC 23053", "EU AI Act Annex IV (partial)"]
         card["ring"] = 2
-        card["ts"] = dt.datetime.now(dt.timezone.utc).isoformat()
+        card["ts"] = dt.datetime.now(dt.UTC).isoformat()
         out = MODELS / f"{slug}.card.json"
         out.write_text(json.dumps(card, indent=2) + "\n")
         written.append(str(out.relative_to(ROOT)))
     print(json.dumps({"written": written, "count": len(written)}, indent=2))
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

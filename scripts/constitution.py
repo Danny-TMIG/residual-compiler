@@ -10,7 +10,9 @@ first-class `status` drawn from the enum in class 159. Absence of a
 class on a record means "not applicable"; presence with empty fields
 means "declared, not populated" — i.e. a gap, not silence.
 """
-import json, sys
+
+import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -19,6 +21,7 @@ CONST = json.loads((APEX / "CONSTITUTION.json").read_text())
 
 STATUS = CONST["status_enum"]
 BY_SLUG = {c["slug"]: c for c in CONST["classes"]}
+
 
 def empty_record():
     rec = {}
@@ -33,6 +36,7 @@ def empty_record():
             rec[slug]["status"] = "UNKNOWN"
     return rec
 
+
 def validate(rec):
     errs = []
     for cls, body in rec.items():
@@ -41,7 +45,8 @@ def validate(rec):
             continue
         spec = BY_SLUG[cls]
         if not isinstance(body, dict):
-            errs.append(f"{cls}: not a dict"); continue
+            errs.append(f"{cls}: not a dict")
+            continue
         st = body.get("status")
         if st is not None and st not in STATUS:
             errs.append(f"{cls}: bad status {st!r}")
@@ -52,15 +57,21 @@ def validate(rec):
                     errs.append(f"{cls}: unknown field {k!r}")
     return errs
 
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     if cmd == "status":
-        print(json.dumps(STATUS, indent=2)); return 0
+        print(json.dumps(STATUS, indent=2))
+        return 0
     if cmd == "new":
         out = APEX / "RECORD.template.json"
         out.write_text(json.dumps(empty_record(), indent=2) + "\n")
-        print(json.dumps({"path": str(out.relative_to(ROOT)),
-                          "classes": len(BY_SLUG)}, indent=2)); return 0
+        print(
+            json.dumps(
+                {"path": str(out.relative_to(ROOT)), "classes": len(BY_SLUG)}, indent=2
+            )
+        )
+        return 0
     if cmd == "validate":
         p = Path(sys.argv[2]) if len(sys.argv) > 2 else APEX / "RECORD.template.json"
         if not p.exists():
@@ -68,10 +79,11 @@ def main():
             p.write_text(json.dumps(empty_record(), indent=2) + "\n")
         rec = json.loads(p.read_text())
         errs = validate(rec)
-        print(json.dumps({"path": str(p), "errors": errs,
-                          "valid": not errs}, indent=2))
+        print(json.dumps({"path": str(p), "errors": errs, "valid": not errs}, indent=2))
         return 0 if not errs else 1
-    print("usage: constitution.py {new|validate [file]|status}"); return 2
+    print("usage: constitution.py {new|validate [file]|status}")
+    return 2
+
 
 if __name__ == "__main__":
     sys.exit(main())

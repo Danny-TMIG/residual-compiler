@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json
+
 import hashlib
+import json
 import time
 import uuid
 from pathlib import Path
@@ -9,6 +10,7 @@ from pathlib import Path
 ROOT = Path.cwd()
 APEX = ROOT / "apex"
 AUDIT = APEX / "AUDIT.jsonl"
+
 
 class Pipeline:
     def __init__(self):
@@ -33,7 +35,9 @@ class Pipeline:
 
     def i1_parse(self, req):
         try:
-            body = json.loads(req["body"]) if isinstance(req["body"], str) else req["body"]
+            body = (
+                json.loads(req["body"]) if isinstance(req["body"], str) else req["body"]
+            )
             self._log("ingress", "parse", "pass")
             return {"ok": True, "body": body}
         except Exception as e:
@@ -161,7 +165,7 @@ class Pipeline:
                 self._log("egress", "retry", "pass", "attempt " + str(attempt + 1))
                 return {"ok": True, "result": result}
             except Exception:
-                time.sleep(0.01 * (2 ** attempt))
+                time.sleep(0.01 * (2**attempt))
         self._log("egress", "retry", "dlq", "all retries failed")
         return {"ok": False}
 
@@ -259,8 +263,8 @@ def main():
             "x-client-id": "test-client",
             "idempotency-key": "key-1",
             "x-request-id": None,
-            "x-budget": "100"
-        }
+            "x-budget": "100",
+        },
     }
     out = p.handle(req)
     print("[result]", json.dumps(out)[:200])

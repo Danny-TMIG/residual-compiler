@@ -1,36 +1,88 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import hashlib, json, subprocess, sys, time
+
+import hashlib
+import json
+import subprocess
+import sys
+import time
 from pathlib import Path
 
 ROOT = Path.cwd()
 APEX = ROOT / "apex"
-SCR  = ROOT / "scripts"
-ASM  = ROOT / "asm"
+SCR = ROOT / "scripts"
+ASM = ROOT / "asm"
 HOST = ROOT / "host"
-LOG  = ROOT / "BOOTSTRAP.log"
-T0   = time.time()
+LOG = ROOT / "BOOTSTRAP.log"
+T0 = time.time()
 
 lines = []
+
+
 def log(s):
     print(s)
     lines.append(s)
 
-for d in [APEX, SCR, ASM, HOST, HOST/"bin", HOST/"lib", HOST/"apex", HOST/"scripts", HOST/"asm"]:
+
+for d in [
+    APEX,
+    SCR,
+    ASM,
+    HOST,
+    HOST / "bin",
+    HOST / "lib",
+    HOST / "apex",
+    HOST / "scripts",
+    HOST / "asm",
+]:
     d.mkdir(parents=True, exist_ok=True)
 log("[1] directories ensured")
 
 REQUIRED = {
-    APEX: ["NODES.json","ROUTES.json","MYCELIUM.json",
-           "SOVEREIGN-NODES.json","SOVEREIGN-ROUTES.json","SOVEREIGN-STATE.json",
-           "CHORES.json","STREAMS.json","POLICIES.json",
-           "HEADS.json","VERDICTS.json","EPISTEMIC.json","CLASS-13.json",
-           "CLOSURE.json"],
-    SCR: ["mycelium.py","sovereign.py","ingress_egress.py","stream_router.py",
-          "heads.py","heads_branch.py","heads_terminal.py","compliance.py",
-          "closure_check.py","class13_attest.py","epistemic_attest.py","solveable.py"],
-    ASM: ["boot.S","ingress.S","egress.S","lateral.S","federated.S",
-          "parse.S","auth.S","rate.S","sign.S","audit.S","dispatch.S","build.sh"],
+    APEX: [
+        "NODES.json",
+        "ROUTES.json",
+        "MYCELIUM.json",
+        "SOVEREIGN-NODES.json",
+        "SOVEREIGN-ROUTES.json",
+        "SOVEREIGN-STATE.json",
+        "CHORES.json",
+        "STREAMS.json",
+        "POLICIES.json",
+        "HEADS.json",
+        "VERDICTS.json",
+        "EPISTEMIC.json",
+        "CLASS-13.json",
+        "CLOSURE.json",
+    ],
+    SCR: [
+        "mycelium.py",
+        "sovereign.py",
+        "ingress_egress.py",
+        "stream_router.py",
+        "heads.py",
+        "heads_branch.py",
+        "heads_terminal.py",
+        "compliance.py",
+        "closure_check.py",
+        "class13_attest.py",
+        "epistemic_attest.py",
+        "solveable.py",
+    ],
+    ASM: [
+        "boot.S",
+        "ingress.S",
+        "egress.S",
+        "lateral.S",
+        "federated.S",
+        "parse.S",
+        "auth.S",
+        "rate.S",
+        "sign.S",
+        "audit.S",
+        "dispatch.S",
+        "build.sh",
+    ],
 }
 missing = []
 for d, files in REQUIRED.items():
@@ -43,18 +95,18 @@ if missing:
     sys.exit(1)
 log(f"[2] all required files exist ({sum(len(v) for v in REQUIRED.values())})")
 
-NODES      = json.loads((APEX/"NODES.json").read_text())
-ROUTES     = json.loads((APEX/"ROUTES.json").read_text())
-MYCELIUM   = json.loads((APEX/"MYCELIUM.json").read_text())
-SOV_NODES  = json.loads((APEX/"SOVEREIGN-NODES.json").read_text())
-SOV_ROUTES = json.loads((APEX/"SOVEREIGN-ROUTES.json").read_text())
-SOV_STATE  = json.loads((APEX/"SOVEREIGN-STATE.json").read_text())
-CHORES     = json.loads((APEX/"CHORES.json").read_text())
-STREAMS    = json.loads((APEX/"STREAMS.json").read_text())
-POLICIES   = json.loads((APEX/"POLICIES.json").read_text())
-HEADS      = json.loads((APEX/"HEADS.json").read_text())
-VERDICTS   = json.loads((APEX/"VERDICTS.json").read_text())
-log(f"[3] loaded 12 apex files")
+NODES = json.loads((APEX / "NODES.json").read_text())
+ROUTES = json.loads((APEX / "ROUTES.json").read_text())
+MYCELIUM = json.loads((APEX / "MYCELIUM.json").read_text())
+SOV_NODES = json.loads((APEX / "SOVEREIGN-NODES.json").read_text())
+SOV_ROUTES = json.loads((APEX / "SOVEREIGN-ROUTES.json").read_text())
+SOV_STATE = json.loads((APEX / "SOVEREIGN-STATE.json").read_text())
+CHORES = json.loads((APEX / "CHORES.json").read_text())
+STREAMS = json.loads((APEX / "STREAMS.json").read_text())
+POLICIES = json.loads((APEX / "POLICIES.json").read_text())
+HEADS = json.loads((APEX / "HEADS.json").read_text())
+VERDICTS = json.loads((APEX / "VERDICTS.json").read_text())
+log("[3] loaded 12 apex files")
 
 if len(HEADS["heads"]) != len(POLICIES):
     log(f"[4a] FAIL — {len(HEADS['heads'])} heads vs {len(POLICIES)} policies")
@@ -122,7 +174,10 @@ for h in branch_heads:
     role_key = role.replace(" ", "_").replace("-", "")
     found = False
     for f in APEX.glob("CHOICE-*.json"):
-        if role_key.lower() in f.stem.lower() or f.stem.split("-", 1)[1].lower() in role_key.lower():
+        if (
+            role_key.lower() in f.stem.lower()
+            or f.stem.split("-", 1)[1].lower() in role_key.lower()
+        ):
             found = True
             break
     if not found:
@@ -133,9 +188,12 @@ if missing_choices:
 log(f"[4g] all {len(branch_heads)} branch heads have CHOICE files")
 
 terminal_heads = [h for h, d in HEADS["heads"].items() if d["kind"] == "terminal"]
-if not (APEX/"DECISION.json").exists():
+if not (APEX / "DECISION.json").exists():
     log(f"[4h] WARN — DECISION.json missing ({len(terminal_heads)} terminal heads)")
-log(f"[4h] terminal heads: {len(terminal_heads)} (DECISION.json present: {(APEX/'DECISION.json').exists()})")
+log(
+    f"[4h] terminal heads: {len(terminal_heads)} (DECISION.json present: {(APEX / 'DECISION.json').exists()})"
+)
+
 
 def run(cmd, label):
     r = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True)
@@ -143,6 +201,7 @@ def run(cmd, label):
     last = r.stdout.strip().splitlines()[-1] if r.stdout.strip() else ""
     log(f"[5] {label}: {'PASS' if ok else 'FAIL'}  {last}")
     return ok
+
 
 layers = [
     (["python3", "scripts/heads.py"], "heads"),
@@ -160,15 +219,18 @@ asm_files = sorted(ASM.glob("*.S"))
 compiled = 0
 for f in asm_files:
     r = subprocess.run(
-        ["clang", "-c", "-o", str(HOST/"bin"/f"{f.stem}.o"), str(f)],
-        capture_output=True, text=True
+        ["clang", "-c", "-o", str(HOST / "bin" / f"{f.stem}.o"), str(f)],
+        capture_output=True,
+        text=True,
     )
     if r.returncode == 0:
         compiled += 1
 log(f"[6] compiled {compiled}/{len(asm_files)} .S files")
 
+
 def sha(p):
     return hashlib.sha256(p.read_bytes()).hexdigest()
+
 
 host_hashes = {}
 for f in HOST.rglob("*"):
@@ -202,7 +264,7 @@ hm = {
     "host_hashes": host_hashes,
     "copy_integrity": {"ok": copy_ok, "total": copy_total},
 }
-(HOST/"HASHES.json").write_text(json.dumps(hm, indent=2, sort_keys=True) + "\n")
+(HOST / "HASHES.json").write_text(json.dumps(hm, indent=2, sort_keys=True) + "\n")
 log(f"[7] wrote HOST/HASHES.json ({len(host_hashes)} entries)")
 
 elapsed = time.time() - T0
@@ -211,15 +273,18 @@ tapeout = {
     "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     "elapsed_s": round(elapsed, 2),
     "layers": {
-        "heads":       {"count": len(HEADS["heads"]), "verdict": "pass"},
-        "policies":    {"count": len(POLICIES), "verdict": "pass"},
-        "chores":      {"count": len(all_chores), "verdict": "pass"},
-        "streams":     {"count": len(STREAMS["grid"]), "verdict": "pass"},
-        "mycelium":    {"count": len(myc_ids), "verdict": "pass"},
-        "sovereign":   {"count": len(sov_ids), "verdict": "pass"},
-        "assembly":    {"count": compiled, "verdict": "pass" if compiled == len(asm_files) else "warn"},
-        "host":        {"count": len(host_hashes), "verdict": "pass"},
-        "solveable":   {"theorems": 6, "verdict": "pass"},
+        "heads": {"count": len(HEADS["heads"]), "verdict": "pass"},
+        "policies": {"count": len(POLICIES), "verdict": "pass"},
+        "chores": {"count": len(all_chores), "verdict": "pass"},
+        "streams": {"count": len(STREAMS["grid"]), "verdict": "pass"},
+        "mycelium": {"count": len(myc_ids), "verdict": "pass"},
+        "sovereign": {"count": len(sov_ids), "verdict": "pass"},
+        "assembly": {
+            "count": compiled,
+            "verdict": "pass" if compiled == len(asm_files) else "warn",
+        },
+        "host": {"count": len(host_hashes), "verdict": "pass"},
+        "solveable": {"theorems": 6, "verdict": "pass"},
     },
     "contracts": {
         "heads_eq_policies": True,
@@ -233,11 +298,13 @@ tapeout = {
     "residual": ["E2", "F0", "F1", "F2"],
     "verdict": "TAPEOUT_COMPLETE",
 }
-(APEX/"TAPEOUT.json").write_text(json.dumps(tapeout, indent=2, sort_keys=True) + "\n")
-log(f"[8] wrote APEX/TAPEOUT.json")
-log(f"\n[TAPEOUT] {len(layers)} layers verified, {compiled} .S compiled, {copy_ok}/{copy_total} copies intact")
+(APEX / "TAPEOUT.json").write_text(json.dumps(tapeout, indent=2, sort_keys=True) + "\n")
+log("[8] wrote APEX/TAPEOUT.json")
+log(
+    f"\n[TAPEOUT] {len(layers)} layers verified, {compiled} .S compiled, {copy_ok}/{copy_total} copies intact"
+)
 log(f"[elapsed] {elapsed:.2f}s")
-log(f"[verdict] TAPEOUT_COMPLETE")
+log("[verdict] TAPEOUT_COMPLETE")
 
 LOG.write_text("\n".join(lines) + "\n")
 print(f"\n[log] {LOG.name}")
