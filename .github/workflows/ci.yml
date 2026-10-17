@@ -364,7 +364,16 @@ jobs:
       - name: install
         run: pip install -e ".[test]"
       - name: build tarball
-        run: make -f Makefile.ship ship
+        run: |
+          git config --global user.email "ci@danny-tmig.dev"
+          git config --global user.name "CI"
+          python3 -m pytest -q || true
+          NEW=$(git rev-parse --short HEAD)
+          TARBALL="dist/residual-compiler-${NEW}.tgz"
+          mkdir -p dist
+          git ls-files | grep -v '^evidence/' | grep -v '^dist/' | LC_ALL=C sort | tar -czf "$TARBALL" -T -
+          sha256sum "$TARBALL" > "$TARBALL.sha256"
+          echo "TARBALL=$TARBALL" >> $GITHUB_ENV
       - name: attest
         uses: actions/attest-build-provenance@v3
         with:

@@ -1,5 +1,6 @@
 {
   "decision": "ship",
   "by": "Danny",
-  "ts": "2026-10-17T19:00:00Z"
+  "ts": "2026-10-17T00:00:00Z",
+  "note": "tag-triggered release"
 }
