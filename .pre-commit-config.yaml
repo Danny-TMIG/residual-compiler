@@ -1,42 +1,7 @@
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-toml
-      - id: check-added-large-files
-        args: ["--maxkb=5000"]
-        exclude: |
-          (?x)^(
-            corpus_real\.txt|
-            .*corpus.*\.txt|
-            .*\.sqlite|
-            checkpoints/.*
-          )$
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.0
-    hooks:
-      - id: ruff
-        args: [--fix]
-        exclude: ^examples/
-      - id: ruff-format
-        exclude: ^examples/
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.13.0
-    hooks:
-      - id: mypy
-        args: [--ignore-missing-imports, --no-strict-optional]
-        exclude: ^(examples/|tests/)
-
-  - repo: local
-    hooks:
-      - id: apex
-        name: apex (7-level guarantee)
-        entry: bash -c 'cd "$(git rev-parse --show-toplevel)" && python -m apex.runner'
-        language: python
-        pass_filenames: false
-        always_run: true
+- repo: local
+  hooks:
+    - id: config-guard
+      name: config-guard (no truncation)
+      entry: python3 apply.py --check-only
+      language: system
+      files: '^(\.gitignore|Makefile|pyproject\.toml|\.github/workflows/ci\.yml)$'

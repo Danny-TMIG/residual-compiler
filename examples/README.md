@@ -1,4 +1,3 @@
-
 # examples/
 
 Runnable demonstrations, not source. They import from `src/` where possible.

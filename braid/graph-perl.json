@@ -1,60 +1,60 @@
 {
    "nodes" : [
       {
-         "outputs" : {},
-         "status" : "PENDING",
-         "inputs" : {},
          "operator" : "maintain_distance",
-         "id" : "n-1792266572-262625"
-      },
-      {
          "outputs" : {},
-         "status" : "PENDING",
          "inputs" : {},
-         "id" : "n-1792266572-937723",
-         "operator" : "track_target"
+         "id" : "n-1792267865-445009",
+         "status" : "PENDING"
+      },
+      {
+         "operator" : "track_target",
+         "outputs" : {},
+         "inputs" : {},
+         "id" : "n-1792267865-988519",
+         "status" : "PENDING"
       },
       {
          "outputs" : {},
+         "inputs" : {},
+         "id" : "n-1792267865-462793",
          "status" : "PENDING",
-         "operator" : "detect_armor",
-         "id" : "n-1792266572-636938",
-         "inputs" : {}
+         "operator" : "detect_armor"
       },
       {
+         "inputs" : {},
          "outputs" : {},
          "status" : "PENDING",
-         "id" : "n-1792266572-164427",
-         "operator" : "prioritize_target",
-         "inputs" : {}
+         "id" : "n-1792267865-233053",
+         "operator" : "prioritize_target"
       },
       {
-         "id" : "n-1792266572-330533",
          "operator" : "engage_anti_armor",
+         "outputs" : {},
          "inputs" : {},
-         "status" : "PENDING",
-         "outputs" : {}
+         "id" : "n-1792267865-842160",
+         "status" : "PENDING"
       }
    ],
    "edges" : [
       {
-         "to" : "n-1792266572-937723",
          "condition" : {},
-         "from" : "n-1792266572-262625"
+         "to" : "n-1792267865-988519",
+         "from" : "n-1792267865-445009"
       },
       {
-         "from" : "n-1792266572-937723",
+         "from" : "n-1792267865-988519",
          "condition" : {},
-         "to" : "n-1792266572-636938"
+         "to" : "n-1792267865-462793"
       },
       {
-         "to" : "n-1792266572-164427",
          "condition" : {},
-         "from" : "n-1792266572-636938"
+         "to" : "n-1792267865-233053",
+         "from" : "n-1792267865-462793"
       },
       {
-         "from" : "n-1792266572-164427",
-         "to" : "n-1792266572-330533",
+         "from" : "n-1792267865-233053",
+         "to" : "n-1792267865-842160",
          "condition" : {}
       }
    ]
