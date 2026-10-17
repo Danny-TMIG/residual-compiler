@@ -1,19 +1,23 @@
 """Level 6 — tapeout: combine all layers into one verdict."""
+
 from __future__ import annotations
+
 import sys
 import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from level1_determinism import verify_determinism, canonical_bytes
-from level2_reproducibility import verify_reproducible, build_tarball
+from level1_determinism import verify_determinism
+from level2_reproducibility import build_tarball, verify_reproducible
 from level3_parity import verify_parity
-from level4_falsifiability import Claim, Refutation, verify, Exhaustive
+from level4_falsifiability import Claim, Exhaustive, Refutation, verify
 from level5_observer import observe
 
-def tapeout(files: dict[str, bytes], observer, observer_id: str,
-            log_path: Path) -> tuple[str, str]:
+
+def tapeout(
+    files: dict[str, bytes], observer, observer_id: str, log_path: Path
+) -> tuple[str, str]:
     # Level 1: determinism
     for name, content in files.items():
         if not verify_determinism({"name": name, "size": len(content)}):
@@ -29,12 +33,14 @@ def tapeout(files: dict[str, bytes], observer, observer_id: str,
 
     # Level 4: falsifiability of the spec
     claims = (
-        Claim("determinism", lambda x: x[0] == x[1],
-              (("a", "a"), ("a", "b")), "L1"),
-        Claim("reproducibility", lambda x: x[0] == x[1],
-              ((b"x", b"x"), (b"x", b"y")), "L2"),
-        Claim("parity", lambda x: len(x) == 1,
-              (("a",), ("a", "b")), "L3"),
+        Claim("determinism", lambda x: x[0] == x[1], (("a", "a"), ("a", "b")), "L1"),
+        Claim(
+            "reproducibility",
+            lambda x: x[0] == x[1],
+            ((b"x", b"x"), (b"x", b"y")),
+            "L2",
+        ),
+        Claim("parity", lambda x: len(x) == 1, (("a",), ("a", "b")), "L3"),
     )
     results = verify(claims, Exhaustive(domain=(0, 1)))
     # Level 4 was verified separately. Here we only need the claims to be
@@ -46,7 +52,9 @@ def tapeout(files: dict[str, bytes], observer, observer_id: str,
     # Level 5: observer
     artifact = {
         "files": sorted(files),
-        "tarball_sha256": __import__("hashlib").sha256(build_tarball(files)).hexdigest(),
+        "tarball_sha256": __import__("hashlib")
+        .sha256(build_tarball(files))
+        .hexdigest(),
         "levels_verified": ["L1", "L2", "L3", "L4"],
     }
     try:
@@ -56,6 +64,7 @@ def tapeout(files: dict[str, bytes], observer, observer_id: str,
     except PermissionError as e:
         return "REFUTED", str(e)
 
+
 if __name__ == "__main__":
     files = {
         "src/__init__.py": b"__version__ = '1.0.0'\n",
@@ -64,23 +73,35 @@ if __name__ == "__main__":
     }
 
     with tempfile.TemporaryDirectory() as td:
-        td = Path(td)
+        td: Path = Path(td)
 
         # ACCEPTED
-        status, reason = tapeout(files, lambda a: "ACCEPTED", "obs-1", td / "log1.jsonl")
-        print(f"  [{'ok' if status == 'VERIFIED' else 'FAIL'}] tapeout ACCEPTED -> {status}: {reason}")
+        status, reason = tapeout(
+            files, lambda a: "ACCEPTED", "obs-1", Path(td) / "log1.jsonl"
+        )
+        print(
+            f"  [{'ok' if status == 'VERIFIED' else 'FAIL'}] tapeout ACCEPTED -> {status}: {reason}"
+        )
         if status != "VERIFIED":
             sys.exit(1)
 
         # REJECTED
-        status, reason = tapeout(files, lambda a: "REJECTED", "obs-1", td / "log2.jsonl")
-        print(f"  [{'ok' if status == 'REFUTED' else 'FAIL'}] tapeout REJECTED -> {status}: {reason}")
+        status, reason = tapeout(
+            files, lambda a: "REJECTED", "obs-1", Path(td) / "log2.jsonl"
+        )
+        print(
+            f"  [{'ok' if status == 'REFUTED' else 'FAIL'}] tapeout REJECTED -> {status}: {reason}"
+        )
         if status != "REFUTED":
             sys.exit(1)
 
         # UNDECIDED
-        status, reason = tapeout(files, lambda a: "UNDECIDED", "obs-1", td / "log3.jsonl")
-        print(f"  [{'ok' if status == 'REFUTED' else 'FAIL'}] tapeout UNDECIDED -> {status}: {reason}")
+        status, reason = tapeout(
+            files, lambda a: "UNDECIDED", "obs-1", Path(td) / "log3.jsonl"
+        )
+        print(
+            f"  [{'ok' if status == 'REFUTED' else 'FAIL'}] tapeout UNDECIDED -> {status}: {reason}"
+        )
         if status != "REFUTED":
             sys.exit(1)
 
