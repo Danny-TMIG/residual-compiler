@@ -1,0 +1,290 @@
+{
+  "schema": "org-state/v1",
+  "lifecycle": [
+    "discover",
+    "specify",
+    "model",
+    "design",
+    "build",
+    "integrate",
+    "verify",
+    "validate",
+    "authorize",
+    "operate",
+    "maintain",
+    "retire"
+  ],
+  "roles": [
+    {
+      "id": "1-systems",
+      "name": "Chief systems engineer",
+      "owned": [
+        "structural",
+        "software",
+        "systems",
+        "verification"
+      ],
+      "checks": [
+        {
+          "craft": "structural",
+          "status": "covered"
+        },
+        {
+          "craft": "software",
+          "status": "covered"
+        },
+        {
+          "craft": "systems",
+          "status": "covered"
+        },
+        {
+          "craft": "verification",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "2-math",
+      "name": "Mathematics & computational methods",
+      "owned": [
+        "verification"
+      ],
+      "checks": [
+        {
+          "craft": "verification",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "3-software",
+      "name": "Software & data",
+      "owned": [
+        "software",
+        "data",
+        "security"
+      ],
+      "checks": [
+        {
+          "craft": "software",
+          "status": "covered"
+        },
+        {
+          "craft": "data",
+          "status": "covered"
+        },
+        {
+          "craft": "security",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "4-ai",
+      "name": "AI, autonomy & robotics",
+      "owned": [
+        "software",
+        "verification"
+      ],
+      "checks": [
+        {
+          "craft": "software",
+          "status": "covered"
+        },
+        {
+          "craft": "verification",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "5-compute",
+      "name": "Computing hardware",
+      "owned": [
+        "electrical",
+        "firmware"
+      ],
+      "checks": [
+        {
+          "craft": "electrical",
+          "status": "covered"
+        },
+        {
+          "craft": "firmware",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "6-electrical",
+      "name": "Electrical & electromagnetic",
+      "owned": [
+        "electrical"
+      ],
+      "checks": [
+        {
+          "craft": "electrical",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "7-mechanical",
+      "name": "Mechanical",
+      "owned": [
+        "structural"
+      ],
+      "checks": [
+        {
+          "craft": "structural",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "8-thermal",
+      "name": "Thermal, fluids & energy",
+      "owned": [
+        "structural"
+      ],
+      "checks": [
+        {
+          "craft": "structural",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "9-materials",
+      "name": "Materials & manufacturing",
+      "owned": [
+        "structural",
+        "build"
+      ],
+      "checks": [
+        {
+          "craft": "structural",
+          "status": "covered"
+        },
+        {
+          "craft": "build",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": null,
+      "covered": true
+    },
+    {
+      "id": "10-chemical",
+      "name": "Chemical & process",
+      "owned": [],
+      "checks": [],
+      "gap": "not_represented",
+      "independence_ok": null,
+      "covered": false
+    },
+    {
+      "id": "11-civil",
+      "name": "Civil & built environment",
+      "owned": [],
+      "checks": [],
+      "gap": "not_represented",
+      "independence_ok": null,
+      "covered": false
+    },
+    {
+      "id": "12-earth",
+      "name": "Earth, resources & environment",
+      "owned": [],
+      "checks": [],
+      "gap": "not_represented",
+      "independence_ok": null,
+      "covered": false
+    },
+    {
+      "id": "13-bio",
+      "name": "Biological & biomedical",
+      "owned": [],
+      "checks": [],
+      "gap": "not_represented",
+      "independence_ok": null,
+      "covered": false
+    },
+    {
+      "id": "14-aero",
+      "name": "Aerospace, marine & nuclear",
+      "owned": [],
+      "checks": [],
+      "gap": "not_represented",
+      "independence_ok": null,
+      "covered": false
+    },
+    {
+      "id": "15-human",
+      "name": "Human & industrial systems",
+      "owned": [],
+      "checks": [],
+      "gap": null,
+      "independence_ok": null,
+      "covered": false
+    },
+    {
+      "id": "16-assurance",
+      "name": "Independent assurance",
+      "owned": [
+        "security",
+        "verification"
+      ],
+      "checks": [
+        {
+          "craft": "security",
+          "status": "covered"
+        },
+        {
+          "craft": "verification",
+          "status": "covered"
+        }
+      ],
+      "gap": null,
+      "independence_ok": true,
+      "covered": true
+    }
+  ],
+  "covered": 10,
+  "total": 16,
+  "gaps": [
+    "10-chemical",
+    "11-civil",
+    "12-earth",
+    "13-bio",
+    "14-aero"
+  ],
+  "unresolved": [],
+  "disclaimer": "Ownership portfolios only. Specialist work (aerospace, marine, nuclear, clinical) requires separate qualified experts. Grouping under one coordinator does not make one person competent to approve them.",
+  "verdict": "COVERED"
+}

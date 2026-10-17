@@ -12,3 +12,7 @@ machine:
 constitution:
 	python3 scripts/constitution.py new
 	python3 scripts/constitution.py validate apex/RECORD.template.json
+
+.PHONY: org
+org:
+	python3 scripts/org.py
