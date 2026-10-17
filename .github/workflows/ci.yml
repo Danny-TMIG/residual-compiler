@@ -351,3 +351,29 @@ jobs:
               || { echo "::error::evidence/MANIFEST.sha256 drifted from HEAD — rebuild and commit"; exit 1; }
           fi
 
+  attest-release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: install
+        run: pip install -e ".[test]"
+      - name: build tarball
+        run: make -f Makefile.ship ship
+      - name: attest
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: 'dist/residual-compiler-*.tgz'
+      - name: upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/residual-compiler-*.tgz
+            dist/residual-compiler-*.tgz.sha256
