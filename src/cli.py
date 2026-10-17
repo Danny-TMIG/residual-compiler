@@ -58,7 +58,6 @@ def main(argv=None):
     elif a.cmd == "tools":
         print("\n".join(sorted(tools.REG)))
     elif a.cmd == "forbidden":
-        import json
         from . import compiler_limits
 
         print(json.dumps(compiler_limits.load_map(), indent=2))
