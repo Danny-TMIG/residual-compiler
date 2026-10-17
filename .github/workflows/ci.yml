@@ -335,13 +335,11 @@ jobs:
         run: |
           # On Linux, `shasum -a 256` doesn't exist; use sha256sum.
           # Patch Makefile.build's `shasum -a 256` to `sha256sum` for CI only.
-          sed -i.bak 's/shasum -a 256/sha256sum/g' Makefile.build
-          make -f Makefile.build build
+                    make -f Makefile.build build
       - name: Verify bundle
         shell: bash
         run: |
-          sed -i.bak 's/shasum -a 256/sha256sum/g' Makefile.build || true
-          make -f Makefile.build verify
+                    make -f Makefile.build verify
       - name: Bundle must match committed evidence/
         shell: bash
         run: |

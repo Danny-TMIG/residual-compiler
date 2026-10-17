@@ -1,0 +1,21 @@
+{
+  "schema": "attestation-uri/v1",
+  "subject": {
+    "name": "residual-compiler-a1cae42.tgz",
+    "sha256": "2f61a5f65cc95235b8de1565b1a4d529a17c4c409d08d1e630739354fe03eb7d"
+  },
+  "predicate_type": "https://slsa.dev/provenance/v1",
+  "tag": "v1.0.0-a1cae42",
+  "sources": [
+    {
+      "kind": "release",
+      "url": "https://github.com/Danny-TMIG/residual-compiler/releases/tag/v1.0.0-a1cae42"
+    }
+  ],
+  "verify_commands": [
+    "gh release download v1.0.0-a1cae42",
+    "gpg --import release-signing-key.asc",
+    "gpg --verify residual-compiler-a1cae42.tgz.asc residual-compiler-a1cae42.tgz",
+    "shasum -a 256 -c residual-compiler-a1cae42.tgz.sha256"
+  ]
+}
