@@ -20,7 +20,9 @@ def build():
             }
         )
     for py in sorted(Path("src").rglob("*.py")):
-        subs.append({"name": str(py), "digest": {"sha256": _sha(py.read_bytes())}})
+        subs.append(
+            {"name": py.as_posix(), "digest": {"sha256": _sha(py.read_bytes())}}
+        )
     return {"schema": 1, "subject": subs}
 
 
