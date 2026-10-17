@@ -7,7 +7,9 @@ The compiler calls:
   residuals.hash()               -> sha256 of data/residual_register.md
 """
 
-import hashlib, re, sqlite3
+import hashlib
+import re
+import sqlite3
 from pathlib import Path
 
 REGISTER = Path("data/residual_register.md")
@@ -57,9 +59,12 @@ def _ensure_db():
         return
     if not REGISTER.exists():
         return
-    import subprocess, sys
+    import subprocess
+    import sys
 
-    subprocess.run([sys.executable, "src/parse_residuals.py", str(REGISTER)], check=True)
+    subprocess.run(
+        [sys.executable, "src/parse_residuals.py", str(REGISTER)], check=True
+    )
 
 
 def hash():

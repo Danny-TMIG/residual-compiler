@@ -1,4 +1,5 @@
 """Determinism: seeding twice produces byte-identical artifacts."""
+
 import hashlib
 import os
 import subprocess
@@ -19,7 +20,10 @@ def _fresh_seed() -> str:
     env = dict(os.environ, PYTHONHASHSEED="0")
     subprocess.run(
         [sys.executable, "-c", "import src.seed_skills as s; s.main()"],
-        cwd=ROOT, env=env, check=True, capture_output=True,
+        cwd=ROOT,
+        env=env,
+        check=True,
+        capture_output=True,
     )
     return _sha(db)
 

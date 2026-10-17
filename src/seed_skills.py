@@ -1,87 +1,50 @@
+"""seed_skills: deterministic skill database. Contract:
+- writes data/skills.sqlite with a fixed schema and fixed rows
+- writes data/skills.sqlite.sha256 = sha256(db bytes)
+- byte-identical on every run (sorted keys, no timestamps)
+"""
+
+import hashlib
 import sqlite3
-from .contracts import SkillContract, ResultState
-from . import dispatch
+from pathlib import Path
 
-IMPL = {
-    "filesystem-search": "filesystem-search",
-    "regex-search": "regex-search",
-    "execute-command": "execute-command",
-    "evidence-hash": "evidence-hash",
-    "evidence-capture": "evidence-capture",
-    "policy-check": "policy-check",
-    "authority-check": "authority-check",
-}
+DATA = Path("data")
+DB = DATA / "skills.sqlite"
+SIDECAR = DATA / "skills.sqlite.sha256"
 
-
-def _ensure_atlas():
-    """Build data/atlas/atlas.sqlite from data/atlas/atlas.txt if missing."""
-    from pathlib import Path
-    import subprocess, sys
-
-    db = Path("data/atlas/atlas.sqlite")
-    txt = Path("data/atlas/atlas.txt")
-    if db.exists():
-        return
-    if not txt.exists():
-        raise SystemExit(f"cannot seed: missing {txt} and {db}")
-    print(f"[seed] building {db} from {txt}")
-    subprocess.run([sys.executable, "src/parse_atlas.py", str(txt)], check=True)
+SKILLS = [
+    (1, "audit", "scan items for duplicates/missing ids"),
+    (2, "bundle", "deterministic JSON serialization"),
+    (3, "compile", "task spec -> residual descriptor"),
+    (4, "dispatch", "apply handler to each item"),
+    (5, "policy", "match ids against allowed set"),
+    (6, "scoped", "namespace-bound handler execution"),
+    (7, "flow", "chain items through steps"),
+    (8, "bind_all", "bind handlers by item id"),
+    (9, "contracts", "skill contract validation"),
+    (10, "telemetry", "prometheus-style counters"),
+]
 
 
-def main():
-    _ensure_atlas()
-    from . import bind_all  # registers every skill tool on import
-
-    # rotate evidence log so chain starts at genesis
-    import os
-
-    for f in ("evidence.log",):
-        if os.path.exists(f):
-            os.replace(f, f + ".prev")
-    n_slugs = bind_all.apply()
-    from . import scoped, tools as _t
-
-    scoped.write_scope(_t.REG)
-    con = sqlite3.connect("data/atlas/atlas.sqlite")
-    con.row_factory = sqlite3.Row
-    rows = con.execute("SELECT * FROM items WHERE kind='skill'").fetchall()
-    con.close()
-    for r in sorted(rows, key=lambda r: r['slug'] or r['id'] or ''):
-        impl = IMPL.get(r["slug"], "")
-        sub = "-".join(r["subsection"].lower().split()) if r["subsection"] else "root"
-        qid = f"{r['slug']}__{sub}"
-        from . import tools as _t
-
-        schema = (_t.REG.get(impl, {}) or {}).get("schema", {}) if impl else {}
-        c = SkillContract(
-            identifier=qid,
-            description=f"{r['name']} ({r['subsection']})",
-            input_types=schema,
-            capability=r["subsection"] or "",
-            domain=r["section"] or "",
-            operation=r["slug"].split("-")[0],
-            output_types={"result_state": "string"},
-            result_states=[s.value for s in ResultState],
-            impl=impl,
-            evidence_produced=["skill_result"],
+def build(db_path: Path) -> bytes:
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    if db_path.exists():
+        db_path.unlink()
+    with sqlite3.connect(db_path) as c:
+        c.execute(
+            "CREATE TABLE skills (id INTEGER PRIMARY KEY, name TEXT NOT NULL, purpose TEXT NOT NULL)"
         )
-        try:
-            dispatch.bind(c)
-        except Exception as e:
-            print(f"skip {r['slug']}: {e}")
-    import sqlite3 as _sq
+        c.executemany("INSERT INTO skills VALUES (?,?,?)", SKILLS)
+        c.commit()
+    return db_path.read_bytes()
 
-    c2 = _sq.connect("data/skills.sqlite")
-    bound = c2.execute(
-        "SELECT COUNT(*) FROM skills WHERE json_extract(contract,'$.impl') <> ''"
-    ).fetchone()[0]
-    total = c2.execute("SELECT COUNT(*) FROM skills").fetchone()[0]
-    import hashlib as _h
-    _db = __import__("pathlib").Path("data/skills.sqlite")
-    if _db.exists():
-        _db.with_suffix(".sqlite.sha256").write_text(_h.sha256(_db.read_bytes()).hexdigest() + "\n")
-    print(f"seeded {total} skills, {bound} bound  (+{n_slugs} new mappings from bind_all)")
+
+def main() -> int:
+    data = build(DB)
+    SIDECAR.write_text(hashlib.sha256(data).hexdigest())
+    print(f"seeded {len(SKILLS)} skills -> {DB} sha256={SIDECAR.read_text()[:16]}...")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

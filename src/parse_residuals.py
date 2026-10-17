@@ -6,7 +6,10 @@ Output: data/residuals.sqlite  (table: residuals)
         data/residuals.jsonl   (one record per residual)
 """
 
-import json, re, sqlite3, sys
+import json
+import re
+import sqlite3
+import sys
 from pathlib import Path
 
 SRC = Path(sys.argv[1] if len(sys.argv) > 1 else "data/residual_register.md")
@@ -14,7 +17,9 @@ OUT_JSONL = Path("data/residuals.jsonl")
 OUT_DB = Path("data/residuals.sqlite")
 
 PART_RE = re.compile(r"^Part\s+([IVX]+)\s+[—-]\s+(.+?)(?:\s+\(\d+\))?\s*$")
-ROW_RE = re.compile(r"^(?P<id>[A-ZΩ][A-Z]?-\d{2,3}|Ω)\s+(?P<rest>.+?)\s+(?P<arity>\d+)\s*$")
+ROW_RE = re.compile(
+    r"^(?P<id>[A-ZΩ][A-Z]?-\d{2,3}|Ω)\s+(?P<rest>.+?)\s+(?P<arity>\d+)\s*$"
+)
 
 
 def parse_rows(text):

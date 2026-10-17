@@ -8,7 +8,9 @@ via SUBSECTION_ALIASES + name overlap. The atlas supplies names, not the
 composition graph; this file supplies the graph.
 """
 
-import json, re, sqlite3, time
+import json
+import sqlite3
+import time
 from pathlib import Path
 from .contracts import ResultState
 from . import dispatch, tools
@@ -47,7 +49,13 @@ SUBSECTION_ALIASES = {
     ],
     "Operations": ["Orchestration", "Runtime Control", "Operations Management"],
     "Observability": ["Observability", "Performance"],
-    "Governance / Authority": ["Governance", "Policy", "Evidence", "Qualification", "Provenance"],
+    "Governance / Authority": [
+        "Governance",
+        "Policy",
+        "Evidence",
+        "Qualification",
+        "Provenance",
+    ],
     "Coordination": [
         "Multi-Agent Coordination",
         "Scheduling",
@@ -153,7 +161,8 @@ def role_skills(role):
         skill_subs = SUBSECTION_ALIASES.get(role_sub, [])
         ph = ",".join("?" * len(skill_subs)) if skill_subs else "''"
         rows = con.execute(
-            f"SELECT slug,subsection FROM items WHERE kind='skill' " f"AND subsection IN ({ph})",
+            f"SELECT slug,subsection FROM items WHERE kind='skill' "
+            f"AND subsection IN ({ph})",
             skill_subs,
         ).fetchall()
         cands = [(x["slug"], x["subsection"]) for x in rows]
@@ -165,7 +174,8 @@ def role_skills(role):
     seen = set()
     for slug, sub in cands:
         for cid, contract in sk.execute(
-            "SELECT id,contract FROM skills WHERE id=? OR id LIKE ?", (slug, slug + "__%")
+            "SELECT id,contract FROM skills WHERE id=? OR id LIKE ?",
+            (slug, slug + "__%"),
         ):
             if cid in seen:
                 continue
@@ -227,7 +237,11 @@ def run_role(role, inputs=None, ctx=None, stop_on_fail=False):
     for s in skills:
         if not s["bound"]:
             trace.append(
-                {"skill": s["id"], "result_state": ResultState.NOT_RUN.value, "reason": "unbound"}
+                {
+                    "skill": s["id"],
+                    "result_state": ResultState.NOT_RUN.value,
+                    "reason": "unbound",
+                }
             )
             continue
         overrides = _skill_inputs(inputs, s["slug"])
@@ -239,7 +253,9 @@ def run_role(role, inputs=None, ctx=None, stop_on_fail=False):
                 "skill": s["id"],
                 "result_state": o.get("result_state"),
                 "detail": {
-                    k: v for k, v in o.items() if k not in ("result_state", "skill", "attempts")
+                    k: v
+                    for k, v in o.items()
+                    if k not in ("result_state", "skill", "attempts")
                 },
             }
         )
@@ -256,7 +272,11 @@ def run_role(role, inputs=None, ctx=None, stop_on_fail=False):
     elif ResultState.FAIL.value in bound_states:
         agg = ResultState.FAIL.value
     elif any(
-        s in (ResultState.INSUFFICIENT_DATA.value, ResultState.INSUFFICIENT_EVIDENCE.value)
+        s
+        in (
+            ResultState.INSUFFICIENT_DATA.value,
+            ResultState.INSUFFICIENT_EVIDENCE.value,
+        )
         for s in bound_states
     ):
         agg = ResultState.INSUFFICIENT_EVIDENCE.value

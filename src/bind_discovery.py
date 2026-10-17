@@ -16,10 +16,8 @@ Planning:
 These do NOT run a language model. They operate on structured dicts.
 """
 
-import json
 from pathlib import Path
 from .contracts import ResultState
-from . import tools
 
 # ---------- discovery ----------
 
@@ -72,7 +70,10 @@ def _intent_to_tasks(intent):
     parts = [p.strip() for p in req.replace(";", ".").split(".") if p.strip()]
     if not parts:
         parts = [req]
-    return [{"id": f"t{n+1}", "description": p, "status": "pending"} for n, p in enumerate(parts)]
+    return [
+        {"id": f"t{n+1}", "description": p, "status": "pending"}
+        for n, p in enumerate(parts)
+    ]
 
 
 def t_decompose_work(i, ctx):
@@ -93,12 +94,19 @@ def t_build_task_graph(i, ctx):
             "result_state": ResultState.INSUFFICIENT_DATA.value,
             "reason": "tasks list required",
         }
-    nodes = [{"id": t["id"], "description": t.get("description", "")} for t in tasks if "id" in t]
+    nodes = [
+        {"id": t["id"], "description": t.get("description", "")}
+        for t in tasks
+        if "id" in t
+    ]
     edges = []
     # linear chain by default: t1 -> t2 -> ... -> tN
     for a, b in zip(nodes, nodes[1:]):
         edges.append({"from": a["id"], "to": b["id"]})
-    return {"result_state": ResultState.PASS.value, "graph": {"nodes": nodes, "edges": edges}}
+    return {
+        "result_state": ResultState.PASS.value,
+        "graph": {"nodes": nodes, "edges": edges},
+    }
 
 
 def t_sequence_work(i, ctx):
@@ -129,7 +137,9 @@ def t_prioritize_work(i, ctx):
         if "priority" in t:
             return -int(t["priority"])
         d = str(t.get("description", "")).lower()
-        for i, kw in enumerate(["plan", "design", "test", "verify", "implement", "build", "fix"]):
+        for i, kw in enumerate(
+            ["plan", "design", "test", "verify", "implement", "build", "fix"]
+        ):
             if kw in d:
                 return i
         return 100

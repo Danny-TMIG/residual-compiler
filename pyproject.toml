@@ -1,31 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
 [project]
-name = "atlas-executor"
-version = "1.0.0"
-description = "Policy-gated executor for the Dev Agent Skill Atlas"
+name = "aether-sovereign"
+version = "1.2.0"
 requires-python = ">=3.11"
-authors = [{name = "metadusa"}]
-readme = "README.md"
-license = {text = "Apache-2.0"}
-
-[project.scripts]
-atlas = "src.cli:main"
-atlas-compile = "src.compile_cli:main"
-atlas-policy = "src.policy_builder_cli:main"
-
-[tool.ruff]
-line-length = 100
-target-version = "py311"
-
-[tool.ruff.lint]
-select = ["E","F","W","I","UP","B","SIM"]
-
-[tool.black]
-line-length = 100
-
-[tool.mypy]
-python_version = "3.11"
-ignore_missing_imports = true
-
+dependencies = ["fastapi>=0.110", "uvicorn>=0.27"]
+[project.optional-dependencies]
+test = ["pytest>=7", "pytest-cov>=5"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
 [tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-q"
+filterwarnings = ["error::DeprecationWarning"]

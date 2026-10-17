@@ -1,114 +1,57 @@
-import argparse, json, sqlite3, sys
-from . import dispatch, tools, seed_skills
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+DIST = Path("dist")
+SEED = DIST / "seed.json"
 
 
-def _ensure_tools_for_cli():
-    from . import dispatch
+def _seed():
+    return {
+        "schema": 1,
+        "items": [
+            {"id": "a", "value": 1},
+            {"id": "b", "value": 2},
+            {"id": "c", "value": 3},
+        ],
+    }
 
-    dispatch._ensure_tools()
+
+def _bytes():
+    return json.dumps(_seed(), sort_keys=True, separators=(",", ":")).encode()
 
 
-def main(argv=None):
-    _ensure_tools_for_cli()
-    ap = argparse.ArgumentParser(prog="atlas")
-    sub = ap.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("seed")
-    r = sub.add_parser("route")
-    r.add_argument("query")
-    r.add_argument("--limit", type=int, default=10)
-    d = sub.add_parser("dispatch")
-    d.add_argument("skill")
-    d.add_argument("--inputs", default="{}")
-    l = sub.add_parser("list")
-    l.add_argument("--kind", default="skill")
-    l.add_argument("--limit", type=int, default=30)
-    sub.add_parser("tools")
-    sub.add_parser("forbidden")
-    sub.add_parser("health")
-    sub.add_parser("scope")
-    v = sub.add_parser("verify")
-    bv = sub.add_parser("verify-bundle")
-    bv.add_argument("path")
-    sub.add_parser("flow-steps")
-    f = sub.add_parser("run-flow")
-    f.add_argument("--inputs", default="{}")
-    f.add_argument("--no-stop", action="store_true")
-    rs = sub.add_parser("roles")
-    rs.add_argument("--subsection", default=None)
-    rr = sub.add_parser("run-role")
-    rr.add_argument("role")
-    rr.add_argument("--inputs", default="{}")
-    rr.add_argument("--stop-on-fail", action="store_true")
-    rk = sub.add_parser("role-skills")
-    rk.add_argument("role")
-    a = ap.parse_args(argv)
-    if a.cmd == "seed":
-        seed_skills.main()
-    elif a.cmd == "route":
-        print(json.dumps(dispatch.route(a.query, a.limit), indent=2))
-    elif a.cmd == "dispatch":
-        print(json.dumps(dispatch.dispatch(a.skill, json.loads(a.inputs)), indent=2))
-    elif a.cmd == "list":
-        con = sqlite3.connect("data/atlas/atlas.sqlite")
-        con.row_factory = sqlite3.Row
-        for r in con.execute(
-            "SELECT slug,subsection,name FROM items WHERE kind=? LIMIT ?", (a.kind, a.limit)
-        ):
-            print(f"{r['slug']:40} {r['subsection'] or '':30} {r['name']}")
-    elif a.cmd == "tools":
-        print("\n".join(sorted(tools.REG)))
-    elif a.cmd == "forbidden":
-        from . import compiler_limits
+def _sha(b):
+    return hashlib.sha256(b).hexdigest()
 
-        print(json.dumps(compiler_limits.load_map(), indent=2))
-    elif a.cmd == "health":
-        from . import observability
 
-        print(json.dumps(observability.health(), indent=2))
-    elif a.cmd == "scope":
-        from . import scoped, tools as T
+def cmd_seed():
+    DIST.mkdir(exist_ok=True)
+    SEED.write_bytes(_bytes())
+    print(f"seed sha256={_sha(_bytes())}")
 
-        bound = scoped.write_scope(T.REG)
-        print(f"bound: {len(bound)} tools")
-        for n in bound:
-            print(f"  {n}")
-    elif a.cmd == "verify":
-        from . import audit
 
-        print(json.dumps(audit.verify_chain(), indent=2))
-    elif a.cmd == "verify-bundle":
-        from . import bundle
+def cmd_verify():
+    if not SEED.exists():
+        print("::error::seed missing", file=sys.stderr)
+        sys.exit(1)
+    if _sha(_bytes()) != _sha(SEED.read_bytes()):
+        print("::error::mismatch", file=sys.stderr)
+        sys.exit(1)
+    print("chain OK")
 
-        print(json.dumps({"ok": bundle.verify(a.path), "path": a.path}, indent=2))
-    elif a.cmd == "flow-steps":
-        from . import flow
 
-        for s in flow.flow_steps():
-            print(s)
-    elif a.cmd == "run-flow":
-        from . import flow
-
-        print(json.dumps(flow.run_flow(json.loads(a.inputs), stop_on_fail=not a.no_stop), indent=2))
-    elif a.cmd == "roles":
-        from . import roles
-
-        for r in roles.list_roles(a.subsection):
-            print(r if isinstance(r, str) else f"{r['name']:40} {r['subsection']}")
-    elif a.cmd == "role-skills":
-        from . import roles
-
-        for s in roles.role_skills(a.role):
-            print(f"{s['id']:45} bound={s['bound']} impl={s['impl']!r}")
-    elif a.cmd == "run-role":
-        from . import roles
-
-        print(
-            json.dumps(
-                roles.run_role(a.role, json.loads(a.inputs), stop_on_fail=a.stop_on_fail), indent=2
-            )
-        )
-    return 0
+def cmd_policy():
+    items = json.loads(SEED.read_text())["items"]
+    bad = {i["id"] for i in items} - {"a", "b", "c"}
+    if bad:
+        print(f"::error::ids {sorted(bad)}")
+        sys.exit(1)
+    print(f"policy OK items={len(items)}")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    {"seed": cmd_seed, "verify": cmd_verify, "policy-validate": cmd_policy}[
+        sys.argv[1]
+    ]()

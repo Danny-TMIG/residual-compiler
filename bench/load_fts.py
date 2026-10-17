@@ -7,7 +7,7 @@ import statistics
 import sys
 import time
 
-import pathlib, sys
+import pathlib
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from src import residuals
@@ -38,7 +38,9 @@ def main(argv):
         worst = max(worst, med)
         print(f"tokens={n:>6}  median={med*1000:8.2f} ms  hits={hits}")
     if worst * 1000 > BUDGET_MS:
-        print(f"FAIL: worst median {worst*1000:.1f} ms > {BUDGET_MS} ms", file=sys.stderr)
+        print(
+            f"FAIL: worst median {worst*1000:.1f} ms > {BUDGET_MS} ms", file=sys.stderr
+        )
         return 1
     print("OK")
     return 0

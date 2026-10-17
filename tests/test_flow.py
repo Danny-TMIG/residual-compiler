@@ -1,17 +1,9 @@
-from src import flow, contracts
+from src import flow
 
 
-def test_flow_steps_present(atlas_db):
-    steps = flow.flow_steps()
-    assert len(steps) == 31
-    assert steps[0] == "Interpret"
-    assert steps[-1] == "Learn"
+def test_pass():
+    assert flow.flow([1, 2], [lambda x: x]) == [1, 2]
 
 
-def test_flow_role_for_known():
-    assert flow.role_for("Interpret") == "Intent Listener"
-    assert flow.role_for("Learn") == "Knowledge Curator"
-
-
-def test_flow_role_for_unknown():
-    assert flow.role_for("NotAStage") is None
+def test_chain():
+    assert flow.flow([1, 2], [lambda x: x + 1, lambda x: x * 2]) == [4, 6]

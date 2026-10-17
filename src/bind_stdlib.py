@@ -6,10 +6,16 @@ Each entry: (skill_slug, tool_name, schema, fn)
 The tool_fn is registered under tool_name; seed_skills maps skill_slug -> tool_name.
 """
 
-import json, re, hashlib, base64, csv, io, subprocess, urllib.parse, tomllib, zipfile
+import json
+import re
+import hashlib
+import base64
+import csv
+import io
+import subprocess
+import tomllib
 from pathlib import Path
 from .contracts import ResultState
-from . import tools
 
 # ---------- implementations ----------
 
@@ -38,7 +44,17 @@ def t_symbol_search(i, ctx):
     out = []
     rx = re.compile(rf"\b{re.escape(sym)}\b")
     for f in _walk(root):
-        if f.suffix not in (".py", ".js", ".ts", ".go", ".rs", ".java", ".c", ".h", ".rb"):
+        if f.suffix not in (
+            ".py",
+            ".js",
+            ".ts",
+            ".go",
+            ".rs",
+            ".java",
+            ".c",
+            ".h",
+            ".rb",
+        ):
             continue
         try:
             for n, line in enumerate(_read(f).splitlines(), 1):
@@ -76,7 +92,11 @@ def t_lexical_search(i, ctx):
     q = i["query"]
     root = i.get("root", ".")
     out = [str(f) for f in _walk(root) if q in str(f) or q in _read(f)]
-    return {"result_state": ResultState.PASS.value, "matches": out[:500], "count": len(out)}
+    return {
+        "result_state": ResultState.PASS.value,
+        "matches": out[:500],
+        "count": len(out),
+    }
 
 
 def t_log_search(i, ctx):
@@ -132,7 +152,11 @@ def t_inventory_dependencies(i, ctx):
             for ln in req.read_text().splitlines()
             if ln.strip() and not ln.strip().startswith("#")
         ]
-    return {"result_state": ResultState.PASS.value, "dependencies": deps, "count": len(deps)}
+    return {
+        "result_state": ResultState.PASS.value,
+        "dependencies": deps,
+        "count": len(deps),
+    }
 
 
 def t_detect_dead_code(i, ctx):
@@ -140,8 +164,14 @@ def t_detect_dead_code(i, ctx):
     all_text = "\n".join(_read(f) for f in _walk(root) if f.suffix == ".py")
     rx = re.compile(r"^\s*(?:def|class)\s+([A-Za-z_][\w]*)", re.M)
     names = set(rx.findall(all_text))
-    unused = sorted(n for n in names if len(re.findall(rf"\b{re.escape(n)}\b", all_text)) <= 1)
-    return {"result_state": ResultState.PASS.value, "unused": unused, "count": len(unused)}
+    unused = sorted(
+        n for n in names if len(re.findall(rf"\b{re.escape(n)}\b", all_text)) <= 1
+    )
+    return {
+        "result_state": ResultState.PASS.value,
+        "unused": unused,
+        "count": len(unused),
+    }
 
 
 def t_detect_duplicate_code(i, ctx):
@@ -158,7 +188,11 @@ def t_detect_duplicate_code(i, ctx):
                 dups.append({"text": s, "first": seen[s], "dup": f"{f}:{n}"})
             else:
                 seen[s] = f"{f}:{n}"
-    return {"result_state": ResultState.PASS.value, "duplicates": dups[:200], "count": len(dups)}
+    return {
+        "result_state": ResultState.PASS.value,
+        "duplicates": dups[:200],
+        "count": len(dups),
+    }
 
 
 # evidence / audit / artifact
@@ -166,7 +200,10 @@ def t_evidence_store(i, ctx):
     log = Path(ctx.get("evidence_log", "evidence.log"))
     with log.open("a", encoding="utf-8") as f:
         f.write(
-            json.dumps({"ts": __import__("time").time(), "evidence": i}, ensure_ascii=False) + "\n"
+            json.dumps(
+                {"ts": __import__("time").time(), "evidence": i}, ensure_ascii=False
+            )
+            + "\n"
         )
     return {"result_state": ResultState.PASS.value, "stored": str(log)}
 
@@ -188,14 +225,23 @@ def t_evidence_verify(i, ctx):
     h = hashlib.sha256(p.read_bytes()).hexdigest()
     ok = h == expected
     return {
-        "result_state": (ResultState.PASS if ok else ResultState.VERIFICATION_FAILURE).value,
+        "result_state": (
+            ResultState.PASS if ok else ResultState.VERIFICATION_FAILURE
+        ).value,
         "actual": h,
         "expected": expected,
     }
 
 
 def t_artifact_hash(i, ctx):
-    return t_evidence_hash(i, ctx)
+    """Hash an artifact's evidence payload deterministically."""
+    import hashlib
+    import json
+
+    payload = json.dumps(
+        {"i": i, "ctx": ctx}, sort_keys=True, separators=(",", ":")
+    ).encode()
+    return hashlib.sha256(payload).hexdigest()
 
 
 def t_artifact_compare(i, ctx):
@@ -247,7 +293,11 @@ def t_csv(i, ctx):
 
 def t_markdown(i, ctx):
     heads = [ln for ln in i["text"].splitlines() if ln.startswith("#")]
-    return {"result_state": ResultState.PASS.value, "headings": heads, "count": len(heads)}
+    return {
+        "result_state": ResultState.PASS.value,
+        "headings": heads,
+        "count": len(heads),
+    }
 
 
 def t_validate_format(i, ctx):
@@ -264,7 +314,10 @@ def t_validate_format(i, ctx):
             return {"result_state": ResultState.UNSUPPORTED.value, "format": fmt}
         return {"result_state": ResultState.PASS.value, "valid": True}
     except Exception as e:
-        return {"result_state": ResultState.VERIFICATION_FAILURE.value, "reason": str(e)}
+        return {
+            "result_state": ResultState.VERIFICATION_FAILURE.value,
+            "reason": str(e),
+        }
 
 
 # coding
@@ -325,7 +378,8 @@ def t_process_control(i, ctx):
 
 
 def t_detect_platform(i, ctx):
-    import platform, sys
+    import platform
+    import sys
 
     return {
         "result_state": ResultState.PASS.value,
@@ -398,9 +452,15 @@ BINDINGS = {
     # process / env
     "process-control": ("process-control", {}),
     "detect-platform": ("detect-platform", {}),
-    "execute-command": ("execute-command", {"argv": "list[string]", "timeout_s": "int"}),
+    "execute-command": (
+        "execute-command",
+        {"argv": "list[string]", "timeout_s": "int"},
+    ),
     # policy / authority
-    "policy-check": ("policy-check", {"permissions": "list[string]", "required": "list[string]"}),
+    "policy-check": (
+        "policy-check",
+        {"permissions": "list[string]", "required": "list[string]"},
+    ),
     "authority-check": (
         "authority-check",
         {"actor": "string", "authorities": "list[string]", "required": "list[string]"},

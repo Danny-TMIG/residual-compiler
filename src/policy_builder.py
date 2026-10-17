@@ -11,7 +11,8 @@ for ESCALATE) or `reason` (string for DENY). This module:
   - can diff two policies to detect drift
 """
 
-import hashlib, json
+import hashlib
+import json
 from pathlib import Path
 
 VALID_THEN = {"ALLOW", "DENY", "ESCALATE"}

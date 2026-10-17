@@ -19,7 +19,8 @@ Store: data/actors.json
 }
 """
 
-import json, os
+import json
+import os
 from pathlib import Path
 
 STORE = Path("data/actors.json")
@@ -54,4 +55,8 @@ def resolve(actor_id=None, actor_role=None, store=None):
         auths |= set(found.get("authorities", []))
     if actor_role:
         auths |= set(store.get("roles", {}).get(actor_role, []))
-    return auths, {"actor_id": actor_id, "actor_role": actor_role, "matched": found is not None}
+    return auths, {
+        "actor_id": actor_id,
+        "actor_role": actor_role,
+        "matched": found is not None,
+    }

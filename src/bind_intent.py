@@ -16,10 +16,12 @@ Each of these is real:
 These do NOT pretend to be an LLM. They operate on structured inputs.
 """
 
-import hashlib, json, re, sys
+import hashlib
+import json
+import re
+import sys
 from pathlib import Path
 from .contracts import ResultState
-from . import tools
 
 # ---------- implementations ----------
 
@@ -35,7 +37,10 @@ def t_capture_intent(i, ctx):
                 "result_state": ResultState.ENVIRONMENT_FAILURE.value,
                 "reason": f"no such file: {src}",
             }
-        return {"result_state": ResultState.PASS.value, "text": p.read_text(errors="ignore")}
+        return {
+            "result_state": ResultState.PASS.value,
+            "text": p.read_text(errors="ignore"),
+        }
     # no source: pass through whatever text was in inputs
     return {"result_state": ResultState.PASS.value, "text": i.get("text", "")}
 
@@ -43,7 +48,10 @@ def t_capture_intent(i, ctx):
 def t_parse_intent(i, ctx):
     raw = i.get("text", "")
     if not raw.strip():
-        return {"result_state": ResultState.INSUFFICIENT_DATA.value, "reason": "empty text"}
+        return {
+            "result_state": ResultState.INSUFFICIENT_DATA.value,
+            "reason": "empty text",
+        }
     # try JSON first
     try:
         obj = json.loads(raw)
@@ -101,7 +109,11 @@ def t_classify_intent(i, ctx):
     hits = {k: sum(1 for kw in v if kw in text) for k, v in buckets.items()}
     hits = {k: n for k, n in hits.items() if n}
     primary = max(hits, key=hits.get) if hits else "unknown"
-    return {"result_state": ResultState.PASS.value, "classification": primary, "scores": hits}
+    return {
+        "result_state": ResultState.PASS.value,
+        "classification": primary,
+        "scores": hits,
+    }
 
 
 def t_disambiguate_intent(i, ctx):
@@ -149,7 +161,10 @@ def t_mirror_intent(i, ctx):
 def t_formalize_intent(i, ctx):
     intent = i.get("intent") or {}
     if not intent:
-        return {"result_state": ResultState.INSUFFICIENT_DATA.value, "reason": "intent required"}
+        return {
+            "result_state": ResultState.INSUFFICIENT_DATA.value,
+            "reason": "intent required",
+        }
     # §05-shaped contract
     contract = {
         "identifier": "intent-"

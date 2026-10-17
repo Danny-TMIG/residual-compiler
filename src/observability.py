@@ -1,6 +1,10 @@
 """Structured logging + health check. Stdlib only."""
 
-import json, logging, os, sys, time
+import json
+import logging
+import os
+import sys
+import time
 from pathlib import Path
 
 
@@ -22,7 +26,9 @@ class _JsonFormatter(logging.Formatter):
                 "level": record.levelname,
                 "logger": record.name,
                 "msg": record.getMessage(),
-                "exc": self.formatException(record.exc_info) if record.exc_info else None,
+                "exc": self.formatException(record.exc_info)
+                if record.exc_info
+                else None,
             },
             ensure_ascii=False,
         )

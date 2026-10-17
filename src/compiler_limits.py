@@ -10,7 +10,6 @@ This is a *subtractive* constraint. It never adds a skill.
 
 import json
 from pathlib import Path
-from .contracts import ResultState
 
 MAP_PATH = Path("data/residual_skill_map.json")
 

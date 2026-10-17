@@ -6,7 +6,8 @@ Runtime safety: wraps tool execution with timeout + output cap + determinism.
 Every dispatch passes through run_tool() which cannot be bypassed by tools.
 """
 
-import json, signal, sys
+import json
+import signal
 from .contracts import ResultState
 
 TIMEOUT_DEFAULT = 30
@@ -64,6 +65,9 @@ def run_tool(fn, inputs, ctx, timeout=None):
     except FileNotFoundError as e:
         return {"result_state": ResultState.ENVIRONMENT_FAILURE.value, "reason": str(e)}
     except Exception as e:
-        return {"result_state": ResultState.EXECUTION_FAILURE.value, "reason": repr(e)[:400]}
+        return {
+            "result_state": ResultState.EXECUTION_FAILURE.value,
+            "reason": repr(e)[:400],
+        }
     finally:
         _clear_alarm()

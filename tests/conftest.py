@@ -1,6 +1,6 @@
 """Shared fixtures. Each test module runs against a fresh state."""
 
-import json, sqlite3, sys
+import sys
 from pathlib import Path
 import pytest
 
@@ -14,7 +14,9 @@ def atlas_db():
         import subprocess
 
         subprocess.run(
-            [sys.executable, "src/parse_atlas.py", "data/atlas/atlas.txt"], cwd=ROOT, check=True
+            [sys.executable, "src/parse_atlas.py", "data/atlas/atlas.txt"],
+            cwd=ROOT,
+            check=True,
         )
     return p
 

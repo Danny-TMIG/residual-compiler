@@ -1,12 +1,17 @@
 """CLI: python -m src.policy_builder_cli {build,diff,validate,show}"""
 
-import argparse, importlib, json, sys
+import argparse
+import importlib
+import json
+import sys
 from pathlib import Path
 from . import policy_builder as pb
 
 
 def _load_rules():
-    spec = importlib.util.spec_from_file_location("policy_source", "data/policy_source.py")
+    spec = importlib.util.spec_from_file_location(
+        "policy_source", "data/policy_source.py"
+    )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod.RULES, mod.DEFAULT
@@ -25,7 +30,9 @@ def main(argv=None):
         rules, default = _load_rules()
         pol = pb.build(rules, default=default)
         h = pb.write(pol)
-        print(f"wrote data/policy.json  sha256={h}  rules={len(rules)}  default={default}")
+        print(
+            f"wrote data/policy.json  sha256={h}  rules={len(rules)}  default={default}"
+        )
     elif a.cmd == "diff":
         print(json.dumps(pb.diff("data/policy.json", a.other), indent=2))
     elif a.cmd == "validate":

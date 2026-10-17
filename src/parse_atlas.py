@@ -1,4 +1,7 @@
-import json, re, sqlite3, sys
+import json
+import re
+import sqlite3
+import sys
 from pathlib import Path
 
 SRC = Path(sys.argv[1] if len(sys.argv) > 1 else "data/atlas/atlas.txt")
@@ -77,7 +80,15 @@ def write_db(recs, p):
     con.executemany(
         "INSERT INTO items VALUES(?,?,?,?,?,?,?)",
         [
-            (r["id"], r["kind"], r["section"], r["subsection"], r["name"], r["slug"], r["text"])
+            (
+                r["id"],
+                r["kind"],
+                r["section"],
+                r["subsection"],
+                r["name"],
+                r["slug"],
+                r["text"],
+            )
             for r in recs
         ],
     )
