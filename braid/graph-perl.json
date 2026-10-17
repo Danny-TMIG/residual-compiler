@@ -1,61 +1,61 @@
 {
    "edges" : [
       {
-         "to" : "n-1792278804-546016",
-         "condition" : {},
-         "from" : "n-1792278804-638111"
-      },
-      {
-         "condition" : {},
-         "from" : "n-1792278804-546016",
-         "to" : "n-1792278804-920196"
-      },
-      {
-         "to" : "n-1792278804-96199",
-         "from" : "n-1792278804-920196",
+         "from" : "n-1792278864-407424",
+         "to" : "n-1792278864-717472",
          "condition" : {}
       },
       {
+         "to" : "n-1792278864-872167",
          "condition" : {},
-         "from" : "n-1792278804-96199",
-         "to" : "n-1792278804-101208"
+         "from" : "n-1792278864-717472"
+      },
+      {
+         "to" : "n-1792278864-73597",
+         "condition" : {},
+         "from" : "n-1792278864-872167"
+      },
+      {
+         "from" : "n-1792278864-73597",
+         "to" : "n-1792278864-214971",
+         "condition" : {}
       }
    ],
    "nodes" : [
       {
-         "inputs" : {},
-         "id" : "n-1792278804-638111",
+         "status" : "PENDING",
+         "outputs" : {},
          "operator" : "maintain_distance",
-         "status" : "PENDING",
-         "outputs" : {}
+         "id" : "n-1792278864-407424",
+         "inputs" : {}
       },
       {
+         "operator" : "track_target",
          "status" : "PENDING",
          "outputs" : {},
-         "id" : "n-1792278804-546016",
          "inputs" : {},
-         "operator" : "track_target"
+         "id" : "n-1792278864-717472"
       },
       {
+         "id" : "n-1792278864-872167",
          "inputs" : {},
-         "id" : "n-1792278804-920196",
-         "operator" : "detect_armor",
          "status" : "PENDING",
-         "outputs" : {}
+         "outputs" : {},
+         "operator" : "detect_armor"
       },
       {
-         "inputs" : {},
          "operator" : "prioritize_target",
-         "id" : "n-1792278804-96199",
          "outputs" : {},
-         "status" : "PENDING"
+         "status" : "PENDING",
+         "inputs" : {},
+         "id" : "n-1792278864-73597"
       },
       {
-         "id" : "n-1792278804-101208",
-         "inputs" : {},
-         "operator" : "engage_anti_armor",
          "outputs" : {},
-         "status" : "PENDING"
+         "status" : "PENDING",
+         "operator" : "engage_anti_armor",
+         "id" : "n-1792278864-214971",
+         "inputs" : {}
       }
    ]
 }
