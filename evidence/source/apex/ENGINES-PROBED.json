@@ -1,7 +1,7 @@
 {
   "schema": "engines/probed/v1",
   "total": 103,
-  "available": 71,
+  "available": 72,
   "missing": [
     "powershell",
     "dart",
@@ -33,8 +33,7 @@
     "quantum_cirq",
     "quantum_braket",
     "quantum_ionq",
-    "quantum_xanadu",
-    "nltk"
+    "quantum_xanadu"
   ],
   "nodes": [
     {
@@ -1991,8 +1990,8 @@
         "exec:nltk"
       ],
       "capabilities_required": [],
-      "state": "PENDING",
-      "available": false
+      "state": "READY",
+      "available": true
     }
   ]
 }

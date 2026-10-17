@@ -103,5 +103,6 @@
   "covered": 9,
   "invariants_proven": 9,
   "total": 9,
+  "not_admitted": 1,
   "verdict": "COVERED"
 }

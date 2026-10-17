@@ -886,7 +886,7 @@
       "layer": 4,
       "invariant": "engine_available",
       "falsify": "cmd_not_found",
-      "state": "PENDING"
+      "state": "READY"
     }
   },
   "relations": [
@@ -1706,9 +1706,9 @@
     },
     "E:nltk": {
       "node": "engine:nltk",
-      "invariant_passed": false,
+      "invariant_passed": true,
       "falsify_attempted": true,
-      "falsify_fired": true,
+      "falsify_fired": false,
       "payload_hash": ""
     }
   }

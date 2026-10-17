@@ -1,35 +1,35 @@
 {
   "nodes": [
     {
-      "id": "7cb2d86d-496b-4892-9fb8-690b64f0304e",
+      "id": "ffd0e01f-906c-448d-abb8-5f14c5bf827e",
       "operator": "maintain_distance",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "566703e1-07dd-41dc-841d-9f84b110b60c",
+      "id": "61ba9d48-88ad-4755-82f8-f0a99524558e",
       "operator": "track_target",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "d649375c-fa44-47d1-b28a-94bc5a2424aa",
+      "id": "7852c59b-65be-428f-a4f3-6badd106fb6b",
       "operator": "detect_armor",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "0543c144-5b51-4898-84e7-a09b8409bdba",
+      "id": "38943127-1453-45fe-9f5d-bc82165fb545",
       "operator": "prioritize_target",
       "inputs": {},
       "outputs": {},
       "status": "PENDING"
     },
     {
-      "id": "407dd008-eee6-40d1-9f89-04863e94255d",
+      "id": "1ef764a9-287a-457f-95d0-a183fac28893",
       "operator": "engage_anti_armor",
       "inputs": {},
       "outputs": {},
@@ -38,23 +38,23 @@
   ],
   "edges": [
     {
-      "from": "7cb2d86d-496b-4892-9fb8-690b64f0304e",
-      "to": "566703e1-07dd-41dc-841d-9f84b110b60c",
+      "from": "ffd0e01f-906c-448d-abb8-5f14c5bf827e",
+      "to": "61ba9d48-88ad-4755-82f8-f0a99524558e",
       "condition": {}
     },
     {
-      "from": "566703e1-07dd-41dc-841d-9f84b110b60c",
-      "to": "d649375c-fa44-47d1-b28a-94bc5a2424aa",
+      "from": "61ba9d48-88ad-4755-82f8-f0a99524558e",
+      "to": "7852c59b-65be-428f-a4f3-6badd106fb6b",
       "condition": {}
     },
     {
-      "from": "d649375c-fa44-47d1-b28a-94bc5a2424aa",
-      "to": "0543c144-5b51-4898-84e7-a09b8409bdba",
+      "from": "7852c59b-65be-428f-a4f3-6badd106fb6b",
+      "to": "38943127-1453-45fe-9f5d-bc82165fb545",
       "condition": {}
     },
     {
-      "from": "0543c144-5b51-4898-84e7-a09b8409bdba",
-      "to": "407dd008-eee6-40d1-9f89-04863e94255d",
+      "from": "38943127-1453-45fe-9f5d-bc82165fb545",
+      "to": "1ef764a9-287a-457f-95d0-a183fac28893",
       "condition": {}
     }
   ]
