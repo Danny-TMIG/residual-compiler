@@ -2,8 +2,9 @@
 BUILD_DIR := evidence
 SENTINEL  := $(BUILD_DIR)/.built
 
-build: clean
+build:
 	@test -z "$$(git status --porcelain)" || { echo "FAIL: dirty tree — commit or stash first"; exit 1; }
+	@rm -rf $(BUILD_DIR)
 	@mkdir -p $(BUILD_DIR)/source $(BUILD_DIR)/records $(BUILD_DIR)/records/models
 	@git ls-files -z | while IFS= read -r -d '' f; do \
 	  mkdir -p "$(BUILD_DIR)/source/$$(dirname "$$f")"; \

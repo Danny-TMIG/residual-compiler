@@ -1,0 +1,35 @@
+{
+  "parsed": {
+    "name": "SoftwareClosure",
+    "obligations": [
+      {
+        "id": "tests",
+        "check": "pytest -q exit 0",
+        "falsify": "pytest exit != 0"
+      },
+      {
+        "id": "mypy",
+        "check": "mypy exit 0",
+        "falsify": "mypy exit != 0"
+      },
+      {
+        "id": "apex",
+        "check": "final == VERIFIED",
+        "falsify": "final == REFUTED"
+      }
+    ],
+    "strategy": "ALL",
+    "evidence_required": [
+      "apex",
+      "class13",
+      "decision"
+    ],
+    "max_age": "24h",
+    "errors": [],
+    "valid": true
+  },
+  "evaluated": {
+    "verdict": "closed",
+    "total": 3
+  }
+}
