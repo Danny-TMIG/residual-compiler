@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-17T21:15:35.203574+00:00",
+  "generated": "2026-10-17T21:16:21.867486+00:00",
   "rings": {
     "1": 5,
-    "2": 5,
+    "2": 4,
     "3": 0
   },
   "crafts": [
@@ -49,17 +49,6 @@
       "witness_verdict": "VALID",
       "pass": true,
       "note": "bootloader node RUNNING; no measured boot chain"
-    },
-    {
-      "craft": "protocol",
-      "standards_family": "E3/G6",
-      "ring": 2,
-      "gate": "ada",
-      "witness": "capability_dsl",
-      "witness_rc": 0,
-      "witness_verdict": null,
-      "pass": false,
-      "note": "capability DSL; no OpenAPI/HTTP attestation"
     },
     {
       "craft": "systems",

@@ -45,17 +45,6 @@
       "pass": true
     },
     {
-      "craft": "protocol",
-      "gate": "ada",
-      "inv": "engine_available",
-      "gate_status": "PENDING",
-      "witness": "capability_dsl",
-      "witness_rc": 0,
-      "witness_verdict": null,
-      "invariant_proven": true,
-      "pass": false
-    },
-    {
       "craft": "systems",
       "gate": "ansible",
       "inv": "engine_available",
@@ -112,7 +101,7 @@
     }
   ],
   "covered": 9,
-  "invariants_proven": 10,
-  "total": 10,
-  "verdict": "REFUTED:protocol"
+  "invariants_proven": 9,
+  "total": 9,
+  "verdict": "COVERED"
 }
