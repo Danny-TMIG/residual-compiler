@@ -21,14 +21,12 @@ jobs:
         with:
           go-version: "1.23"
 
-      - name: fetch python tarball (outside repo)
+      - name: fetch python tarball
         run: |
-          mkdir -p $RUNNER_TEMP/residual-cache
-          curl -fsSL -o $RUNNER_TEMP/residual-cache/python.tar.gz \
-            "https://github.com/astral-sh/python-build-standalone/releases/download/20241016/cpython-3.12.7+20241016-aarch64-apple-darwin-install_only.tar.gz"
           mkdir -p residual/internal/runtime
-          ln -sf $RUNNER_TEMP/residual-cache/python.tar.gz residual/internal/runtime/python.tar.gz
-          echo "python.tar.gz linked (target outside repo, git sees it as a symlink → still dirty? no — symlinks are ignored by dirty check only if gitignored)"
+          curl -fsSL -o residual/internal/runtime/python.tar.gz \
+            "https://github.com/astral-sh/python-build-standalone/releases/download/20241016/cpython-3.12.7+20241016-aarch64-apple-darwin-install_only.tar.gz"
+          ls -lh residual/internal/runtime/python.tar.gz
 
       - name: materialize signing key
         run: |
