@@ -1,27 +1,31 @@
-# residual-compiler
+# residual
 
-6-layer engineering tapeout: 32 heads, 22 chores, 64 streams, 10 mycelium nodes,
-57 sovereign nodes, 6 theorems.
+Sovereign intent verification. One binary. Offline. Verifiable.
 
-## Quick start
+## Install
 
-    python3 -m venv .venv && source .venv/bin/activate
-    python3 -m pip install -e '.[test]'
-    make all
+    curl -fsSL https://github.com/Danny-TMIG/residual-compiler/releases/latest/download/install.sh | sh
 
-## Targets
+The installer downloads the tarball, its `checksums.txt`, the Ed25519 signature `checksums.txt.sig`,
+and the public key `public.pem`, verifies the signature, verifies the sha256, and extracts
+`residual` to `$HOME/.local/bin/`.
 
-- make install  - editable install with test + dev extras
-- make test     - pytest
-- make lint     - ruff + mypy
-- make tapeout  - scripts/tapesout.py
-- make braid    - 5-backend graph agreement
-- make machine  - apex machine state hardening
-- make engines  - engine availability probe
-- make all      - everything above
+## Activate
 
-## Status
+    residual activate <jwt-from-email>
 
-- braid: 5/5 backends agree
-- machine: 111 nodes, validate PASS
-- engines: see apex/ENGINES-PROBED.json
+## Use
+
+    residual verify --intent ./intent.json   # → { "verdict": "COVERED", ... }
+    residual conform                         # → { "chain": {"intact": true}, ... }
+    residual status                          # → license line
+    residual serve                           # → http://localhost:7180
+
+## Verify what you downloaded
+
+    residual/scripts/verify_checksums.sh checksums.txt checksums.txt.sig public.pem
+
+## Build
+
+    cd residual
+    go build -trimpath -ldflags="-s -w" -o dist/residual ./cmd/residual

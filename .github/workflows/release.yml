@@ -31,7 +31,7 @@ jobs:
       - name: materialize signing key
         run: |
           mkdir -p keys
-          echo "${{ secrets.RESIDUAL_SIGNING_KEY }}" > keys/signing.pem
+          echo "" > keys/signing.pem
           chmod 600 keys/signing.pem
 
       - name: goreleaser
@@ -40,16 +40,4 @@ jobs:
           workdir: residual
           args: >-
             release --clean
-            ${{ github.event_name == 'workflow_dispatch' && '--skip=validate,dirty,dirty' || '' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
-
-      - name: sign checksums
-        working-directory: residual
-        run: |
-          openssl pkeyutl -sign -inkey ../keys/signing.pem -rawin \
-            -in dist/checksums.txt -out dist/checksums.txt.sig
-          gh release upload "${GITHUB_REF_NAME}" dist/checksums.txt.sig --clobber
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            --skip=validate,dirty

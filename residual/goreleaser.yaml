@@ -1,7 +1,10 @@
 version: 2
 project_name: residual
+
 before:
-  hooks: [go mod tidy]
+  hooks:
+    - go mod tidy
+
 builds:
   - id: residual
     main: ./cmd/residual
@@ -10,12 +13,21 @@ builds:
     goos: [darwin, linux, windows]
     goarch: [amd64, arm64]
     ldflags: [-s -w]
+
 archives:
   - formats: [tar.gz]
     name_template: "residual_{{ .Os }}_{{ .Arch }}"
     files: []
+
 checksum:
   name_template: checksums.txt
   algorithm: sha256
+
 release:
-  github: {owner: Danny-TMIG, name: residual-compiler}
+  github:
+    owner: Danny-TMIG
+    name: residual-compiler
+  replace_existing_draft: true
+  mode: replace
+  draft: false
+  prerelease: false
