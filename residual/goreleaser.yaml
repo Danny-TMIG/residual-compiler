@@ -17,10 +17,5 @@ archives:
 checksum:
   name_template: checksums.txt
   algorithm: sha256
-brews:
-  - repository: {owner: Danny-TMIG, name: homebrew-residual}
-    homepage: https://github.com/Danny-TMIG/residual-compiler
-    install: bin.install "residual"
-    test: system "#{bin}/residual", "--help"
 release:
   github: {owner: Danny-TMIG, name: residual-compiler}
