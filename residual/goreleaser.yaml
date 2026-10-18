@@ -25,6 +25,10 @@ checksum:
   algorithm: sha256
 
 release:
+  extra_files:
+    - glob: ../install.sh
+    - glob: ../keys/public.pem
+
   github:
     owner: Danny-TMIG
     name: residual-compiler
