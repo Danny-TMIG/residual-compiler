@@ -93,3 +93,6 @@ parse_spec.py
 iterations/
 stubfree/
 release-signing-key.asc
+
+residual/internal/runtime/python.tar.gz
+**/python.tar.gz
