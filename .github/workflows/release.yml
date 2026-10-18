@@ -26,18 +26,27 @@ jobs:
           mkdir -p residual/internal/runtime
           curl -fsSL -o residual/internal/runtime/python.tar.gz \
             "https://github.com/astral-sh/python-build-standalone/releases/download/20241016/cpython-3.12.7+20241016-aarch64-apple-darwin-install_only.tar.gz"
-          ls -lh residual/internal/runtime/python.tar.gz
 
       - name: materialize signing key
         run: |
           mkdir -p keys
-          echo "" > keys/signing.pem
+          printf '%s' "${{ secrets.RESIDUAL_SIGNING_KEY }}" > keys/signing.pem
           chmod 600 keys/signing.pem
 
       - name: goreleaser
         uses: goreleaser/goreleaser-action@v6
         with:
           workdir: residual
-          args: >-
-            release --clean
-            --skip=validate,dirty
+          args: release --clean --skip=validate,dirty
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: sign checksums
+        working-directory: residual
+        run: |
+          openssl pkeyutl -sign -inkey ../keys/signing.pem \
+            -in dist/checksums.txt -out dist/checksums.txt.sig
+          gh release upload "${GITHUB_REF_NAME}" dist/checksums.txt.sig --clobber
+          gh release upload "${GITHUB_REF_NAME}" ../keys/public.pem --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
