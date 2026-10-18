@@ -28,6 +28,12 @@ jobs:
             "https://github.com/astral-sh/python-build-standalone/releases/download/20241016/cpython-3.12.7+20241016-aarch64-apple-darwin-install_only.tar.gz"
           ls -lh residual/internal/runtime/python.tar.gz
 
+      - name: materialize signing key
+        run: |
+          mkdir -p keys
+          echo "${{ secrets.RESIDUAL_SIGNING_KEY }}" > keys/signing.pem
+          chmod 600 keys/signing.pem
+
       - name: goreleaser
         uses: goreleaser/goreleaser-action@v6
         with:
@@ -38,3 +44,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+
+      - name: sign checksums
+        working-directory: residual
+        run: |
+          openssl pkeyutl -sign -inkey ../keys/signing.pem -rawin \
+            -in dist/checksums.txt -out dist/checksums.txt.sig
+          gh release upload "${GITHUB_REF_NAME}" dist/checksums.txt.sig --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
