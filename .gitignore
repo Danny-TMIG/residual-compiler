@@ -102,3 +102,5 @@ residual/internal/runtime/python.tar.gz
 **/python.tar.gz
 keys/signing.pem
 *.tar.gz.sig
+residual/internal/runtime/python.tar.gz
+residual/internal/runtime/
