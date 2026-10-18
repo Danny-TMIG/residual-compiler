@@ -1,0 +1,9 @@
+{
+  "role": "manager",
+  "choice": "cycle: weekly",
+  "candidates": [
+    "cycle: weekly",
+    "cycle: daily",
+    "cycle: on-demand"
+  ]
+}

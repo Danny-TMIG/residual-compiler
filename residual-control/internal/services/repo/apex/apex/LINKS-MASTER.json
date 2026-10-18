@@ -1,0 +1,266 @@
+{
+  "connected": 5,
+  "layers": {
+    "heads": {
+      "count": 32,
+      "file": "HEADS.json"
+    },
+    "mycelium": {
+      "count": 0,
+      "file": "MYCELIUM.json"
+    },
+    "solveable": {
+      "file": "solveable.py",
+      "theorems": 6
+    },
+    "sovereign": {
+      "count": 55,
+      "file": "SOVEREIGN-STATE.json"
+    }
+  },
+  "links": {
+    "heads-mycelium": {
+      "all_pass": true,
+      "head_types": {
+        "H01": {
+          "kind": "pure",
+          "role": "parser",
+          "verdict": "pass"
+        },
+        "H02": {
+          "kind": "pure",
+          "role": "type checker",
+          "verdict": "pass"
+        },
+        "H03": {
+          "kind": "pure",
+          "role": "build engineer",
+          "verdict": "pass"
+        },
+        "H04": {
+          "kind": "pure",
+          "role": "test engineer",
+          "verdict": "pass"
+        },
+        "H05": {
+          "kind": "branch",
+          "role": "architect",
+          "verdict": "pass"
+        },
+        "H06": {
+          "kind": "branch",
+          "role": "systems engineer",
+          "verdict": "pass"
+        },
+        "H07": {
+          "kind": "pure",
+          "role": "integrator",
+          "verdict": "pass"
+        },
+        "H08": {
+          "kind": "pure",
+          "role": "SRE",
+          "verdict": "pass"
+        },
+        "H09": {
+          "kind": "branch",
+          "role": "release engineer",
+          "verdict": "pass"
+        },
+        "H10": {
+          "kind": "pure",
+          "role": "security",
+          "verdict": "pass"
+        },
+        "H11": {
+          "kind": "terminal",
+          "role": "researcher",
+          "verdict": "pass"
+        },
+        "H12": {
+          "kind": "terminal",
+          "role": "principal / CTO",
+          "verdict": "pass"
+        },
+        "H13": {
+          "kind": "terminal",
+          "role": "product / PM",
+          "verdict": "pass"
+        },
+        "H14": {
+          "kind": "branch",
+          "role": "manager",
+          "verdict": "pass"
+        },
+        "H15": {
+          "kind": "terminal",
+          "role": "user",
+          "verdict": "pass"
+        },
+        "H16": {
+          "kind": "branch",
+          "role": "DSL designer",
+          "verdict": "pass"
+        },
+        "H17": {
+          "kind": "pure",
+          "role": "proof engineer",
+          "verdict": "pass"
+        },
+        "H18": {
+          "kind": "pure",
+          "role": "dependency mgr",
+          "verdict": "pass"
+        },
+        "H19": {
+          "kind": "branch",
+          "role": "test oracle",
+          "verdict": "pass"
+        },
+        "H20": {
+          "kind": "pure",
+          "role": "fuzzer",
+          "verdict": "pass"
+        },
+        "H21": {
+          "kind": "branch",
+          "role": "red-team",
+          "verdict": "pass"
+        },
+        "H22": {
+          "kind": "branch",
+          "role": "protocol synth",
+          "verdict": "pass"
+        },
+        "H23": {
+          "kind": "pure",
+          "role": "pipeline owner",
+          "verdict": "pass"
+        },
+        "H24": {
+          "kind": "pure",
+          "role": "monitoring",
+          "verdict": "pass"
+        },
+        "H25": {
+          "kind": "pure",
+          "role": "telemetry owner",
+          "verdict": "pass"
+        },
+        "H26": {
+          "kind": "pure",
+          "role": "deployer",
+          "verdict": "pass"
+        },
+        "H27": {
+          "kind": "branch",
+          "role": "auditor",
+          "verdict": "pass"
+        },
+        "H28": {
+          "kind": "terminal",
+          "role": "tech lead",
+          "verdict": "pass"
+        },
+        "H29": {
+          "kind": "terminal",
+          "role": "researcher (R)",
+          "verdict": "pass"
+        },
+        "H30": {
+          "kind": "pure",
+          "role": "changelog",
+          "verdict": "pass"
+        },
+        "H31": {
+          "kind": "terminal",
+          "role": "product",
+          "verdict": "pass"
+        },
+        "H32": {
+          "kind": "terminal",
+          "role": "user (final)",
+          "verdict": "pass"
+        }
+      },
+      "schema": "link/heads-to-mycelium/v1"
+    },
+    "heads-sovereign": {
+      "all_roles_mapped": true,
+      "coverage": {
+        "D10": 10,
+        "D11": 7,
+        "D2": 2,
+        "D3": 1,
+        "D4": 2,
+        "D6": 4,
+        "D9": 6
+      },
+      "mapping": {
+        "DSL designer": "D6",
+        "SRE": "D11",
+        "architect": "D9",
+        "auditor": "D10",
+        "build engineer": "D6",
+        "changelog": "D11",
+        "dependency mgr": "D6",
+        "deployer": "D9",
+        "fuzzer": "D11",
+        "integrator": "D9",
+        "manager": "D9",
+        "monitoring": "D11",
+        "parser": "D6",
+        "pipeline owner": "D9",
+        "principal / CTO": "D10",
+        "product": "D10",
+        "product / PM": "D10",
+        "proof engineer": "D2",
+        "protocol synth": "D4",
+        "red-team": "D10",
+        "release engineer": "D9",
+        "researcher": "D10",
+        "researcher (R)": "D10",
+        "security": "D2",
+        "systems engineer": "D4",
+        "tech lead": "D10",
+        "telemetry owner": "D11",
+        "test engineer": "D11",
+        "test oracle": "D11",
+        "type checker": "D3",
+        "user": "D10",
+        "user (final)": "D10"
+      },
+      "schema": "link/heads-to-sovereign/v1"
+    },
+    "mycelium-solveable": {
+      "mycelium_solved": false,
+      "nodes_routed": 0,
+      "routes_fired": 0,
+      "schema": "link/mycelium-to-solveable/v1",
+      "terminal_bound": 0,
+      "theorem_T1_holds": false,
+      "theorem_T3_holds": false
+    },
+    "solveable-heads": {
+      "all_heads_pass": true,
+      "heads_count": 32,
+      "policy_set_complete": true,
+      "schema": "link/solveable-to-heads/v1",
+      "solveable_exit": 0,
+      "theorem_T4_holds": true
+    },
+    "sovereign-solveable": {
+      "nodes_routed": 55,
+      "nodes_total": 55,
+      "schema": "link/sovereign-to-solveable/v1",
+      "solved": true,
+      "terminal_bound": 8,
+      "terminal_total": 8,
+      "theorem_T1_compliance": true,
+      "theorem_T2_residual": true,
+      "theorem_T3_callable": true
+    }
+  },
+  "schema": "link/master/v1",
+  "total_possible": 6
+}

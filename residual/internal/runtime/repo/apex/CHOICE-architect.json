@@ -1,0 +1,9 @@
+{
+  "role": "architect",
+  "choice": "interface: A\u2192B\u2192C",
+  "candidates": [
+    "interface: A\u2192B",
+    "interface: A\u2192C",
+    "interface: A\u2192B\u2192C"
+  ]
+}

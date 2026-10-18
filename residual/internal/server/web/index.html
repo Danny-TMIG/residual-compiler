@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>residual control</title>
+<style>
+  :root { --bg:#0b0d10; --fg:#c8d1d9; --dim:#586069; --acc:#7aa2f7; --ok:#9ece6a; --err:#f7768e; --line:#30363d; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; padding:32px; }
+  header { display:flex; align-items:baseline; gap:16px; margin-bottom:24px; }
+  h1 { font-size:15px; letter-spacing:.14em; text-transform:uppercase; color:var(--acc); margin:0; }
+  #status { font-size:12px; color:var(--dim); }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+  section { border:1px solid var(--line); border-radius:6px; padding:16px; }
+  section h2 { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); margin:0 0 12px; }
+  textarea { width:100%; min-height:180px; background:#0d1117; color:var(--fg);
+             border:1px solid var(--line); padding:12px; font:inherit; border-radius:4px; resize:vertical; }
+  .row { display:flex; gap:8px; margin-top:12px; }
+  button { background:#161b22; color:var(--fg); border:1px solid var(--line);
+           padding:9px 16px; font:inherit; cursor:pointer; border-radius:4px; letter-spacing:.04em; }
+  button:hover { border-color:var(--acc); color:var(--acc); }
+  button:disabled { opacity:.45; cursor:wait; }
+  pre { background:#0d1117; border:1px solid var(--line); padding:16px;
+        border-radius:4px; max-height:70vh; overflow:auto; white-space:pre-wrap; word-break:break-word; margin:0; }
+  .ok  { color:var(--ok); }
+  .err { color:var(--err); }
+  .spinner::after { content:" …"; }
+</style></head>
+<body>
+<header>
+  <h1>residual control</h1>
+  <span id="status">checking license…</span>
+</header>
+
+<div class="grid">
+  <section>
+    <h2>Intent</h2>
+    <textarea id="intent" spellcheck="false">{
+  "intent_id": "demo",
+  "stated_by": "you@corp",
+  "goal": "prove reproducibility",
+  "success_criteria": [
+    {"id":"c1","witness":"reproducible_build","args":{"repo":"."}}
+  ],
+  "constraints": [],
+  "signature": null
+}</textarea>
+    <div class="row">
+      <button id="btnVerify">Verify</button>
+      <button id="btnConform">Conform</button>
+      <button id="btnStatus">Status</button>
+    </div>
+  </section>
+  <section>
+    <h2>Result</h2>
+    <pre id="out">ready.</pre>
+  </section>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const setStatus = (text, cls="") => { $("status").textContent = text; $("status").className = cls; };
+const setOut = v => { $("out").textContent = typeof v === "string" ? v : JSON.stringify(v, null, 2); };
+
+async function api(path, opts={}) {
+  const r = await fetch(path, opts);
+  const txt = await r.text();
+  try { return { ok:r.ok, body:JSON.parse(txt) }; }
+  catch { return { ok:r.ok, body:txt }; }
+}
+
+async function refreshStatus() {
+  const { body } = await api("/api/status");
+  if (body.licensed) setStatus(`licensed · ${body.license.tier} · ${body.license.email} · expires ${body.license.expires}`, "ok");
+  else setStatus("unlicensed — run `residual activate <jwt>`", "err");
+}
+
+async function run(btn, path, opts) {
+  btn.disabled = true;
+  const prev = btn.textContent; btn.textContent = prev + " …";
+  setOut("running …");
+  try {
+    const { ok, body } = await api(path, opts);
+    setOut(body);
+    if (!ok) setStatus("error", "err");
+  } catch (e) { setOut(String(e)); }
+  btn.disabled = false; btn.textContent = prev;
+}
+
+$("btnVerify").onclick  = () => run($("btnVerify"),
+  "/api/verify",
+  { method:"POST", headers:{"Content-Type":"application/json"}, body:$("intent").value });
+$("btnConform").onclick = () => run($("btnConform"), "/api/conform");
+$("btnStatus").onclick  = async () => { await refreshStatus(); setOut(await api("/api/status").then(r=>r.body)); };
+
+refreshStatus();
+</script>
+</body></html>

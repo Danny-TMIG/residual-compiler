@@ -1,0 +1,26 @@
+version: 2
+project_name: residual
+before:
+  hooks: [go mod tidy]
+builds:
+  - id: residual
+    main: ./cmd/residual
+    binary: residual
+    env: [CGO_ENABLED=0]
+    goos: [darwin, linux, windows]
+    goarch: [amd64, arm64]
+    ldflags: [-s -w]
+archives:
+  - formats: [tar.gz]
+    name_template: "residual_{{ .Os }}_{{ .Arch }}"
+    files: []
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+brews:
+  - repository: {owner: you, name: homebrew-residual}
+    homepage: https://github.com/you/residual
+    install: bin.install "residual"
+    test: system "#{bin}/residual", "--help"
+release:
+  github: {owner: you, name: residual}

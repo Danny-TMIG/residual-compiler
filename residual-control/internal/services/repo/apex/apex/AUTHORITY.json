@@ -1,0 +1,51 @@
+{
+  "schema": "authority/v1",
+  "note": "Declared ownership; owner must differ from witness for independence.",
+  "owners": {
+    "structural": {
+      "owner": "role-by-discipline:structural",
+      "witness": "machine",
+      "note": "owner must be a human with competency record"
+    },
+    "electrical": {
+      "owner": "role-by-discipline:electrical",
+      "witness": "spectral",
+      "note": "owner must be a human with competency record"
+    },
+    "software": {
+      "owner": "role-by-discipline:software",
+      "witness": "braid",
+      "note": "owner must be a human with competency record"
+    },
+    "firmware": {
+      "owner": "role-by-discipline:firmware",
+      "witness": "provenance",
+      "note": "owner must be a human with competency record"
+    },
+    "systems": {
+      "owner": "role-by-discipline:systems",
+      "witness": "closure_dsl",
+      "note": "owner must be a human with competency record"
+    },
+    "data": {
+      "owner": "role-by-discipline:data",
+      "witness": "idempotency",
+      "note": "owner must be a human with competency record"
+    },
+    "security": {
+      "owner": "role-by-discipline:security",
+      "witness": "counterexample",
+      "note": "owner must be a human with competency record"
+    },
+    "verification": {
+      "owner": "role-by-discipline:verification",
+      "witness": "cross_domain",
+      "note": "owner must be a human with competency record"
+    },
+    "build": {
+      "owner": "role-by-discipline:build",
+      "witness": "braid",
+      "note": "owner must be a human with competency record"
+    }
+  }
+}

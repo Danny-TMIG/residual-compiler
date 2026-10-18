@@ -1,0 +1,424 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "residual-compiler-sbom",
+  "documentNamespace": "https://example.invalid/spdx/residual/2026-10-17T21:18:49Z",
+  "creationInfo": {
+    "created": "2026-10-17T21:18:49Z",
+    "creators": [
+      "Tool: sbom.py",
+      "Runtime: python-3.12.15"
+    ]
+  },
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-uvicorn-0.54.0",
+      "name": "uvicorn",
+      "versionInfo": "0.54.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-cloudpickle-3.1.2",
+      "name": "cloudpickle",
+      "versionInfo": "3.1.2",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-aether-sovereign-1.2.2",
+      "name": "aether-sovereign",
+      "versionInfo": "1.2.2",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-click-8.5.0",
+      "name": "click",
+      "versionInfo": "8.5.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-packaging-26.3",
+      "name": "packaging",
+      "versionInfo": "26.3",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "Apache-2.0 OR BSD-2-Clause",
+      "licenseDeclared": "Apache-2.0 OR BSD-2-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-joblib-1.6.0",
+      "name": "joblib",
+      "versionInfo": "1.6.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-Pygments-2.21.0",
+      "name": "Pygments",
+      "versionInfo": "2.21.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-2-Clause",
+      "licenseDeclared": "BSD-2-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-defusedxml-0.7.1",
+      "name": "defusedxml",
+      "versionInfo": "0.7.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "PSFL",
+      "licenseDeclared": "PSFL",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-pytest-cov-7.1.0",
+      "name": "pytest-cov",
+      "versionInfo": "7.1.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-opentelemetry-api-1.45.1",
+      "name": "opentelemetry-api",
+      "versionInfo": "1.45.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fastapi-0.143.3",
+      "name": "fastapi",
+      "versionInfo": "0.143.3",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-iniconfig-2.3.1",
+      "name": "iniconfig",
+      "versionInfo": "2.3.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-pip-26.2.1",
+      "name": "pip",
+      "versionInfo": "26.2.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-pluggy-1.7.0",
+      "name": "pluggy",
+      "versionInfo": "1.7.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-tqdm-4.70.1",
+      "name": "tqdm",
+      "versionInfo": "4.70.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MPL-2.0 AND MIT",
+      "licenseDeclared": "MPL-2.0 AND MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-pytest-9.1.1",
+      "name": "pytest",
+      "versionInfo": "9.1.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-h11-0.16.0",
+      "name": "h11",
+      "versionInfo": "0.16.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-pydantic-core-2.50.1",
+      "name": "pydantic_core",
+      "versionInfo": "2.50.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-starlette-1.8.0",
+      "name": "starlette",
+      "versionInfo": "1.8.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-annotated-types-0.8.0",
+      "name": "annotated-types",
+      "versionInfo": "0.8.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-regex-2026.9.29",
+      "name": "regex",
+      "versionInfo": "2026.9.29",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "Apache-2.0 AND CNRI-Python",
+      "licenseDeclared": "Apache-2.0 AND CNRI-Python",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-annotated-doc-0.0.5",
+      "name": "annotated-doc",
+      "versionInfo": "0.0.5",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-typing-inspection-0.4.4",
+      "name": "typing-inspection",
+      "versionInfo": "0.4.4",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-typing-extensions-4.16.0",
+      "name": "typing_extensions",
+      "versionInfo": "4.16.0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "PSF-2.0",
+      "licenseDeclared": "PSF-2.0",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-coverage-7.16.2",
+      "name": "coverage",
+      "versionInfo": "7.16.2",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-pydantic-2.14.1",
+      "name": "pydantic",
+      "versionInfo": "2.14.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-nltk-3.10.3",
+      "name": "nltk",
+      "versionInfo": "3.10.3",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "Apache License, Version 2.0",
+      "licenseDeclared": "Apache License, Version 2.0",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-anyio-4.15.1",
+      "name": "anyio",
+      "versionInfo": "4.15.1",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-idna-3.20",
+      "name": "idna",
+      "versionInfo": "3.20",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "BSD-3-Clause",
+      "licenseDeclared": "BSD-3-Clause",
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-uvicorn-0.54.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-cloudpickle-3.1.2"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-aether-sovereign-1.2.2"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-click-8.5.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-packaging-26.3"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-joblib-1.6.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-Pygments-2.21.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-defusedxml-0.7.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-pytest-cov-7.1.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-opentelemetry-api-1.45.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-fastapi-0.143.3"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-iniconfig-2.3.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-pip-26.2.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-pluggy-1.7.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-tqdm-4.70.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-pytest-9.1.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-h11-0.16.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-pydantic-core-2.50.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-starlette-1.8.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-annotated-types-0.8.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-regex-2026.9.29"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-annotated-doc-0.0.5"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-typing-inspection-0.4.4"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-typing-extensions-4.16.0"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-coverage-7.16.2"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-pydantic-2.14.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-nltk-3.10.3"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-anyio-4.15.1"
+    },
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-idna-3.20"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "transcript-event/1",
+  "parsed_at": "2026-10-17T20:51:04.574659+00:00",
+  "source": "Last login Sat Oct 17 154808 on ttys000.txt",
+  "command_blocks": [],
+  "control_plane_verdict": {
+    "verdict": null,
+    "covered": null,
+    "total": null,
+    "all_pass": true,
+    "refuted_crafts": []
+  },
+  "git_commits": [],
+  "git_pushes": []
+}

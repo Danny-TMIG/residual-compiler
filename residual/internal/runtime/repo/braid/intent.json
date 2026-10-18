@@ -1,0 +1,10 @@
+{
+  "id": "i-001",
+  "raw_input": "shadow turtle",
+  "symbols": [
+    "shadow",
+    "turtle"
+  ],
+  "context": "ctx-001",
+  "priority": 1
+}

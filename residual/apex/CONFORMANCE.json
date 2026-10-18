@@ -1,0 +1,116 @@
+{
+  "generated": "2026-10-18T00:05:59.493549+00:00",
+  "rings": {
+    "1": 5,
+    "2": 4,
+    "3": 0
+  },
+  "crafts": [
+    {
+      "craft": "structural",
+      "standards_family": "A/B",
+      "ring": 2,
+      "gate": "steel_frame",
+      "witness": "machine",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "pass": true,
+      "note": "sysctl/ioreg only; no IEC 60068 records"
+    },
+    {
+      "craft": "electrical",
+      "standards_family": "A",
+      "ring": 1,
+      "gate": "m4_max",
+      "witness": "spectral",
+      "witness_rc": 0,
+      "witness_verdict": "VALID",
+      "pass": true,
+      "note": "spectral witness; invariant currently refuted:bandwidth"
+    },
+    {
+      "craft": "software",
+      "standards_family": "D",
+      "ring": 1,
+      "gate": "kernel",
+      "witness": "braid",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "pass": true,
+      "note": "braid: 5 runtimes agree on the same graph"
+    },
+    {
+      "craft": "firmware",
+      "standards_family": "B9/B10",
+      "ring": 2,
+      "gate": "bootloader",
+      "witness": "provenance",
+      "witness_rc": 0,
+      "witness_verdict": "VALID",
+      "pass": true,
+      "note": "bootloader node RUNNING; no measured boot chain"
+    },
+    {
+      "craft": "systems",
+      "standards_family": "J",
+      "ring": 2,
+      "gate": "ansible",
+      "witness": "closure_dsl",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "pass": true,
+      "note": "closure DSL; no ISMS, no risk register"
+    },
+    {
+      "craft": "data",
+      "standards_family": "F/M",
+      "ring": 1,
+      "gate": "postgres",
+      "witness": "idempotency",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "pass": true,
+      "note": "idempotency witness (exactly-once proven)"
+    },
+    {
+      "craft": "security",
+      "standards_family": "H8",
+      "ring": 2,
+      "gate": "apex_runner",
+      "witness": "counterexample",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "pass": true,
+      "note": "provenance hash chain; not TEE-signed"
+    },
+    {
+      "craft": "verification",
+      "standards_family": "R",
+      "ring": 1,
+      "gate": "assembly",
+      "witness": "cross_domain",
+      "witness_rc": 0,
+      "witness_verdict": "VALID",
+      "pass": true,
+      "note": "cross_domain witness; verdict PARTIAL (honest)"
+    },
+    {
+      "craft": "build",
+      "standards_family": "D7/J7",
+      "ring": 1,
+      "gate": "bazel",
+      "witness": "braid",
+      "witness_rc": 0,
+      "witness_verdict": null,
+      "pass": true,
+      "note": "braid cross-runtime; SBOM emitted separately"
+    }
+  ],
+  "out_of_scope_families": [
+    "O",
+    "P",
+    "Q"
+  ],
+  "disclaimer": "Ring 1 = code-verified (witness ran, verdict parsed). Ring 2 = declared, not verified. Ring 3 = out of scope. Claims above Ring 1 require external audit.",
+  "source": "apex/CRAFTS-STATE.json"
+}

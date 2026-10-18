@@ -1,0 +1,93 @@
+{
+  "schema": "mycelium/state/v1",
+  "nodes": {
+    "n-parser-1": {
+      "type": "H01",
+      "verdict": "pass"
+    },
+    "n-parser-2": {
+      "type": "H01",
+      "verdict": "pass"
+    },
+    "n-mypy-1": {
+      "type": "H02",
+      "verdict": "pass"
+    },
+    "n-mypy-2": {
+      "type": "H02",
+      "verdict": "pass"
+    },
+    "n-pytest-1": {
+      "type": "H04",
+      "verdict": "pass"
+    },
+    "n-pytest-2": {
+      "type": "H04",
+      "verdict": "pass"
+    },
+    "n-arch-1": {
+      "type": "H05",
+      "verdict": "pass",
+      "choice": "interface: A-B-C"
+    },
+    "n-arch-2": {
+      "type": "H05",
+      "verdict": "pass",
+      "choice": "interface: A-B-C"
+    },
+    "n-cto-1": {
+      "type": "H12",
+      "verdict": "pass",
+      "decision": "ship"
+    },
+    "n-cto-2": {
+      "type": "H12",
+      "verdict": "pass",
+      "decision": "ship"
+    }
+  },
+  "routes_fired": [
+    [
+      "n-parser-1",
+      "n-mypy-1"
+    ],
+    [
+      "n-parser-2",
+      "n-mypy-2"
+    ],
+    [
+      "n-mypy-1",
+      "n-pytest-1"
+    ],
+    [
+      "n-mypy-2",
+      "n-pytest-2"
+    ],
+    [
+      "n-pytest-1",
+      "n-arch-1"
+    ],
+    [
+      "n-pytest-2",
+      "n-arch-2"
+    ],
+    [
+      "n-arch-1",
+      "n-cto-1"
+    ],
+    [
+      "n-arch-2",
+      "n-cto-2"
+    ],
+    [
+      "n-cto-1",
+      "EPS"
+    ],
+    [
+      "n-cto-2",
+      "EPS"
+    ]
+  ],
+  "active_frontier": [],
+  "solved": true
+}

@@ -1,0 +1,28 @@
+.PHONY: ship verify-ship clean-ship
+
+SHIP_DIR := dist
+SHIP_SHA := $(shell git rev-parse --short HEAD)
+SHIP_TGZ := $(SHIP_DIR)/residual-compiler-$(SHIP_SHA).tgz
+
+ship: verify-ship package
+
+verify-ship:
+	@test -n "$$CI" || test -z "$$(git status --porcelain)" || { echo "FAIL: dirty tree"; exit 1; }
+	@.venv/bin/python3 -m pytest -q > /dev/null || { echo "FAIL: pytest"; exit 1; }
+	@.venv/bin/python3 scripts/control_plane.py | .venv/bin/python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("control_plane:",d["verdict"])'
+	@.venv/bin/python3 scripts/org.py | .venv/bin/python3 -c 'import json,sys;d=json.load(sys.stdin);assert d["verdict"]=="COVERED",d["verdict"];print("org:",d["verdict"])'
+	@make -f Makefile.build verify > /dev/null || { echo "FAIL: evidence verify"; exit 1; }
+	@git checkout -- apex/PROVENANCE.json braid/graph-*.json 2>/dev/null || true
+	@echo "all gates passed"
+
+package: verify-ship
+	@mkdir -p $(SHIP_DIR)
+	@export COPYFILE_DISABLE=1; \
+	git ls-files | grep -v '^evidence/' | grep -v '^dist/' | LC_ALL=C sort | \
+	  tar -czf $(SHIP_TGZ) -T -
+	@shasum -a 256 $(SHIP_TGZ) > $(SHIP_TGZ).sha256
+	@echo "packaged: $(SHIP_TGZ)"
+	@echo "sha256:   $$(cat $(SHIP_TGZ).sha256)"
+
+clean-ship:
+	@rm -rf $(SHIP_DIR)

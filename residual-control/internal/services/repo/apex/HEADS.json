@@ -1,0 +1,203 @@
+{
+  "heads": {
+    "H01": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Parse",
+      "role": "parser"
+    },
+    "H02": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Type",
+      "role": "type checker"
+    },
+    "H03": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Compose",
+      "role": "build engineer"
+    },
+    "H04": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Check",
+      "role": "test engineer"
+    },
+    "H05": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Compose",
+      "role": "architect"
+    },
+    "H06": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Compose",
+      "role": "systems engineer"
+    },
+    "H07": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Compose",
+      "role": "integrator"
+    },
+    "H08": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Observe",
+      "role": "SRE"
+    },
+    "H09": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Decide",
+      "role": "release engineer"
+    },
+    "H10": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Check",
+      "role": "security"
+    },
+    "H11": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Observe",
+      "role": "researcher"
+    },
+    "H12": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Decide",
+      "role": "principal / CTO"
+    },
+    "H13": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Decide",
+      "role": "product / PM"
+    },
+    "H14": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Decide",
+      "role": "manager"
+    },
+    "H15": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Decide",
+      "role": "user"
+    },
+    "H16": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Compose",
+      "role": "DSL designer"
+    },
+    "H17": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Check",
+      "role": "proof engineer"
+    },
+    "H18": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Compose",
+      "role": "dependency mgr"
+    },
+    "H19": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Check",
+      "role": "test oracle"
+    },
+    "H20": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Check",
+      "role": "fuzzer"
+    },
+    "H21": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Check",
+      "role": "red-team"
+    },
+    "H22": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Compose",
+      "role": "protocol synth"
+    },
+    "H23": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Compose",
+      "role": "pipeline owner"
+    },
+    "H24": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Observe",
+      "role": "monitoring"
+    },
+    "H25": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Observe",
+      "role": "telemetry owner"
+    },
+    "H26": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Decide",
+      "role": "deployer"
+    },
+    "H27": {
+      "kind": "branch",
+      "ok": true,
+      "operator": "Observe",
+      "role": "auditor"
+    },
+    "H28": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Decide",
+      "role": "tech lead"
+    },
+    "H29": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Observe",
+      "role": "researcher (R)"
+    },
+    "H30": {
+      "kind": "pure",
+      "ok": true,
+      "operator": "Compose",
+      "role": "changelog"
+    },
+    "H31": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Decide",
+      "role": "product"
+    },
+    "H32": {
+      "kind": "terminal",
+      "ok": true,
+      "operator": "Decide",
+      "role": "user (final)"
+    }
+  },
+  "schema": "heads/v1",
+  "summary": {
+    "not_ok": 0,
+    "ok": 32,
+    "total": 32
+  },
+  "timestamp": "2026-10-17T23:32:31Z"
+}
