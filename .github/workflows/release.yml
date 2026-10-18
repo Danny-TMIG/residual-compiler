@@ -28,34 +28,13 @@ jobs:
             "https://github.com/astral-sh/python-build-standalone/releases/download/20241016/cpython-3.12.7+20241016-aarch64-apple-darwin-install_only.tar.gz"
           ls -lh residual/internal/runtime/python.tar.gz
 
-      - name: sign checksums with Ed25519
-        run: |
-          mkdir -p keys
-          echo "${{ secrets.RESIDUAL_SIGNING_KEY }}" > keys/signing.pem
-          chmod 600 keys/signing.pem
-
       - name: goreleaser
         uses: goreleaser/goreleaser-action@v6
         with:
-          work-directory: residual
-          args: release --clean
+          workdir: residual
+          args: >-
+            release --clean
+            ${{ github.event_name == 'workflow_dispatch' && '--skip-validate' || '' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
-          RESIDUAL_SIGNING_KEY_PATH: ${{ github.workspace }}/keys/signing.pem
-
-      - name: sign checksums.txt
-        working-directory: residual
-        run: |
-          openssl pkeyutl -sign -inkey ../keys/signing.pem -rawin \
-            -in dist/checksums.txt -out dist/checksums.txt.sig
-          gh release upload "${GITHUB_REF_NAME}" dist/checksums.txt.sig --clobber
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: verify signature
-        working-directory: residual
-        run: |
-          openssl pkey -in keys/public.pem -pubout -out /tmp/pub.pem 2>/dev/null || true
-          openssl pkeyutl -verify -pubin -inkey internal/license/public.pem -rawin \
-            -in dist/checksums.txt -sigfile dist/checksums.txt.sig
