@@ -16,7 +16,7 @@ curl -fsSL "${BASE}/public.pem"        -o "$TMP/public.pem" || true
 
 if [ -s "$TMP/checksums.txt.sig" ] && [ -s "$TMP/public.pem" ] && command -v openssl >/dev/null 2>&1; then
   echo "→ verifying Ed25519 signature"
-  openssl pkeyutl -verify -pubin -inkey "$TMP/public.pem" -rawin \
+  openssl pkeyutl -verify -pubin -inkey "$TMP/public.pem" \
     -in "$TMP/checksums.txt" -sigfile "$TMP/checksums.txt.sig" >/dev/null 2>&1 \
     && echo "  ✓ signature ok" \
     || { echo "  ✗ signature failed"; exit 1; }
